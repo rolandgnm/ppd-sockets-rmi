@@ -101,19 +101,31 @@ public class GameFrame extends JFrame {
     private void initComponents() {
 
         boardPane1 = new com.toy.anagrams.ui.BoardPane();
+        controlPanel1 = new com.toy.anagrams.ui.ControlPanel();
         mainMenu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
 
-        setTitle("Anagrams");
-        setPreferredSize(new java.awt.Dimension(960, 960));
+        setTitle("Vira Letras");
+        setMaximumSize(new java.awt.Dimension(1150, 800));
+        setMinimumSize(new java.awt.Dimension(1150, 800));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
             }
         });
-        getContentPane().add(boardPane1, java.awt.BorderLayout.CENTER);
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
+
+        boardPane1.setMinimumSize(new java.awt.Dimension(800, 800));
+        boardPane1.setPreferredSize(new java.awt.Dimension(800, 800));
+        getContentPane().add(boardPane1);
+
+        controlPanel1.setMaximumSize(new java.awt.Dimension(350, 800));
+        controlPanel1.setMinimumSize(new java.awt.Dimension(350, 800));
+        controlPanel1.setPreferredSize(new java.awt.Dimension(350, 800));
+        getContentPane().add(controlPanel1);
 
         fileMenu.setMnemonic('F');
         fileMenu.setText("File");
@@ -158,6 +170,7 @@ public class GameFrame extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private com.toy.anagrams.ui.BoardPane boardPane1;
+    private com.toy.anagrams.ui.ControlPanel controlPanel1;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuBar mainMenu;

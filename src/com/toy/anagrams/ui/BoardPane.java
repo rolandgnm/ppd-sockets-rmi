@@ -94,9 +94,11 @@ public class BoardPane extends javax.swing.JPanel {
         letra64 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(41, 128, 185));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setMaximumSize(new java.awt.Dimension(800, 800));
-        setMinimumSize(new java.awt.Dimension(600, 600));
         setName("lb01"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(800, 800));
+        setLayout(new java.awt.GridLayout(8, 8, 10, 10));
 
         letra01.setBackground(new java.awt.Color(255, 255, 255));
         letra01.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -109,6 +111,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra01.setOpaque(true);
         letra01.setPreferredSize(new java.awt.Dimension(50, 50));
         letra01.setSize(new java.awt.Dimension(65, 46));
+        add(letra01);
 
         letra2.setBackground(new java.awt.Color(255, 255, 255));
         letra2.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -121,6 +124,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra2.setOpaque(true);
         letra2.setPreferredSize(new java.awt.Dimension(50, 50));
         letra2.setSize(new java.awt.Dimension(65, 46));
+        add(letra2);
 
         letra3.setBackground(new java.awt.Color(255, 255, 255));
         letra3.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -133,6 +137,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra3.setOpaque(true);
         letra3.setPreferredSize(new java.awt.Dimension(50, 50));
         letra3.setSize(new java.awt.Dimension(65, 46));
+        add(letra3);
 
         letra4.setBackground(new java.awt.Color(255, 255, 255));
         letra4.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -145,6 +150,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra4.setOpaque(true);
         letra4.setPreferredSize(new java.awt.Dimension(50, 50));
         letra4.setSize(new java.awt.Dimension(65, 46));
+        add(letra4);
 
         letra5.setBackground(new java.awt.Color(255, 255, 255));
         letra5.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -157,6 +163,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra5.setOpaque(true);
         letra5.setPreferredSize(new java.awt.Dimension(50, 50));
         letra5.setSize(new java.awt.Dimension(65, 46));
+        add(letra5);
 
         letra6.setBackground(new java.awt.Color(255, 255, 255));
         letra6.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -169,6 +176,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra6.setOpaque(true);
         letra6.setPreferredSize(new java.awt.Dimension(50, 50));
         letra6.setSize(new java.awt.Dimension(65, 46));
+        add(letra6);
 
         letra7.setBackground(new java.awt.Color(255, 255, 255));
         letra7.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -181,6 +189,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra7.setOpaque(true);
         letra7.setPreferredSize(new java.awt.Dimension(50, 50));
         letra7.setSize(new java.awt.Dimension(65, 46));
+        add(letra7);
 
         letra8.setBackground(new java.awt.Color(255, 255, 255));
         letra8.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -193,6 +202,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra8.setOpaque(true);
         letra8.setPreferredSize(new java.awt.Dimension(50, 50));
         letra8.setSize(new java.awt.Dimension(65, 46));
+        add(letra8);
 
         letra9.setBackground(new java.awt.Color(255, 255, 255));
         letra9.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -205,6 +215,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra9.setOpaque(true);
         letra9.setPreferredSize(new java.awt.Dimension(50, 50));
         letra9.setSize(new java.awt.Dimension(65, 46));
+        add(letra9);
 
         letra10.setBackground(new java.awt.Color(255, 255, 255));
         letra10.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -217,6 +228,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra10.setOpaque(true);
         letra10.setPreferredSize(new java.awt.Dimension(50, 50));
         letra10.setSize(new java.awt.Dimension(65, 46));
+        add(letra10);
 
         letra11.setBackground(new java.awt.Color(255, 255, 255));
         letra11.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -229,6 +241,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra11.setOpaque(true);
         letra11.setPreferredSize(new java.awt.Dimension(50, 50));
         letra11.setSize(new java.awt.Dimension(65, 46));
+        add(letra11);
 
         letra12.setBackground(new java.awt.Color(255, 255, 255));
         letra12.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -241,6 +254,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra12.setOpaque(true);
         letra12.setPreferredSize(new java.awt.Dimension(50, 50));
         letra12.setSize(new java.awt.Dimension(65, 46));
+        add(letra12);
 
         letra13.setBackground(new java.awt.Color(255, 255, 255));
         letra13.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -253,6 +267,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra13.setOpaque(true);
         letra13.setPreferredSize(new java.awt.Dimension(50, 50));
         letra13.setSize(new java.awt.Dimension(65, 46));
+        add(letra13);
 
         letra14.setBackground(new java.awt.Color(255, 255, 255));
         letra14.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -265,6 +280,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra14.setOpaque(true);
         letra14.setPreferredSize(new java.awt.Dimension(50, 50));
         letra14.setSize(new java.awt.Dimension(65, 46));
+        add(letra14);
 
         letra15.setBackground(new java.awt.Color(255, 255, 255));
         letra15.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -277,6 +293,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra15.setOpaque(true);
         letra15.setPreferredSize(new java.awt.Dimension(50, 50));
         letra15.setSize(new java.awt.Dimension(65, 46));
+        add(letra15);
 
         letra16.setBackground(new java.awt.Color(255, 255, 255));
         letra16.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -289,6 +306,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra16.setOpaque(true);
         letra16.setPreferredSize(new java.awt.Dimension(50, 50));
         letra16.setSize(new java.awt.Dimension(65, 46));
+        add(letra16);
 
         letra17.setBackground(new java.awt.Color(255, 255, 255));
         letra17.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -301,6 +319,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra17.setOpaque(true);
         letra17.setPreferredSize(new java.awt.Dimension(50, 50));
         letra17.setSize(new java.awt.Dimension(65, 46));
+        add(letra17);
 
         letra18.setBackground(new java.awt.Color(255, 255, 255));
         letra18.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -313,6 +332,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra18.setOpaque(true);
         letra18.setPreferredSize(new java.awt.Dimension(50, 50));
         letra18.setSize(new java.awt.Dimension(65, 46));
+        add(letra18);
 
         letra19.setBackground(new java.awt.Color(255, 255, 255));
         letra19.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -325,6 +345,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra19.setOpaque(true);
         letra19.setPreferredSize(new java.awt.Dimension(50, 50));
         letra19.setSize(new java.awt.Dimension(65, 46));
+        add(letra19);
 
         letra20.setBackground(new java.awt.Color(255, 255, 255));
         letra20.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -337,6 +358,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra20.setOpaque(true);
         letra20.setPreferredSize(new java.awt.Dimension(50, 50));
         letra20.setSize(new java.awt.Dimension(65, 46));
+        add(letra20);
 
         letra21.setBackground(new java.awt.Color(255, 255, 255));
         letra21.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -349,6 +371,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra21.setOpaque(true);
         letra21.setPreferredSize(new java.awt.Dimension(50, 50));
         letra21.setSize(new java.awt.Dimension(65, 46));
+        add(letra21);
 
         letra22.setBackground(new java.awt.Color(255, 255, 255));
         letra22.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -361,6 +384,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra22.setOpaque(true);
         letra22.setPreferredSize(new java.awt.Dimension(50, 50));
         letra22.setSize(new java.awt.Dimension(65, 46));
+        add(letra22);
 
         letra23.setBackground(new java.awt.Color(255, 255, 255));
         letra23.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -373,6 +397,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra23.setOpaque(true);
         letra23.setPreferredSize(new java.awt.Dimension(50, 50));
         letra23.setSize(new java.awt.Dimension(65, 46));
+        add(letra23);
 
         letra24.setBackground(new java.awt.Color(255, 255, 255));
         letra24.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -385,6 +410,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra24.setOpaque(true);
         letra24.setPreferredSize(new java.awt.Dimension(50, 50));
         letra24.setSize(new java.awt.Dimension(65, 46));
+        add(letra24);
 
         letra25.setBackground(new java.awt.Color(255, 255, 255));
         letra25.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -397,6 +423,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra25.setOpaque(true);
         letra25.setPreferredSize(new java.awt.Dimension(50, 50));
         letra25.setSize(new java.awt.Dimension(65, 46));
+        add(letra25);
 
         letra26.setBackground(new java.awt.Color(255, 255, 255));
         letra26.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -409,6 +436,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra26.setOpaque(true);
         letra26.setPreferredSize(new java.awt.Dimension(50, 50));
         letra26.setSize(new java.awt.Dimension(65, 46));
+        add(letra26);
 
         letra27.setBackground(new java.awt.Color(255, 255, 255));
         letra27.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -421,6 +449,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra27.setOpaque(true);
         letra27.setPreferredSize(new java.awt.Dimension(50, 50));
         letra27.setSize(new java.awt.Dimension(65, 46));
+        add(letra27);
 
         letra28.setBackground(new java.awt.Color(255, 255, 255));
         letra28.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -433,6 +462,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra28.setOpaque(true);
         letra28.setPreferredSize(new java.awt.Dimension(50, 50));
         letra28.setSize(new java.awt.Dimension(65, 46));
+        add(letra28);
 
         letra29.setBackground(new java.awt.Color(255, 255, 255));
         letra29.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -445,6 +475,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra29.setOpaque(true);
         letra29.setPreferredSize(new java.awt.Dimension(50, 50));
         letra29.setSize(new java.awt.Dimension(65, 46));
+        add(letra29);
 
         letra30.setBackground(new java.awt.Color(255, 255, 255));
         letra30.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -457,6 +488,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra30.setOpaque(true);
         letra30.setPreferredSize(new java.awt.Dimension(50, 50));
         letra30.setSize(new java.awt.Dimension(65, 46));
+        add(letra30);
 
         letra31.setBackground(new java.awt.Color(255, 255, 255));
         letra31.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -469,6 +501,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra31.setOpaque(true);
         letra31.setPreferredSize(new java.awt.Dimension(50, 50));
         letra31.setSize(new java.awt.Dimension(65, 46));
+        add(letra31);
 
         letra32.setBackground(new java.awt.Color(255, 255, 255));
         letra32.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -481,6 +514,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra32.setOpaque(true);
         letra32.setPreferredSize(new java.awt.Dimension(50, 50));
         letra32.setSize(new java.awt.Dimension(65, 46));
+        add(letra32);
 
         letra33.setBackground(new java.awt.Color(255, 255, 255));
         letra33.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -493,6 +527,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra33.setOpaque(true);
         letra33.setPreferredSize(new java.awt.Dimension(50, 50));
         letra33.setSize(new java.awt.Dimension(65, 46));
+        add(letra33);
 
         letra34.setBackground(new java.awt.Color(255, 255, 255));
         letra34.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -505,6 +540,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra34.setOpaque(true);
         letra34.setPreferredSize(new java.awt.Dimension(50, 50));
         letra34.setSize(new java.awt.Dimension(65, 46));
+        add(letra34);
 
         letra35.setBackground(new java.awt.Color(255, 255, 255));
         letra35.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -517,6 +553,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra35.setOpaque(true);
         letra35.setPreferredSize(new java.awt.Dimension(50, 50));
         letra35.setSize(new java.awt.Dimension(65, 46));
+        add(letra35);
 
         letra36.setBackground(new java.awt.Color(255, 255, 255));
         letra36.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -529,6 +566,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra36.setOpaque(true);
         letra36.setPreferredSize(new java.awt.Dimension(50, 50));
         letra36.setSize(new java.awt.Dimension(65, 46));
+        add(letra36);
 
         letra37.setBackground(new java.awt.Color(255, 255, 255));
         letra37.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -541,6 +579,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra37.setOpaque(true);
         letra37.setPreferredSize(new java.awt.Dimension(50, 50));
         letra37.setSize(new java.awt.Dimension(65, 46));
+        add(letra37);
 
         letra38.setBackground(new java.awt.Color(255, 255, 255));
         letra38.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -553,6 +592,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra38.setOpaque(true);
         letra38.setPreferredSize(new java.awt.Dimension(50, 50));
         letra38.setSize(new java.awt.Dimension(65, 46));
+        add(letra38);
 
         letra39.setBackground(new java.awt.Color(255, 255, 255));
         letra39.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -565,6 +605,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra39.setOpaque(true);
         letra39.setPreferredSize(new java.awt.Dimension(50, 50));
         letra39.setSize(new java.awt.Dimension(65, 46));
+        add(letra39);
 
         letra40.setBackground(new java.awt.Color(255, 255, 255));
         letra40.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -577,6 +618,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra40.setOpaque(true);
         letra40.setPreferredSize(new java.awt.Dimension(50, 50));
         letra40.setSize(new java.awt.Dimension(65, 46));
+        add(letra40);
 
         letra41.setBackground(new java.awt.Color(255, 255, 255));
         letra41.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -589,6 +631,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra41.setOpaque(true);
         letra41.setPreferredSize(new java.awt.Dimension(50, 50));
         letra41.setSize(new java.awt.Dimension(65, 46));
+        add(letra41);
 
         letra42.setBackground(new java.awt.Color(255, 255, 255));
         letra42.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -601,9 +644,10 @@ public class BoardPane extends javax.swing.JPanel {
         letra42.setOpaque(true);
         letra42.setPreferredSize(new java.awt.Dimension(50, 50));
         letra42.setSize(new java.awt.Dimension(65, 46));
+        add(letra42);
 
         letra43.setBackground(new java.awt.Color(255, 255, 255));
-        letra43.setFont(new java.awt.Font("Lucida Grande", 0, 32)); // NOI18N
+        letra43.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
         letra43.setForeground(new java.awt.Color(41, 128, 185));
         letra43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra43.setText("Qu");
@@ -613,6 +657,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra43.setOpaque(true);
         letra43.setPreferredSize(new java.awt.Dimension(50, 50));
         letra43.setSize(new java.awt.Dimension(65, 46));
+        add(letra43);
 
         letra44.setBackground(new java.awt.Color(255, 255, 255));
         letra44.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -625,6 +670,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra44.setOpaque(true);
         letra44.setPreferredSize(new java.awt.Dimension(50, 50));
         letra44.setSize(new java.awt.Dimension(65, 46));
+        add(letra44);
 
         letra45.setBackground(new java.awt.Color(255, 255, 255));
         letra45.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -637,6 +683,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra45.setOpaque(true);
         letra45.setPreferredSize(new java.awt.Dimension(50, 50));
         letra45.setSize(new java.awt.Dimension(65, 46));
+        add(letra45);
 
         letra46.setBackground(new java.awt.Color(255, 255, 255));
         letra46.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -649,6 +696,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra46.setOpaque(true);
         letra46.setPreferredSize(new java.awt.Dimension(50, 50));
         letra46.setSize(new java.awt.Dimension(65, 46));
+        add(letra46);
 
         letra47.setBackground(new java.awt.Color(255, 255, 255));
         letra47.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -661,6 +709,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra47.setOpaque(true);
         letra47.setPreferredSize(new java.awt.Dimension(50, 50));
         letra47.setSize(new java.awt.Dimension(65, 46));
+        add(letra47);
 
         letra48.setBackground(new java.awt.Color(255, 255, 255));
         letra48.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -673,6 +722,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra48.setOpaque(true);
         letra48.setPreferredSize(new java.awt.Dimension(50, 50));
         letra48.setSize(new java.awt.Dimension(65, 46));
+        add(letra48);
 
         letra49.setBackground(new java.awt.Color(255, 255, 255));
         letra49.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -685,6 +735,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra49.setOpaque(true);
         letra49.setPreferredSize(new java.awt.Dimension(50, 50));
         letra49.setSize(new java.awt.Dimension(65, 46));
+        add(letra49);
 
         letra50.setBackground(new java.awt.Color(255, 255, 255));
         letra50.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -697,6 +748,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra50.setOpaque(true);
         letra50.setPreferredSize(new java.awt.Dimension(50, 50));
         letra50.setSize(new java.awt.Dimension(65, 46));
+        add(letra50);
 
         letra51.setBackground(new java.awt.Color(255, 255, 255));
         letra51.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -709,6 +761,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra51.setOpaque(true);
         letra51.setPreferredSize(new java.awt.Dimension(50, 50));
         letra51.setSize(new java.awt.Dimension(65, 46));
+        add(letra51);
 
         letra52.setBackground(new java.awt.Color(255, 255, 255));
         letra52.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -721,6 +774,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra52.setOpaque(true);
         letra52.setPreferredSize(new java.awt.Dimension(50, 50));
         letra52.setSize(new java.awt.Dimension(65, 46));
+        add(letra52);
 
         letra53.setBackground(new java.awt.Color(255, 255, 255));
         letra53.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -733,6 +787,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra53.setOpaque(true);
         letra53.setPreferredSize(new java.awt.Dimension(50, 50));
         letra53.setSize(new java.awt.Dimension(65, 46));
+        add(letra53);
 
         letra54.setBackground(new java.awt.Color(255, 255, 255));
         letra54.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -745,6 +800,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra54.setOpaque(true);
         letra54.setPreferredSize(new java.awt.Dimension(50, 50));
         letra54.setSize(new java.awt.Dimension(65, 46));
+        add(letra54);
 
         letra55.setBackground(new java.awt.Color(255, 255, 255));
         letra55.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -757,6 +813,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra55.setOpaque(true);
         letra55.setPreferredSize(new java.awt.Dimension(50, 50));
         letra55.setSize(new java.awt.Dimension(65, 46));
+        add(letra55);
 
         letra56.setBackground(new java.awt.Color(255, 255, 255));
         letra56.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -769,6 +826,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra56.setOpaque(true);
         letra56.setPreferredSize(new java.awt.Dimension(50, 50));
         letra56.setSize(new java.awt.Dimension(65, 46));
+        add(letra56);
 
         letra57.setBackground(new java.awt.Color(255, 255, 255));
         letra57.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -781,6 +839,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra57.setOpaque(true);
         letra57.setPreferredSize(new java.awt.Dimension(50, 50));
         letra57.setSize(new java.awt.Dimension(65, 46));
+        add(letra57);
 
         letra58.setBackground(new java.awt.Color(255, 255, 255));
         letra58.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -793,6 +852,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra58.setOpaque(true);
         letra58.setPreferredSize(new java.awt.Dimension(50, 50));
         letra58.setSize(new java.awt.Dimension(65, 46));
+        add(letra58);
 
         letra59.setBackground(new java.awt.Color(255, 255, 255));
         letra59.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -805,6 +865,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra59.setOpaque(true);
         letra59.setPreferredSize(new java.awt.Dimension(50, 50));
         letra59.setSize(new java.awt.Dimension(65, 46));
+        add(letra59);
 
         letra60.setBackground(new java.awt.Color(255, 255, 255));
         letra60.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -817,6 +878,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra60.setOpaque(true);
         letra60.setPreferredSize(new java.awt.Dimension(50, 50));
         letra60.setSize(new java.awt.Dimension(65, 46));
+        add(letra60);
 
         letra61.setBackground(new java.awt.Color(255, 255, 255));
         letra61.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -829,6 +891,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra61.setOpaque(true);
         letra61.setPreferredSize(new java.awt.Dimension(50, 50));
         letra61.setSize(new java.awt.Dimension(65, 46));
+        add(letra61);
 
         letra62.setBackground(new java.awt.Color(255, 255, 255));
         letra62.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -841,6 +904,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra62.setOpaque(true);
         letra62.setPreferredSize(new java.awt.Dimension(50, 50));
         letra62.setSize(new java.awt.Dimension(65, 46));
+        add(letra62);
 
         letra63.setBackground(new java.awt.Color(255, 255, 255));
         letra63.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -853,6 +917,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra63.setOpaque(true);
         letra63.setPreferredSize(new java.awt.Dimension(50, 50));
         letra63.setSize(new java.awt.Dimension(65, 46));
+        add(letra63);
 
         letra64.setBackground(new java.awt.Color(255, 255, 255));
         letra64.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
@@ -865,229 +930,7 @@ public class BoardPane extends javax.swing.JPanel {
         letra64.setOpaque(true);
         letra64.setPreferredSize(new java.awt.Dimension(50, 50));
         letra64.setSize(new java.awt.Dimension(65, 46));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(letra01, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(letra9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(letra17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(letra25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(letra33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(letra41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(letra49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(letra57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra58, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra59, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra60, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra61, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra62, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra63, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(letra64, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(352, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(letra57, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra58, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra59, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra60, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra61, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra62, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra63, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra64, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(letra49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra51, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra52, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra53, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra54, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra55, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra56, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(letra41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(letra33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(letra25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(letra17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(letra9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(letra01, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(letra8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(23, 23, 23))
-        );
+        add(letra64);
     }// </editor-fold>//GEN-END:initComponents
 
 

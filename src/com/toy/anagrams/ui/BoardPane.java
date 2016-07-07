@@ -97,12 +97,12 @@ public class BoardPane extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setMaximumSize(new java.awt.Dimension(800, 800));
         setName("lb01"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(800, 800));
+        setPreferredSize(new java.awt.Dimension(700, 700));
         setLayout(new java.awt.GridLayout(8, 8, 10, 10));
 
         letra01.setBackground(new java.awt.Color(255, 255, 255));
         letra01.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra01.setForeground(new java.awt.Color(41, 128, 185));
+        letra01.setForeground(new java.awt.Color(255, 255, 255));
         letra01.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra01.setText("A");
         letra01.setAutoscrolls(true);
@@ -115,7 +115,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra2.setBackground(new java.awt.Color(255, 255, 255));
         letra2.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra2.setForeground(new java.awt.Color(41, 128, 185));
+        letra2.setForeground(new java.awt.Color(255, 255, 255));
         letra2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra2.setText("A");
         letra2.setAutoscrolls(true);
@@ -128,7 +128,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra3.setBackground(new java.awt.Color(255, 255, 255));
         letra3.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra3.setForeground(new java.awt.Color(41, 128, 185));
+        letra3.setForeground(new java.awt.Color(255, 255, 255));
         letra3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra3.setText("A");
         letra3.setAutoscrolls(true);
@@ -141,7 +141,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra4.setBackground(new java.awt.Color(255, 255, 255));
         letra4.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra4.setForeground(new java.awt.Color(41, 128, 185));
+        letra4.setForeground(new java.awt.Color(255, 255, 255));
         letra4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra4.setText("A");
         letra4.setAutoscrolls(true);
@@ -154,7 +154,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra5.setBackground(new java.awt.Color(255, 255, 255));
         letra5.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra5.setForeground(new java.awt.Color(41, 128, 185));
+        letra5.setForeground(new java.awt.Color(255, 255, 255));
         letra5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra5.setText("A");
         letra5.setAutoscrolls(true);
@@ -167,7 +167,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra6.setBackground(new java.awt.Color(255, 255, 255));
         letra6.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra6.setForeground(new java.awt.Color(41, 128, 185));
+        letra6.setForeground(new java.awt.Color(255, 255, 255));
         letra6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra6.setText("A");
         letra6.setAutoscrolls(true);
@@ -180,7 +180,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra7.setBackground(new java.awt.Color(255, 255, 255));
         letra7.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra7.setForeground(new java.awt.Color(41, 128, 185));
+        letra7.setForeground(new java.awt.Color(255, 255, 255));
         letra7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra7.setText("A");
         letra7.setAutoscrolls(true);
@@ -193,7 +193,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra8.setBackground(new java.awt.Color(255, 255, 255));
         letra8.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra8.setForeground(new java.awt.Color(41, 128, 185));
+        letra8.setForeground(new java.awt.Color(255, 255, 255));
         letra8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra8.setText("A");
         letra8.setAutoscrolls(true);
@@ -206,7 +206,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra9.setBackground(new java.awt.Color(255, 255, 255));
         letra9.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra9.setForeground(new java.awt.Color(41, 128, 185));
+        letra9.setForeground(new java.awt.Color(255, 255, 255));
         letra9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra9.setText("A");
         letra9.setAutoscrolls(true);
@@ -219,7 +219,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra10.setBackground(new java.awt.Color(255, 255, 255));
         letra10.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra10.setForeground(new java.awt.Color(41, 128, 185));
+        letra10.setForeground(new java.awt.Color(255, 255, 255));
         letra10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra10.setText("A");
         letra10.setAutoscrolls(true);
@@ -232,7 +232,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra11.setBackground(new java.awt.Color(255, 255, 255));
         letra11.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra11.setForeground(new java.awt.Color(41, 128, 185));
+        letra11.setForeground(new java.awt.Color(255, 255, 255));
         letra11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra11.setText("A");
         letra11.setAutoscrolls(true);
@@ -245,7 +245,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra12.setBackground(new java.awt.Color(255, 255, 255));
         letra12.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra12.setForeground(new java.awt.Color(41, 128, 185));
+        letra12.setForeground(new java.awt.Color(255, 255, 255));
         letra12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra12.setText("A");
         letra12.setAutoscrolls(true);
@@ -258,7 +258,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra13.setBackground(new java.awt.Color(255, 255, 255));
         letra13.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra13.setForeground(new java.awt.Color(41, 128, 185));
+        letra13.setForeground(new java.awt.Color(255, 255, 255));
         letra13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra13.setText("A");
         letra13.setAutoscrolls(true);
@@ -271,7 +271,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra14.setBackground(new java.awt.Color(255, 255, 255));
         letra14.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra14.setForeground(new java.awt.Color(41, 128, 185));
+        letra14.setForeground(new java.awt.Color(255, 255, 255));
         letra14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra14.setText("A");
         letra14.setAutoscrolls(true);
@@ -284,7 +284,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra15.setBackground(new java.awt.Color(255, 255, 255));
         letra15.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra15.setForeground(new java.awt.Color(41, 128, 185));
+        letra15.setForeground(new java.awt.Color(255, 255, 255));
         letra15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra15.setText("A");
         letra15.setAutoscrolls(true);
@@ -297,7 +297,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra16.setBackground(new java.awt.Color(255, 255, 255));
         letra16.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra16.setForeground(new java.awt.Color(41, 128, 185));
+        letra16.setForeground(new java.awt.Color(255, 255, 255));
         letra16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra16.setText("A");
         letra16.setAutoscrolls(true);
@@ -310,7 +310,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra17.setBackground(new java.awt.Color(255, 255, 255));
         letra17.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra17.setForeground(new java.awt.Color(41, 128, 185));
+        letra17.setForeground(new java.awt.Color(255, 255, 255));
         letra17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra17.setText("A");
         letra17.setAutoscrolls(true);
@@ -323,7 +323,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra18.setBackground(new java.awt.Color(255, 255, 255));
         letra18.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra18.setForeground(new java.awt.Color(41, 128, 185));
+        letra18.setForeground(new java.awt.Color(255, 255, 255));
         letra18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra18.setText("A");
         letra18.setAutoscrolls(true);
@@ -336,7 +336,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra19.setBackground(new java.awt.Color(255, 255, 255));
         letra19.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra19.setForeground(new java.awt.Color(41, 128, 185));
+        letra19.setForeground(new java.awt.Color(255, 255, 255));
         letra19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra19.setText("A");
         letra19.setAutoscrolls(true);
@@ -349,7 +349,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra20.setBackground(new java.awt.Color(255, 255, 255));
         letra20.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra20.setForeground(new java.awt.Color(41, 128, 185));
+        letra20.setForeground(new java.awt.Color(255, 255, 255));
         letra20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra20.setText("A");
         letra20.setAutoscrolls(true);
@@ -362,7 +362,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra21.setBackground(new java.awt.Color(255, 255, 255));
         letra21.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra21.setForeground(new java.awt.Color(41, 128, 185));
+        letra21.setForeground(new java.awt.Color(255, 255, 255));
         letra21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra21.setText("A");
         letra21.setAutoscrolls(true);
@@ -375,7 +375,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra22.setBackground(new java.awt.Color(255, 255, 255));
         letra22.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra22.setForeground(new java.awt.Color(41, 128, 185));
+        letra22.setForeground(new java.awt.Color(255, 255, 255));
         letra22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra22.setText("A");
         letra22.setAutoscrolls(true);
@@ -388,7 +388,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra23.setBackground(new java.awt.Color(255, 255, 255));
         letra23.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra23.setForeground(new java.awt.Color(41, 128, 185));
+        letra23.setForeground(new java.awt.Color(255, 255, 255));
         letra23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra23.setText("A");
         letra23.setAutoscrolls(true);
@@ -401,7 +401,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra24.setBackground(new java.awt.Color(255, 255, 255));
         letra24.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra24.setForeground(new java.awt.Color(41, 128, 185));
+        letra24.setForeground(new java.awt.Color(255, 255, 255));
         letra24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra24.setText("A");
         letra24.setAutoscrolls(true);
@@ -414,7 +414,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra25.setBackground(new java.awt.Color(255, 255, 255));
         letra25.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra25.setForeground(new java.awt.Color(41, 128, 185));
+        letra25.setForeground(new java.awt.Color(255, 255, 255));
         letra25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra25.setText("A");
         letra25.setAutoscrolls(true);
@@ -427,7 +427,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra26.setBackground(new java.awt.Color(255, 255, 255));
         letra26.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra26.setForeground(new java.awt.Color(41, 128, 185));
+        letra26.setForeground(new java.awt.Color(255, 255, 255));
         letra26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra26.setText("A");
         letra26.setAutoscrolls(true);
@@ -440,7 +440,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra27.setBackground(new java.awt.Color(255, 255, 255));
         letra27.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra27.setForeground(new java.awt.Color(41, 128, 185));
+        letra27.setForeground(new java.awt.Color(255, 255, 255));
         letra27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra27.setText("A");
         letra27.setAutoscrolls(true);
@@ -453,7 +453,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra28.setBackground(new java.awt.Color(255, 255, 255));
         letra28.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra28.setForeground(new java.awt.Color(41, 128, 185));
+        letra28.setForeground(new java.awt.Color(255, 255, 255));
         letra28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra28.setText("A");
         letra28.setAutoscrolls(true);
@@ -466,7 +466,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra29.setBackground(new java.awt.Color(255, 255, 255));
         letra29.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra29.setForeground(new java.awt.Color(41, 128, 185));
+        letra29.setForeground(new java.awt.Color(255, 255, 255));
         letra29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra29.setText("A");
         letra29.setAutoscrolls(true);
@@ -479,7 +479,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra30.setBackground(new java.awt.Color(255, 255, 255));
         letra30.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra30.setForeground(new java.awt.Color(41, 128, 185));
+        letra30.setForeground(new java.awt.Color(255, 255, 255));
         letra30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra30.setText("A");
         letra30.setAutoscrolls(true);
@@ -492,7 +492,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra31.setBackground(new java.awt.Color(255, 255, 255));
         letra31.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra31.setForeground(new java.awt.Color(41, 128, 185));
+        letra31.setForeground(new java.awt.Color(255, 255, 255));
         letra31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra31.setText("A");
         letra31.setAutoscrolls(true);
@@ -505,7 +505,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra32.setBackground(new java.awt.Color(255, 255, 255));
         letra32.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra32.setForeground(new java.awt.Color(41, 128, 185));
+        letra32.setForeground(new java.awt.Color(255, 255, 255));
         letra32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra32.setText("A");
         letra32.setAutoscrolls(true);
@@ -518,7 +518,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra33.setBackground(new java.awt.Color(255, 255, 255));
         letra33.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra33.setForeground(new java.awt.Color(41, 128, 185));
+        letra33.setForeground(new java.awt.Color(255, 255, 255));
         letra33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra33.setText("A");
         letra33.setAutoscrolls(true);
@@ -531,7 +531,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra34.setBackground(new java.awt.Color(255, 255, 255));
         letra34.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra34.setForeground(new java.awt.Color(41, 128, 185));
+        letra34.setForeground(new java.awt.Color(255, 255, 255));
         letra34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra34.setText("A");
         letra34.setAutoscrolls(true);
@@ -544,7 +544,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra35.setBackground(new java.awt.Color(255, 255, 255));
         letra35.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra35.setForeground(new java.awt.Color(41, 128, 185));
+        letra35.setForeground(new java.awt.Color(255, 255, 255));
         letra35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra35.setText("A");
         letra35.setAutoscrolls(true);
@@ -557,7 +557,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra36.setBackground(new java.awt.Color(255, 255, 255));
         letra36.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra36.setForeground(new java.awt.Color(41, 128, 185));
+        letra36.setForeground(new java.awt.Color(255, 255, 255));
         letra36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra36.setText("A");
         letra36.setAutoscrolls(true);
@@ -570,7 +570,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra37.setBackground(new java.awt.Color(255, 255, 255));
         letra37.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra37.setForeground(new java.awt.Color(41, 128, 185));
+        letra37.setForeground(new java.awt.Color(255, 255, 255));
         letra37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra37.setText("A");
         letra37.setAutoscrolls(true);
@@ -583,7 +583,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra38.setBackground(new java.awt.Color(255, 255, 255));
         letra38.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra38.setForeground(new java.awt.Color(41, 128, 185));
+        letra38.setForeground(new java.awt.Color(255, 255, 255));
         letra38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra38.setText("A");
         letra38.setAutoscrolls(true);
@@ -596,7 +596,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra39.setBackground(new java.awt.Color(255, 255, 255));
         letra39.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra39.setForeground(new java.awt.Color(41, 128, 185));
+        letra39.setForeground(new java.awt.Color(255, 255, 255));
         letra39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra39.setText("A");
         letra39.setAutoscrolls(true);
@@ -609,7 +609,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra40.setBackground(new java.awt.Color(255, 255, 255));
         letra40.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra40.setForeground(new java.awt.Color(41, 128, 185));
+        letra40.setForeground(new java.awt.Color(255, 255, 255));
         letra40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra40.setText("A");
         letra40.setAutoscrolls(true);
@@ -622,7 +622,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra41.setBackground(new java.awt.Color(255, 255, 255));
         letra41.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra41.setForeground(new java.awt.Color(41, 128, 185));
+        letra41.setForeground(new java.awt.Color(255, 255, 255));
         letra41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra41.setText("A");
         letra41.setAutoscrolls(true);
@@ -635,7 +635,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra42.setBackground(new java.awt.Color(255, 255, 255));
         letra42.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra42.setForeground(new java.awt.Color(41, 128, 185));
+        letra42.setForeground(new java.awt.Color(255, 255, 255));
         letra42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra42.setText("A");
         letra42.setAutoscrolls(true);
@@ -648,7 +648,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra43.setBackground(new java.awt.Color(255, 255, 255));
         letra43.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra43.setForeground(new java.awt.Color(41, 128, 185));
+        letra43.setForeground(new java.awt.Color(255, 255, 255));
         letra43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra43.setText("Qu");
         letra43.setAutoscrolls(true);
@@ -661,7 +661,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra44.setBackground(new java.awt.Color(255, 255, 255));
         letra44.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra44.setForeground(new java.awt.Color(41, 128, 185));
+        letra44.setForeground(new java.awt.Color(255, 255, 255));
         letra44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra44.setText("A");
         letra44.setAutoscrolls(true);
@@ -674,7 +674,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra45.setBackground(new java.awt.Color(255, 255, 255));
         letra45.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra45.setForeground(new java.awt.Color(41, 128, 185));
+        letra45.setForeground(new java.awt.Color(255, 255, 255));
         letra45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra45.setText("A");
         letra45.setAutoscrolls(true);
@@ -687,7 +687,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra46.setBackground(new java.awt.Color(255, 255, 255));
         letra46.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra46.setForeground(new java.awt.Color(41, 128, 185));
+        letra46.setForeground(new java.awt.Color(255, 255, 255));
         letra46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra46.setText("A");
         letra46.setAutoscrolls(true);
@@ -700,7 +700,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra47.setBackground(new java.awt.Color(255, 255, 255));
         letra47.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra47.setForeground(new java.awt.Color(41, 128, 185));
+        letra47.setForeground(new java.awt.Color(255, 255, 255));
         letra47.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra47.setText("A");
         letra47.setAutoscrolls(true);
@@ -713,7 +713,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra48.setBackground(new java.awt.Color(255, 255, 255));
         letra48.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra48.setForeground(new java.awt.Color(41, 128, 185));
+        letra48.setForeground(new java.awt.Color(255, 255, 255));
         letra48.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra48.setText("A");
         letra48.setAutoscrolls(true);
@@ -726,7 +726,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra49.setBackground(new java.awt.Color(255, 255, 255));
         letra49.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra49.setForeground(new java.awt.Color(41, 128, 185));
+        letra49.setForeground(new java.awt.Color(255, 255, 255));
         letra49.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra49.setText("A");
         letra49.setAutoscrolls(true);
@@ -739,7 +739,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra50.setBackground(new java.awt.Color(255, 255, 255));
         letra50.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra50.setForeground(new java.awt.Color(41, 128, 185));
+        letra50.setForeground(new java.awt.Color(255, 255, 255));
         letra50.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra50.setText("A");
         letra50.setAutoscrolls(true);
@@ -752,7 +752,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra51.setBackground(new java.awt.Color(255, 255, 255));
         letra51.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra51.setForeground(new java.awt.Color(41, 128, 185));
+        letra51.setForeground(new java.awt.Color(255, 255, 255));
         letra51.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra51.setText("A");
         letra51.setAutoscrolls(true);
@@ -765,7 +765,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra52.setBackground(new java.awt.Color(255, 255, 255));
         letra52.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra52.setForeground(new java.awt.Color(41, 128, 185));
+        letra52.setForeground(new java.awt.Color(255, 255, 255));
         letra52.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra52.setText("A");
         letra52.setAutoscrolls(true);
@@ -778,7 +778,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra53.setBackground(new java.awt.Color(255, 255, 255));
         letra53.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra53.setForeground(new java.awt.Color(41, 128, 185));
+        letra53.setForeground(new java.awt.Color(255, 255, 255));
         letra53.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra53.setText("A");
         letra53.setAutoscrolls(true);
@@ -791,7 +791,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra54.setBackground(new java.awt.Color(255, 255, 255));
         letra54.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra54.setForeground(new java.awt.Color(41, 128, 185));
+        letra54.setForeground(new java.awt.Color(255, 255, 255));
         letra54.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra54.setText("A");
         letra54.setAutoscrolls(true);
@@ -804,7 +804,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra55.setBackground(new java.awt.Color(255, 255, 255));
         letra55.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra55.setForeground(new java.awt.Color(41, 128, 185));
+        letra55.setForeground(new java.awt.Color(255, 255, 255));
         letra55.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra55.setText("A");
         letra55.setAutoscrolls(true);
@@ -817,7 +817,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra56.setBackground(new java.awt.Color(255, 255, 255));
         letra56.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra56.setForeground(new java.awt.Color(41, 128, 185));
+        letra56.setForeground(new java.awt.Color(255, 255, 255));
         letra56.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra56.setText("A");
         letra56.setAutoscrolls(true);
@@ -830,7 +830,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra57.setBackground(new java.awt.Color(255, 255, 255));
         letra57.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra57.setForeground(new java.awt.Color(41, 128, 185));
+        letra57.setForeground(new java.awt.Color(255, 255, 255));
         letra57.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra57.setText("A");
         letra57.setAutoscrolls(true);
@@ -843,7 +843,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra58.setBackground(new java.awt.Color(255, 255, 255));
         letra58.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra58.setForeground(new java.awt.Color(41, 128, 185));
+        letra58.setForeground(new java.awt.Color(255, 255, 255));
         letra58.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra58.setText("A");
         letra58.setAutoscrolls(true);
@@ -856,7 +856,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra59.setBackground(new java.awt.Color(255, 255, 255));
         letra59.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra59.setForeground(new java.awt.Color(41, 128, 185));
+        letra59.setForeground(new java.awt.Color(255, 255, 255));
         letra59.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra59.setText("A");
         letra59.setAutoscrolls(true);
@@ -869,7 +869,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra60.setBackground(new java.awt.Color(255, 255, 255));
         letra60.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra60.setForeground(new java.awt.Color(41, 128, 185));
+        letra60.setForeground(new java.awt.Color(255, 255, 255));
         letra60.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra60.setText("A");
         letra60.setAutoscrolls(true);
@@ -882,7 +882,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra61.setBackground(new java.awt.Color(255, 255, 255));
         letra61.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra61.setForeground(new java.awt.Color(41, 128, 185));
+        letra61.setForeground(new java.awt.Color(255, 255, 255));
         letra61.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra61.setText("A");
         letra61.setAutoscrolls(true);
@@ -895,7 +895,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra62.setBackground(new java.awt.Color(255, 255, 255));
         letra62.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra62.setForeground(new java.awt.Color(41, 128, 185));
+        letra62.setForeground(new java.awt.Color(255, 255, 255));
         letra62.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra62.setText("A");
         letra62.setAutoscrolls(true);
@@ -908,7 +908,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra63.setBackground(new java.awt.Color(255, 255, 255));
         letra63.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra63.setForeground(new java.awt.Color(41, 128, 185));
+        letra63.setForeground(new java.awt.Color(255, 255, 255));
         letra63.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra63.setText("A");
         letra63.setAutoscrolls(true);
@@ -921,7 +921,7 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra64.setBackground(new java.awt.Color(255, 255, 255));
         letra64.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra64.setForeground(new java.awt.Color(41, 128, 185));
+        letra64.setForeground(new java.awt.Color(255, 255, 255));
         letra64.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra64.setText("A");
         letra64.setAutoscrolls(true);

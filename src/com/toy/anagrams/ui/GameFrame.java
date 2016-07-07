@@ -108,9 +108,9 @@ public class GameFrame extends JFrame {
         exitMenuItem = new javax.swing.JMenuItem();
 
         setTitle("Vira Letras");
-        setMaximumSize(new java.awt.Dimension(1150, 800));
-        setMinimumSize(new java.awt.Dimension(1150, 800));
-        setResizable(false);
+        setMaximumSize(new java.awt.Dimension(1100, 700));
+        setMinimumSize(new java.awt.Dimension(1100, 700));
+        setSize(new java.awt.Dimension(1200, 750));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -118,13 +118,11 @@ public class GameFrame extends JFrame {
         });
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        boardPane1.setMinimumSize(new java.awt.Dimension(800, 800));
-        boardPane1.setPreferredSize(new java.awt.Dimension(800, 800));
+        boardPane1.setMinimumSize(new java.awt.Dimension(700, 700));
         getContentPane().add(boardPane1);
 
-        controlPanel1.setMaximumSize(new java.awt.Dimension(350, 800));
-        controlPanel1.setMinimumSize(new java.awt.Dimension(350, 800));
-        controlPanel1.setPreferredSize(new java.awt.Dimension(350, 800));
+        controlPanel1.setMaximumSize(new java.awt.Dimension(400, 800));
+        controlPanel1.setMinimumSize(new java.awt.Dimension(350, 700));
         getContentPane().add(controlPanel1);
 
         fileMenu.setMnemonic('F');

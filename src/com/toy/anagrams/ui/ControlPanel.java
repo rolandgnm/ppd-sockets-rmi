@@ -16,6 +16,7 @@ public class ControlPanel extends javax.swing.JPanel {
      */
     public ControlPanel() {
         initComponents();
+        
     }
 
     /**
@@ -33,27 +34,30 @@ public class ControlPanel extends javax.swing.JPanel {
         lbVersusSymbol = new javax.swing.JLabel();
         lbOpponentScore = new javax.swing.JLabel();
         centralPanel = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        dicesContainerPanel = new javax.swing.JPanel();
+        diceNumbersPanel = new javax.swing.JPanel();
         lbDice1 = new javax.swing.JLabel();
         lbPlusSymbol = new javax.swing.JLabel();
         lbDice2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        movesLabelPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        tfWordGuess = new javax.swing.JTextField();
+        btConfirmWord = new javax.swing.JButton();
+        btRejectWord = new javax.swing.JButton();
         chatPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taChatConsole = new javax.swing.JTextArea();
         tfChatInput = new javax.swing.JTextField();
         btSendMessage = new javax.swing.JButton();
 
-        setMaximumSize(new java.awt.Dimension(500, 800));
-        setMinimumSize(new java.awt.Dimension(128, 800));
-        setPreferredSize(new java.awt.Dimension(350, 800));
+        setMaximumSize(new java.awt.Dimension(32767, 700));
+        setMinimumSize(new java.awt.Dimension(350, 600));
+        setPreferredSize(new java.awt.Dimension(350, 650));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
         scorePanel.setBackground(new java.awt.Color(149, 165, 166));
         scorePanel.setMaximumSize(new java.awt.Dimension(32767, 50));
+        scorePanel.setMinimumSize(new java.awt.Dimension(350, 50));
         scorePanel.setPreferredSize(new java.awt.Dimension(350, 50));
 
         lbMyScore.setBackground(new java.awt.Color(127, 140, 141));
@@ -80,40 +84,41 @@ public class ControlPanel extends javax.swing.JPanel {
         add(scorePanel);
 
         centralPanel.setBackground(new java.awt.Color(236, 240, 241));
-        centralPanel.setPreferredSize(new java.awt.Dimension(350, 350));
+        centralPanel.setMinimumSize(new java.awt.Dimension(350, 320));
         centralPanel.setRequestFocusEnabled(false);
+        centralPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 15));
 
-        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
+        dicesContainerPanel.setLayout(new javax.swing.BoxLayout(dicesContainerPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel1.setBackground(new java.awt.Color(243, 156, 18));
-        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 15, 1, 15));
-        jPanel1.setLayout(new java.awt.GridLayout(1, 0, 25, 0));
+        diceNumbersPanel.setBackground(new java.awt.Color(243, 156, 18));
+        diceNumbersPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 15, 1, 15));
+        diceNumbersPanel.setLayout(new java.awt.GridLayout(1, 0, 25, 0));
 
         lbDice1.setFont(new java.awt.Font("Lucida Grande", 1, 48)); // NOI18N
         lbDice1.setForeground(new java.awt.Color(255, 255, 255));
         lbDice1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbDice1.setText("6");
         lbDice1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(lbDice1);
+        diceNumbersPanel.add(lbDice1);
 
         lbPlusSymbol.setFont(new java.awt.Font("Lucida Grande", 1, 48)); // NOI18N
         lbPlusSymbol.setForeground(new java.awt.Color(255, 255, 255));
         lbPlusSymbol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbPlusSymbol.setText("+");
         lbPlusSymbol.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(lbPlusSymbol);
+        diceNumbersPanel.add(lbPlusSymbol);
 
         lbDice2.setFont(new java.awt.Font("Lucida Grande", 1, 48)); // NOI18N
         lbDice2.setForeground(new java.awt.Color(255, 255, 255));
         lbDice2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbDice2.setText("6");
         lbDice2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(lbDice2);
+        diceNumbersPanel.add(lbDice2);
 
-        jPanel2.add(jPanel1);
+        dicesContainerPanel.add(diceNumbersPanel);
 
-        jPanel3.setBackground(new java.awt.Color(230, 126, 34));
-        jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 1, 5, 1));
+        movesLabelPanel.setBackground(new java.awt.Color(230, 126, 34));
+        movesLabelPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 1, 5, 1));
 
         jLabel1.setBackground(new java.awt.Color(230, 126, 34));
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -123,127 +128,142 @@ public class ControlPanel extends javax.swing.JPanel {
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel1.setOpaque(true);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout movesLabelPanelLayout = new javax.swing.GroupLayout(movesLabelPanel);
+        movesLabelPanel.setLayout(movesLabelPanelLayout);
+        movesLabelPanelLayout.setHorizontalGroup(
+            movesLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 202, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(movesLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(movesLabelPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jLabel1)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        movesLabelPanelLayout.setVerticalGroup(
+            movesLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(movesLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(movesLabelPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jLabel1)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel2.add(jPanel3);
+        dicesContainerPanel.add(movesLabelPanel);
 
-        jTextField2.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("PALAVRA CINCO");
-        jTextField2.setMinimumSize(new java.awt.Dimension(340, 26));
-        jTextField2.setName("tfWordGuess"); // NOI18N
-        jTextField2.setPreferredSize(new java.awt.Dimension(340, 60));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        centralPanel.add(dicesContainerPanel);
+
+        tfWordGuess.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+        tfWordGuess.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfWordGuess.setText("PALAVRA CINCO");
+        tfWordGuess.setMinimumSize(new java.awt.Dimension(340, 26));
+        tfWordGuess.setName("tfWordGuess"); // NOI18N
+        tfWordGuess.setPreferredSize(new java.awt.Dimension(340, 60));
+        tfWordGuess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                tfWordGuessActionPerformed(evt);
             }
         });
+        centralPanel.add(tfWordGuess);
 
-        javax.swing.GroupLayout centralPanelLayout = new javax.swing.GroupLayout(centralPanel);
-        centralPanel.setLayout(centralPanelLayout);
-        centralPanelLayout.setHorizontalGroup(
-            centralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, centralPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(centralPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        centralPanelLayout.setVerticalGroup(
-            centralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(centralPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(146, Short.MAX_VALUE))
-        );
+        btConfirmWord.setBackground(new java.awt.Color(39, 174, 96));
+        btConfirmWord.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        btConfirmWord.setForeground(new java.awt.Color(255, 255, 255));
+        btConfirmWord.setText("Confirmar");
+        btConfirmWord.setBorderPainted(false);
+        btConfirmWord.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btConfirmWord.setFocusCycleRoot(true);
+        btConfirmWord.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btConfirmWord.setMaximumSize(new java.awt.Dimension(340, 48));
+        btConfirmWord.setMinimumSize(new java.awt.Dimension(340, 48));
+        btConfirmWord.setPreferredSize(new java.awt.Dimension(340, 48));
+        btConfirmWord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConfirmWordActionPerformed(evt);
+            }
+        });
+        centralPanel.add(btConfirmWord);
+
+        btRejectWord.setBackground(new java.awt.Color(192, 57, 43));
+        btRejectWord.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        btRejectWord.setForeground(new java.awt.Color(255, 255, 255));
+        btRejectWord.setText("Rejeitar");
+        btRejectWord.setBorderPainted(false);
+        btRejectWord.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btRejectWord.setFocusCycleRoot(true);
+        btRejectWord.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btRejectWord.setMaximumSize(new java.awt.Dimension(340, 48));
+        btRejectWord.setMinimumSize(new java.awt.Dimension(340, 48));
+        btRejectWord.setPreferredSize(new java.awt.Dimension(340, 48));
+        btRejectWord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRejectWordActionPerformed(evt);
+            }
+        });
+        centralPanel.add(btRejectWord);
 
         add(centralPanel);
 
         chatPanel.setBackground(new java.awt.Color(184, 203, 205));
+        chatPanel.setMaximumSize(new java.awt.Dimension(32767, 340));
+        chatPanel.setLayout(new javax.swing.BoxLayout(chatPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        taChatConsole.setColumns(20);
-        taChatConsole.setRows(5);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setHorizontalScrollBar(null);
+
+        taChatConsole.setLineWrap(true);
+        taChatConsole.setRows(15);
         taChatConsole.setText("Eventos e mensagens aparecerão aqui!");
+        taChatConsole.setMaximumSize(new java.awt.Dimension(500, 32767));
+        taChatConsole.setMinimumSize(new java.awt.Dimension(350, 330));
         jScrollPane1.setViewportView(taChatConsole);
 
-        tfChatInput.setText("enviar mensagem...");
+        chatPanel.add(jScrollPane1);
+
+        tfChatInput.setText("digite a mensagem...");
         tfChatInput.setName("tfChatInput"); // NOI18N
         tfChatInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfChatInputActionPerformed(evt);
             }
         });
+        chatPanel.add(tfChatInput);
 
-        btSendMessage.setText("jButton1");
+        btSendMessage.setBackground(new java.awt.Color(52, 152, 219));
+        btSendMessage.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        btSendMessage.setForeground(new java.awt.Color(255, 255, 255));
+        btSendMessage.setText("Enviar");
+        btSendMessage.setAlignmentX(0.5F);
+        btSendMessage.setBorderPainted(false);
+        btSendMessage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btSendMessage.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btSendMessage.setMaximumSize(new java.awt.Dimension(1000, 29));
         btSendMessage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSendMessageActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout chatPanelLayout = new javax.swing.GroupLayout(chatPanel);
-        chatPanel.setLayout(chatPanelLayout);
-        chatPanelLayout.setHorizontalGroup(
-            chatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(chatPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btSendMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(chatPanelLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-                .addGap(6, 6, 6))
-            .addGroup(chatPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tfChatInput)
-                .addContainerGap())
-        );
-        chatPanelLayout.setVerticalGroup(
-            chatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(chatPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfChatInput, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btSendMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        chatPanel.add(btSendMessage);
 
         add(chatPanel);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tfWordGuessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfWordGuessActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfWordGuessActionPerformed
+
+    private void btConfirmWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmWordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btConfirmWordActionPerformed
+
+    private void btRejectWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRejectWordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btRejectWordActionPerformed
+
     private void btSendMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSendMessageActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btSendMessageActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_btSendMessageActionPerformed
 
     private void tfChatInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfChatInputActionPerformed
         // TODO add your handling code here:
@@ -251,23 +271,25 @@ public class ControlPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btConfirmWord;
+    private javax.swing.JButton btRejectWord;
     private javax.swing.JButton btSendMessage;
     private javax.swing.JPanel centralPanel;
     private javax.swing.JPanel chatPanel;
+    private javax.swing.JPanel diceNumbersPanel;
+    private javax.swing.JPanel dicesContainerPanel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lbDice1;
     private javax.swing.JLabel lbDice2;
     private javax.swing.JLabel lbMyScore;
     private javax.swing.JLabel lbOpponentScore;
     private javax.swing.JLabel lbPlusSymbol;
     private javax.swing.JLabel lbVersusSymbol;
+    private javax.swing.JPanel movesLabelPanel;
     private javax.swing.JPanel scorePanel;
     private javax.swing.JTextArea taChatConsole;
     private javax.swing.JTextField tfChatInput;
+    private javax.swing.JTextField tfWordGuess;
     // End of variables declaration//GEN-END:variables
 }

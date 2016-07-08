@@ -70,14 +70,14 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
   <SubComponents>
-    <Component class="com.toy.anagrams.ui.BoardPane" name="boardPane1">
+    <Component class="br.viraletras.view.BoardPane" name="boardPane1">
       <Properties>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[700, 700]"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="com.toy.anagrams.ui.ControlPanel" name="controlPanel1">
+    <Component class="br.viraletras.view.ControlPanel" name="controlPanel1">
       <Properties>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[400, 800]"/>

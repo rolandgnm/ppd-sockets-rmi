@@ -1,35 +1,4 @@
-/*
- * Copyright (c) 2010, Oracle.
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  * Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *  * Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the distribution.
- *  * Neither the name of Oracle nor the names of its
- *    contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
- * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
- */
-
-/* Anagram Game Application */
-
-package com.toy.anagrams.ui;
+package br.viraletras.view;
 
 import com.toy.anagrams.lib.WordLibrary;
 import java.awt.Dimension;
@@ -39,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 /**
- * Main window of the Anagram Game application.
+ * Main window of the Vira Letras Game application.
  */
 public class GameFrame extends JFrame {
 
@@ -75,13 +44,13 @@ public class GameFrame extends JFrame {
             }
         });
     }
-
-    private int wordIdx = 0;
-    private WordLibrary wordLibrary;
+    
+//    private int wordIdx = 0;
+//    private WordLibrary wordLibrary;
 
     /** Creates new form Anagrams */
     public GameFrame() {
-        wordLibrary = WordLibrary.getDefault();
+//        wordLibrary = WordLibrary.getDefault();
         
         initComponents();
         pack();
@@ -100,8 +69,8 @@ public class GameFrame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        boardPane1 = new com.toy.anagrams.ui.BoardPane();
-        controlPanel1 = new com.toy.anagrams.ui.ControlPanel();
+        boardPane1 = new br.viraletras.view.BoardPane();
+        controlPanel1 = new br.viraletras.view.ControlPanel();
         mainMenu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -168,8 +137,8 @@ public class GameFrame extends JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
-    private com.toy.anagrams.ui.BoardPane boardPane1;
-    private com.toy.anagrams.ui.ControlPanel controlPanel1;
+    private br.viraletras.view.BoardPane boardPane1;
+    private br.viraletras.view.ControlPanel controlPanel1;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuBar mainMenu;

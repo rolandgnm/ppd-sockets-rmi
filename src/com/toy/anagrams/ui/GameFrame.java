@@ -110,6 +110,7 @@ public class GameFrame extends JFrame {
         setTitle("Vira Letras");
         setMaximumSize(new java.awt.Dimension(1100, 700));
         setMinimumSize(new java.awt.Dimension(1100, 700));
+        setResizable(false);
         setSize(new java.awt.Dimension(1200, 750));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {

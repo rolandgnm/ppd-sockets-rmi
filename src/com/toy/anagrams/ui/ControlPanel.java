@@ -27,7 +27,6 @@ public class ControlPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         scorePanel = new javax.swing.JPanel();
         lbMyScore = new javax.swing.JLabel();
@@ -211,6 +210,7 @@ public class ControlPanel extends javax.swing.JPanel {
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setHorizontalScrollBar(null);
 
+        taChatConsole.setEditable(false);
         taChatConsole.setLineWrap(true);
         taChatConsole.setRows(15);
         taChatConsole.setText("Eventos e mensagens aparecerão aqui!");

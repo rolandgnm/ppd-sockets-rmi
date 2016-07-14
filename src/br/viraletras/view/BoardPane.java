@@ -96,6 +96,10 @@ public class BoardPane extends javax.swing.JPanel {
         setBackground(new java.awt.Color(41, 128, 185));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setMaximumSize(new java.awt.Dimension(800, 800));
+//
+        setMinimumSize(new java.awt.Dimension(700, 700));
+//
+
         setName("lb01"); // NOI18N
         setPreferredSize(new java.awt.Dimension(700, 700));
         setLayout(new java.awt.GridLayout(8, 8, 10, 10));
@@ -111,6 +115,11 @@ public class BoardPane extends javax.swing.JPanel {
         letra01.setOpaque(true);
         letra01.setPreferredSize(new java.awt.Dimension(50, 50));
         letra01.setSize(new java.awt.Dimension(65, 46));
+        letra01.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                letra01MouseClicked(evt);
+            }
+        });
         add(letra01);
 
         letra2.setBackground(new java.awt.Color(255, 255, 255));
@@ -648,7 +657,6 @@ public class BoardPane extends javax.swing.JPanel {
 
         letra43.setBackground(new java.awt.Color(255, 255, 255));
         letra43.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        letra43.setForeground(new java.awt.Color(255, 255, 255));
         letra43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         letra43.setText("Qu");
         letra43.setAutoscrolls(true);
@@ -932,6 +940,12 @@ public class BoardPane extends javax.swing.JPanel {
         letra64.setSize(new java.awt.Dimension(65, 46));
         add(letra64);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void letra01MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_letra01MouseClicked
+        // TODO add your handling code here:
+        super.setBackground(new java.awt.Color(255, 255, 255));
+
+    }//GEN-LAST:event_letra01MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

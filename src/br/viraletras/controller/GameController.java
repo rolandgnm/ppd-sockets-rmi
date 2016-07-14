@@ -5,10 +5,16 @@
  */
 package br.viraletras.controller;
 
+import br.viraletras.model.GameModel;
+import br.viraletras.view.LaunchView;
+
 /**
  *
  * @author Roland
  */
-public class GameFrameController {
+public class GameController {
+    private GameModel gameModel;
+    private LaunchView launchView;
+    
     
 }

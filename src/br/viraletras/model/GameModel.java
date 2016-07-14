@@ -6,10 +6,10 @@
 package br.viraletras.model;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 /**
@@ -17,12 +17,7 @@ import java.util.Random;
  * @author Roland
  */
 public class GameModel {
-    private Player playerThis;
-    private Player playerOpponent;
-    private int [] dices;
-    private ArrayList<ArrayList<String>> randomLetterMatrix;
-    private String wordGuess;
-    private static final String[] ORIGINAL_LETTER_SET = {
+    public static final String[] ORIGINAL_LETTER_SET = {
         "a","a","a","a","a","a","a",
         "e","e","e","e","e","e","e",
         "i","i","i","i","i","i",
@@ -35,30 +30,48 @@ public class GameModel {
         "t","t","v","v","x","z"
     };
 
-    public GameModel(Player playerThis, Player playerOpponent) {
+    //Não precisa inicializar
+    private Player CURRENT_PLAYING;
+
+    private Player playerThis;
+    private Player playerOpponent;
+    private int [] dices;
+    private Piece[] randomPieceVector;
+    private ArrayList<Piece> showingPieceList;
+    private String wordGuess;
+
+    private void initialize(Player playerThis, Player playerOpponent) {
         this.playerThis = playerThis;
         this.playerOpponent = playerOpponent;
         this.wordGuess = "";
         this.dices = new int[]{0, 0};
-//        this.randomLetterMatrix = new ArrayList<String>(Arrays.asList(ORIGINAL_LETTER_SET));
-        this.randomLetterMatrix = new ArrayList<ArrayList<String>>();
-        createRandomLetterMatrix(getRandomLetterList());      
+        this.randomPieceVector = new Piece[64];
+        this.showingPieceList = new ArrayList<>();
+        
+        createRandomPieceVector(getRandomLetterVector());
     }
-    
-    public void createRandomLetterMatrix(ArrayList<String> randomList){ 
-        int i,j,count=0; 
-            
-        for(i=0; i<8; i++){
-            for(j=0; i<8; j++){
-                randomLetterMatrix.get(i)
-                    .add(randomList.get(count++));
-            }
-   
+
+    public GameModel(Player playerThis, Player playerOpponent) {
+        initialize(playerThis,playerOpponent);
+        createRandomPieceVector(getRandomLetterVector());
+    }
+
+    public GameModel(Player playerThis, Player playerOpponent, Piece[] pieces) {
+        initialize(playerThis,playerOpponent);
+        this.randomPieceVector = pieces;
+    }
+
+
+    public final void createRandomPieceVector(ArrayList<String> randomLetterList){
+
+        for(int i=0; i<64; i++){
+                this.randomPieceVector[i] = new Piece(i,randomLetterList.get(i), Piece.State.HIDDEN);
         }
     }
-    
-    public ArrayList<String> getRandomLetterList(){
-        ArrayList<String> randomLetterList = new ArrayList<String>(Arrays.asList(ORIGINAL_LETTER_SET));
+
+
+    public final ArrayList<String> getRandomLetterVector(){
+        ArrayList<String> randomLetterList = new ArrayList<>(Arrays.asList(ORIGINAL_LETTER_SET));
         Collections.shuffle(randomLetterList, new Random(System.nanoTime()));
         return randomLetterList;
         
@@ -98,12 +111,38 @@ public class GameModel {
         this.dices = dices;
     }
 
-    public ArrayList<ArrayList<String>> getRandomLetterMatrix() {
-        return randomLetterMatrix;
+    public int[] throwDices() {
+        int randInt = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        this.dices[0] =  randInt;
+        
+        randInt = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        this.dices[0] = randInt;
+        return this.dices;
+    }
+    
+    public Piece[] getRandomPieceVector() {
+        return randomPieceVector;
     }
 
-    public void setRandomLetterMatrix(ArrayList<ArrayList<String>> randomLetterMatrix) {
-        this.randomLetterMatrix = randomLetterMatrix;
+    public void setRandomPieceVector(Piece[] randomPieceVector) {
+        this.randomPieceVector = randomPieceVector;
     }
-        
+
+    public Player getCurrentPlaying() {
+        return CURRENT_PLAYING;
+    }
+
+    public void setCurrentPlaying(Player CURRENT_PLAYING) {
+        this.CURRENT_PLAYING = CURRENT_PLAYING;
+    }
+
+    public ArrayList<Piece> getShowingPieceList() {
+        return showingPieceList;
+    }
+
+    public void setShowingPieceList(ArrayList<Piece> showingPieceList) {
+        this.showingPieceList = showingPieceList;
+    }
+    
+    
 }

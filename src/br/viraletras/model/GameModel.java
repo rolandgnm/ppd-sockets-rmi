@@ -17,6 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author Roland
  */
 public class GameModel {
+
     public static final String[] ORIGINAL_LETTER_SET = {
         "a","a","a","a","a","a","a",
         "e","e","e","e","e","e","e",
@@ -27,11 +28,10 @@ public class GameModel {
         "j","l","l","l","m","m",
         "n","n","p","p","qu",
         "r","r","r","s","s","s","s",
-        "t","t","v","v","x","z"
-    };
+        "t","t","v","v","x","z"};
 
-    //Não precisa inicializar
-    private Player CURRENT_PLAYING;
+    private Player CURRENT_PLAYING; //Não precisa inicializar
+
 
     private Player playerThis;
     private Player playerOpponent;

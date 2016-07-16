@@ -1,12 +1,15 @@
 package br.viraletras.view;
 
+import br.viraletras.controller.GameController;
+import br.viraletras.controller.GameControllerImpl;
 import br.viraletras.model.GameModel;
 
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.*;
 
 /**
  * Main window of the Vira Letras Game application.
@@ -70,7 +73,34 @@ public class GameFrame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        boardPanel = new br.viraletras.view.BoardPanelExtended(GameModel.ORIGINAL_LETTER_SET);
+        boardPanel = new br.viraletras.view.BoardPanelExtended(GameModel.ORIGINAL_LETTER_SET, new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                boardPanel.setPieceGoneAt(
+                        ((Integer) ((JLabel)e.getSource()).getClientProperty("pos"))
+                );
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         controlPanel = new br.viraletras.view.ControlPanelExtended();
         mainMenu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();

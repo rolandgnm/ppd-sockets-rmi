@@ -5,18 +5,10 @@
  */
 package br.viraletras.view;
 
-import br.viraletras.utils.RegexFormatter;
-
 import javax.swing.*;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
-import javax.swing.text.DefaultFormatter;
-import javax.swing.text.DefaultFormatterFactory;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -40,26 +32,36 @@ public class ControlPanelExtended extends javax.swing.JPanel {
 
         formatAndAddChildren();
 
-        addComponentListeners();
+        //TODO addComponentListeners(); Feito pelo Controller
 
     }
 
-    private void addComponentListeners() {
+    private void addComponentListeners(KeyListener wordGuessListener,
+                                       ActionListener btConfirmListener,
+                                       ActionListener btRejectListener,
+                                       ActionListener tfChatInputListener,
+                                       ActionListener btSendMessageListener
+        ) {
 
-//        tfWordGuess.setFormatterFactory(new DefaultFormatterFactory(new RegexFormatter("/[abc]/g").install(tfWordGuess)));
+        //Todo implementar sub-classes e descomentar aqui:
+        tfWordGuess.addKeyListener(wordGuessListener);
+        btConfirmWord.addActionListener(btConfirmListener);
+        btRejectWord.addActionListener(btRejectListener);
+        tfChatInput.addActionListener(tfChatInputListener);
+        btSendMessage.addActionListener(btSendMessageListener);
 
+
+//        //Todo A ser deletado quando implementar Listeners
 //        tfWordGuess.addKeyListener(new KeyListener() {
 //            @Override
 //            public void keyTyped(KeyEvent e) {
-//            //todo resolver characteres possíveis na Controller
-//                tfWordGuess.getText();
+//                //todo resolver characteres possíveis na Controller
+//                String letters = "abc";
+////                tfWordGuess.getText();
 //
-//                tfWordGuess.setText(
-//                        tfWordGuess.getText().matches("/[abc]/g") ?
-//                                "aaaaaaaaaaaaaaaaa"
-//                                :tfWordGuess.getText()
-//                );
-////                tfWordGuess.getText() + String.valueOf(e.getKeyChar());
+//                if (!letters.contains(String.valueOf(e.getKeyChar()))) {
+//                    e.setKeyChar(Character.MIN_VALUE);
+//                }
 //            }
 //
 //            @Override
@@ -72,47 +74,37 @@ public class ControlPanelExtended extends javax.swing.JPanel {
 //
 //            }
 //        });
-
-//        tfWordGuess.addCaretListener( e -> {
-//            ((JFormattedTextField) e.getSource()).getText();
-////            if (tfWordGuess.getText().matches("/[dfg]/g"))
-////                tfWordGuess.setText("not found");
-////            else
-////                tfWordGuess.setText("found");
-//        });
-
-        btConfirmWord.addActionListener(evt -> {
-            btConfirmWordActionPerformed(evt);
-            addMessageToChatConsole("## Confirmado ##");
-
-            //todo aplicar esse codigo ao virar de uma peça
-
-
-        });
-
-        btRejectWord.addActionListener(evt -> {
-            btRejectWordActionPerformed(evt);
-            addMessageToChatConsole("## Rejeitado ##");
-
-        });
-
-        tfChatInput.addActionListener(evt -> {
-            tfChatInputActionPerformed(evt);
-            addMessageToChatConsole(tfChatInput.getText());
-            tfChatInput.setText("");
-        });
-
-
-        btSendMessage.addActionListener(evt -> {
-            //todo implementar controller/conn
-            btSendMessageActionPerformed(evt);
-            addMessageToChatConsole(tfChatInput.getText());
-            tfChatInput.setText("");
-
-        });
+//
+//        btConfirmWord.addActionListener(evt -> {
+//            btConfirmWordActionPerformed(evt);
+//            addMessageToChatConsole("## Confirmado ##");
+//            //todo aplicar esse codigo ao virar de uma peça
+//            });
+//
+//        btRejectWord.addActionListener(evt -> {
+//            btRejectWordActionPerformed(evt);
+//            addMessageToChatConsole("## Rejeitado ##");
+//            });
+//
+//        tfChatInput.addActionListener(evt -> {
+//            tfChatInputActionPerformed(evt);
+//            addMessageToChatConsole(tfChatInput.getText());
+//            tfChatInput.setText("");
+//            });
+//
+//        btSendMessage.addActionListener(evt -> {
+//            //todo implementar controller/conn
+//            btSendMessageActionPerformed(evt);
+//            addMessageToChatConsole(tfChatInput.getText());
+//            tfChatInput.setText("");
+//            });
 
     }
 
+
+/*
+ *  Getter and Setters
+*/
     public void setPlayerThisScore(int thisScore) {
         this.lbMyScore.setText(Integer.toString(thisScore));
     }
@@ -326,27 +318,6 @@ public class ControlPanelExtended extends javax.swing.JPanel {
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
     }
 
-    private void tfWordGuessActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
-
-    private void btConfirmWordActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
-
-    private void btRejectWordActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
-    }                                            
-
-    private void btSendMessageActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-
-    }                                             
-
-    private void tfChatInputActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }
-
     private void initChildren() {
         scorePanel = new javax.swing.JPanel();
         lbMyScore = new javax.swing.JLabel();
@@ -360,8 +331,7 @@ public class ControlPanelExtended extends javax.swing.JPanel {
         lbDice2 = new javax.swing.JLabel();
         movesLabelPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tfWordGuess = new javax.swing.JFormattedTextField( new RegexFormatter("/[abc]/g"));
-//        tfWordGuess.setValue("aadf");
+        tfWordGuess = new JFormattedTextField();
         btConfirmWord = new javax.swing.JButton();
         btRejectWord = new javax.swing.JButton();
         chatPanel = new javax.swing.JPanel();

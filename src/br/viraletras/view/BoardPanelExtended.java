@@ -19,7 +19,6 @@ import java.util.ArrayList;
  */
 public class BoardPanelExtended extends javax.swing.JPanel {
 
-//    private ArrayList<JLabel> pieceLabelList;
     private String propertyField = "pos";
     private final int[] WHITE = {255,255,255};
     private final int[] BLUE = {41, 128, 185};
@@ -27,22 +26,21 @@ public class BoardPanelExtended extends javax.swing.JPanel {
     /**
      * Creates new form BoardLayout
      */
-    public BoardPanelExtended(String[] letterList) {
+    public BoardPanelExtended(String[] letterList, MouseListener pieceMouseListener) {
 
-        initComponents(letterList);
+        formatThisContainer();
+
+        initComponents(letterList, pieceMouseListener);
 
     }
 
     @SuppressWarnings("unchecked")
-    private void initComponents(String[] letterStrings) {
-
-        formatThisContainer();
-
+    private void initComponents(String[] letterStrings, MouseListener pieceMouseListener) {
 
         for (int i=0; i < 64; i++){
                 //TODO: Refatorar colocando valor via Controller/GameModel.
 //              Piece newPiece = new Piece(i, j,"A", Piece.State.SHOW);
-                add(getNewPieceLabel(letterStrings[i], i));
+                add(getNewPieceLabel(letterStrings[i], i, pieceMouseListener));
         }
 
     }
@@ -57,7 +55,7 @@ public class BoardPanelExtended extends javax.swing.JPanel {
         setLayout(new java.awt.GridLayout(8, 8, 10, 10));
     }
 
-    private JLabel getNewPieceLabel(String value, int pos) {
+    private JLabel getNewPieceLabel(String value, int pos, MouseListener pieceMouseListener) {
         JLabel pieceLabel = new JLabel();
 
         pieceLabel.setFont(new java.awt.Font("Lucida Grande", 0, 48));
@@ -69,43 +67,45 @@ public class BoardPanelExtended extends javax.swing.JPanel {
         pieceLabel.setOpaque(true);
         pieceLabel.setPreferredSize(new java.awt.Dimension(50, 50));
         pieceLabel.setSize(new java.awt.Dimension(65, 46));
+        setPieceHidden(pieceLabel);
+        pieceLabel.addMouseListener(pieceMouseListener);
         pieceLabel.putClientProperty(propertyField, pos);
 
-        setPieceHidden(pieceLabel);
-
-        pieceLabel.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-//                setPieceShowAt( (int)
-//                        ((JComponent) e.getSource())
-//                            .getClientProperty(propertyField));
-                //todo usar if pra desabilitar ou não labels
-                if(true) setPiecesEnabled(false);
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
+//TODO Inicializar Panels via Controller
+//                new MouseListener() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+////                setPieceShowAt( (int)
+////                        ((JComponent) e.getSource())
+////                            .getClientProperty(propertyField));
+//                //todo usar if pra desabilitar ou não labels
+//                if(true) setPiecesEnabled(false);
+//            }
+//
+//            @Override
+//            public void mousePressed(MouseEvent e) {
+//
+//            }
+//
+//            @Override
+//            public void mouseReleased(MouseEvent e) {
+//
+//            }
+//
+//            @Override
+//            public void mouseEntered(MouseEvent e) {
+//
+//            }
+//
+//            @Override
+//            public void mouseExited(MouseEvent e) {
+//
+//            }
+//        });
 
         return pieceLabel;
     }
+
 
 
 

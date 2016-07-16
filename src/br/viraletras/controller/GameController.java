@@ -1,20 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.viraletras.controller;
 
-import br.viraletras.model.GameModel;
-import br.viraletras.view.LaunchView;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
- *
- * @author Roland
+ * Created by Roland on 7/14/16.
  */
-public class GameController {
-    private GameModel gameModel;
-    private LaunchView launchView;
-    
-    
+public interface GameController {
+
+    void createStartUpWindow();
+    void getPlayerNameAndConnectionDetails();
+    void createConnection();
+
+    void addListerners();
+       void addListenersToControlPanel();
+       void addListenerToBoard();
+
+
+
 }

@@ -23,9 +23,6 @@ public class BoardPanelExtended extends javax.swing.JPanel {
     private final int[] WHITE = {255,255,255};
     private final int[] BLUE = {41, 128, 185};
 
-    /**
-     * Creates new form BoardLayout
-     */
     public BoardPanelExtended(String[] letterList, MouseListener pieceMouseListener) {
 
         formatThisContainer();
@@ -34,27 +31,18 @@ public class BoardPanelExtended extends javax.swing.JPanel {
 
     }
 
-    @SuppressWarnings("unchecked")
-    private void initComponents(String[] letterStrings, MouseListener pieceMouseListener) {
-
-        for (int i=0; i < 64; i++){
-                //TODO: Refatorar colocando valor via Controller/GameModel.
-//              Piece newPiece = new Piece(i, j,"A", Piece.State.SHOW);
-                add(getNewPieceLabel(letterStrings[i], i, pieceMouseListener));
+    public BoardPanelExtended(String inittialLetter, MouseListener pieceMouseListener) {
+        String[] letterList  =  new String[64];
+        for (int i =0; i<64; i++) {
+            letterList[i] = inittialLetter;
         }
+        formatThisContainer();
+
+        initComponents(letterList, pieceMouseListener);
 
     }
 
-    private void formatThisContainer() {
-        setBackground(new java.awt.Color(BLUE[0], BLUE[1], BLUE[2]));
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        setMaximumSize(new java.awt.Dimension(800, 800));
-        setMinimumSize(new java.awt.Dimension(700, 700));
-        setName("Vira Letras");
-        setPreferredSize(new java.awt.Dimension(700, 700));
-        setLayout(new java.awt.GridLayout(8, 8, 10, 10));
-    }
-
+    //Private Method:
     private JLabel getNewPieceLabel(String value, int pos, MouseListener pieceMouseListener) {
         JLabel pieceLabel = new JLabel();
 
@@ -106,6 +94,26 @@ public class BoardPanelExtended extends javax.swing.JPanel {
         return pieceLabel;
     }
 
+    @SuppressWarnings("unchecked")
+    private void initComponents(String[] letterStrings, MouseListener pieceMouseListener) {
+
+        for (int i=0; i < 64; i++){
+                //TODO: Refatorar colocando valor via Controller/GameModel.
+//              Piece newPiece = new Piece(i, j,"A", Piece.State.SHOW);
+                add(getNewPieceLabel(letterStrings[i], i, pieceMouseListener));
+        }
+
+    }
+
+    private void formatThisContainer() {
+        setBackground(new java.awt.Color(BLUE[0], BLUE[1], BLUE[2]));
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setMaximumSize(new java.awt.Dimension(800, 800));
+        setMinimumSize(new java.awt.Dimension(700, 700));
+        setName("Vira Letras");
+        setPreferredSize(new java.awt.Dimension(700, 700));
+        setLayout(new java.awt.GridLayout(8, 8, 10, 10));
+    }
 
 
 

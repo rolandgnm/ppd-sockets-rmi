@@ -16,9 +16,6 @@ import java.awt.event.KeyListener;
  */
 public class ControlPanelExtended extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ControlPanel
-     */
     public ControlPanelExtended() {
         initComponents();
         
@@ -36,7 +33,7 @@ public class ControlPanelExtended extends javax.swing.JPanel {
 
     }
 
-    private void addComponentListeners(KeyListener wordGuessListener,
+    public void addComponentListeners(KeyListener wordGuessListener,
                                        ActionListener btConfirmListener,
                                        ActionListener btRejectListener,
                                        ActionListener tfChatInputListener,
@@ -105,6 +102,11 @@ public class ControlPanelExtended extends javax.swing.JPanel {
 /*
  *  Getter and Setters
 */
+
+    public String getChatMessageInput() {
+        return tfChatInput.getText();
+    }
+
     public void setPlayerThisScore(int thisScore) {
         this.lbMyScore.setText(Integer.toString(thisScore));
     }
@@ -341,12 +343,15 @@ public class ControlPanelExtended extends javax.swing.JPanel {
         btSendMessage = new javax.swing.JButton();
     }
 
+    public void clearChatInputField() {
+        tfChatInput.setText("");
+    }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify
     private javax.swing.JButton btConfirmWord;
     private javax.swing.JButton btRejectWord;
     private javax.swing.JButton btSendMessage;
-    
+
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbDice1;
     private javax.swing.JLabel lbDice2;
@@ -354,21 +359,22 @@ public class ControlPanelExtended extends javax.swing.JPanel {
     private javax.swing.JLabel lbOpponentScore;
     private javax.swing.JLabel lbPlusSymbol;
     private javax.swing.JLabel lbVersusSymbol;
-    
+
     private javax.swing.JPanel centralPanel;
     private javax.swing.JPanel chatPanel;
     private javax.swing.JPanel diceNumbersPanel;
     private javax.swing.JPanel dicesContainerPanel;
     private javax.swing.JPanel movesLabelPanel;
     private javax.swing.JPanel scorePanel;
-    
+
     private javax.swing.JScrollPane jScrollPane1;
-    
-    
+
+
     private javax.swing.JTextArea taChatConsole;
     private javax.swing.JTextField tfChatInput;
     private javax.swing.JFormattedTextField tfWordGuess;
 
     private String regex = "/[abc]/g";
-    // End of variables declaration                   
+
+    // End of variables declaration
 }

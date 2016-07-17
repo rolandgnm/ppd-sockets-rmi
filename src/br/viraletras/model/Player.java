@@ -5,6 +5,8 @@
  */
 package br.viraletras.model;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
@@ -16,9 +18,20 @@ public class Player {
     private String name;
     private String ip;
     private int port;
+
     private int inGameScore;
     private int winScore;
-    private ArrayList<String> formedWords; 
+    private ArrayList<String> formedWords;
+
+    public Player() {
+
+        this.name = "";
+        generateLocalIp();
+        this.port = 0;
+        this.inGameScore = 0;
+        this.winScore = 0;
+        this.formedWords = new ArrayList<>();
+    }
 
     public Player(String name, String ip, int port) {
         this.name = name;
@@ -28,6 +41,21 @@ public class Player {
         this.winScore = 0;
         this.formedWords = new ArrayList<>();
     }
+
+
+    public void generateLocalIp() {
+        String netInterface = null;
+        try {
+            netInterface = InetAddress.getLocalHost().toString();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        String ip = netInterface.split("/")[1];
+        this.ip = ip;
+
+    }
+
 
     public String getName() {
         return name;

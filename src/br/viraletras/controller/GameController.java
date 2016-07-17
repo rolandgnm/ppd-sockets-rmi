@@ -7,14 +7,17 @@ import java.awt.event.KeyListener;
  * Created by Roland on 7/14/16.
  */
 public interface GameController {
+    void newChatMessage(String s);
 
-    void createStartUpWindow();
-    void getPlayerNameAndConnectionDetails();
-    void createConnection();
+    void setOpponentName(String s);
 
-    void addListerners();
-       void addListenersToControlPanel();
-       void addListenerToBoard();
+//    void createLaunchWindow();
+//    void getPlayerNameAndConnectionDetails();
+//    void createConnection();
+//
+//    void addListerners();
+//       void addListenersToControlPanel();
+//       void addListenerToBoard();
 
 
 

@@ -4,6 +4,7 @@ import br.viraletras.model.GameModel;
 import br.viraletras.model.Player;
 import br.viraletras.service.ConnectionService;
 import br.viraletras.service.ConnectionServiceImpl;
+import br.viraletras.utils.Utils;
 import br.viraletras.view.*;
 
 import javax.swing.*;
@@ -132,7 +133,7 @@ public class GameControllerImpl implements GameController {
             );
             IS_SERVER = viewCD.isServer();
             String ip = viewCD.getIp().trim();
-            int port = viewCD.getPort().isEmpty() ? 0 : Integer.valueOf(viewCD.getPort());
+            int port = viewCD.getPort().trim().isEmpty() ? 0 : Integer.valueOf(viewCD.getPort());
 
             if (!establishConnection(ip, port)) {
                 viewCD.displayErrorMessage("Não foi possível conectar!");
@@ -189,7 +190,7 @@ public class GameControllerImpl implements GameController {
 
             }
         } catch (IOException e1) {
-            System.out.printf(e1.toString());
+            Utils.log(e1.toString());
             return false;
         }
 
@@ -208,14 +209,14 @@ public class GameControllerImpl implements GameController {
                 new RejectButtonListener(),
                 new ChatInputListener(),
                 new ChatInputListener()
-                );
+        );
 
 
     }
 
     @Override
     public void newChatMessage(String s) {
-        System.out.print(s);
+        Utils.log(s);
         viewControl.addMessageToChatConsole(s);
     }
 

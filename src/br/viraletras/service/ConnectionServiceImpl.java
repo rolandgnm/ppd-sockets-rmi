@@ -2,6 +2,7 @@ package br.viraletras.service;
 
 import br.viraletras.controller.GameController;
 import br.viraletras.controller.GameControllerImpl;
+import br.viraletras.utils.Utils;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -20,10 +21,10 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
         this.controller = controller;
 
         serverSocket = new ServerSocket(port);
-        print("Aguardando conexão...");
+        Utils.log("Aguardando conexão...");
         socket = serverSocket.accept();
         socket.setKeepAlive(true);
-        print("Conexão Estabelecida." + String.valueOf(port));
+        Utils.log("Conexão Estabelecida." + String.valueOf(port));
         ostream = new DataOutputStream(socket.getOutputStream());
         istream = new DataInputStream(socket.getInputStream());
         this.start();
@@ -36,7 +37,7 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
         this.controller = controller;
 
         socket = new Socket(ip, port);
-        print("Conexão Estabelecida.");
+        Utils.log("Conexão Estabelecida.");
         socket.setKeepAlive(true);
         ostream = new DataOutputStream(socket.getOutputStream());
         istream = new DataInputStream(socket.getInputStream());
@@ -50,13 +51,14 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
                 MRcv = istream.readUTF();
                 handleInputMessage(MRcv);
             } catch (Exception e) {
-                print(e.getMessage());
+                Utils.log(e.getMessage());
+                //TODO informar usuários de problema e fechar tela.
             }
         }
     }
 
     void handleInputMessage(String msg) {
-        print(msg);
+        Utils.log(msg);
         splitMsg = msg.split(Codes.SPLIT_SIGNAL.toString());
         String teste = splitMsg[0];
         Codes code = Codes.getByCode(teste);
@@ -78,7 +80,7 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
             String msg = Codes.OPPONENT_NAME.toString() +
                     Codes.SPLIT_SIGNAL +
                     name;
-            print(msg);
+            Utils.log(msg);
 
             ostream.writeUTF(msg);
             ostream.flush();
@@ -93,7 +95,7 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
             String msg = Codes.CHAT_MESSAGE.toString() +
                     Codes.SPLIT_SIGNAL.toString() +
                     text;
-            print(msg);
+            Utils.log(msg);
             ostream.writeUTF(msg);
             ostream.flush();
         } catch (IOException e) {
@@ -101,33 +103,10 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
         }
     }
 
-    void print(String s) {
-        System.out.printf(s + "\n");
-    }
 
-
-    //    enum Codes {
-//        SS  ("SPLIT_SIGNAL"),
-//        CM  ("CHAT_MESSAGE"),
-//        ON  ("OPPONENT_NAME"),
-//        BP  ("BOARD_PIECES"),
-//        NP  ("NOW_PLAYING"),
-//        SP  ("SHOW_PIECE"),
-//        HP  ("HIDE_PIECE"),
-//        ;
-//        String code;
-//
-//
-//        Codes(String code) {
-//            this.code = code;
-//        }
-//
-//        public String toString() {
-//            return code;
-//        }
-//    }
     enum Codes {
         SPLIT_SIGNAL("#S#"),
+
         CHAT_MESSAGE("CM"),
         OPPONENT_NAME("ON"),
         BOARD_PIECES("BP"),

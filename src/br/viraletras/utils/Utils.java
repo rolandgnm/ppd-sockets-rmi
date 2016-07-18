@@ -1,5 +1,10 @@
 package br.viraletras.utils;
 
+import jdk.nashorn.internal.scripts.JO;
+
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Created by Roland on 7/17/16.
  */
@@ -7,4 +12,9 @@ public class Utils {
     public static void log(String s) {
         System.out.printf(s + "\n");
     }
+
+    public static void displayErrorDialog(Component parent, String errMessage){
+        JOptionPane.showMessageDialog(parent, errMessage);
+    }
+
 }

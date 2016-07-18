@@ -11,6 +11,8 @@ public interface GameController {
 
     void setOpponentName(String s);
 
+    void notifyViewConnectionLost();
+
 //    void createLaunchWindow();
 //    void getPlayerNameAndConnectionDetails();
 //    void createConnection();

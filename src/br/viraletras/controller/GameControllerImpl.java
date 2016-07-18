@@ -34,10 +34,16 @@ public class GameControllerImpl implements GameController {
         viewControl = new ControlPanelExtended();
         gameWindow = new GameFrameExtended(viewBoard, viewControl);
 
+        addListenersToViews();
         viewCD.setVisible(true);
-        viewCD.addConnectionDetailsListener(new ConnectDetailsListener());
     }
 
+    public void addListenersToViews(){
+        viewCD.addConnectionDetailsListener(new ConnectDetailsListener());
+        gameWindow.addGameWindowListener(new GameWindowClosedListener());
+        //TODO Board Listener
+        //TODO Control Listeners
+    }
 
     class WordGuessListener implements KeyListener {
         @Override
@@ -120,23 +126,35 @@ public class GameControllerImpl implements GameController {
         }
     }
 
+    public class GameWindowClosedListener extends WindowAdapter {
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            serviceGame.notifyConnectionLost(
+                gameModel.getPlayerThis().getName() +
+                " Fechou a janela! Fim de jogo!"
+                );
+            System.exit(0);
+        }
+    }
+
 
     class ConnectDetailsListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            IS_SERVER = viewCD.isServer();
             viewCD.setEnabled(false);
             gameModel.getPlayerThis().setName(
                     viewCD.getPlayerName().isEmpty() ?
-                            "Player 1" :
+                            ( IS_SERVER? "Server" : "Client" ) :
                             viewCD.getPlayerName()
             );
-            IS_SERVER = viewCD.isServer();
             String ip = viewCD.getIp().trim();
             int port = viewCD.getPort().trim().isEmpty() ? 0 : Integer.valueOf(viewCD.getPort());
 
             if (!establishConnection(ip, port)) {
-                viewCD.displayErrorMessage("Não foi possível conectar!");
+                Utils.displayErrorDialog(viewCD,"Não foi possível conectar!");
                 viewCD.setSetupButtonText("Conectar");
                 viewCD.setEnabled(true);
                 return;
@@ -223,5 +241,13 @@ public class GameControllerImpl implements GameController {
     @Override
     public void setOpponentName(String s) {
         gameModel.getPlayerOpponent().setName(s);
+    }
+
+    @Override
+    public void notifyViewConnectionLost() {
+        gameWindow.setVisible(false);
+        gameWindow.dispose();
+        Utils.displayErrorDialog(null, "Conexão perdida!");
+        System.exit(0);
     }
 }

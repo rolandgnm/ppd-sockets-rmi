@@ -70,49 +70,54 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
             case OPPONENT_NAME:
                 controller.setOpponentName(splitMsg[1]);
                 break;
+            case CONNECTION_LOST:
+                controller.notifyViewConnectionLost();
+
         }
 
+    }
+
+    public void notifyPeer(Codes msgType, String content) {
+        try {
+            String msg = msgType.toString() +
+                    Codes.SPLIT_SIGNAL +
+                    content;
+            Utils.log(msg);
+
+            ostream.writeUTF(msg);
+            ostream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void sendThisPlayerName(String name) {
-        try {
-            String msg = Codes.OPPONENT_NAME.toString() +
-                    Codes.SPLIT_SIGNAL +
-                    name;
-            Utils.log(msg);
-
-            ostream.writeUTF(msg);
-            ostream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        notifyPeer(Codes.OPPONENT_NAME, name);
     }
 
     @Override
     public void sendNewMessage(String text) {
-        try {
-            String msg = Codes.CHAT_MESSAGE.toString() +
-                    Codes.SPLIT_SIGNAL.toString() +
-                    text;
-            Utils.log(msg);
-            ostream.writeUTF(msg);
-            ostream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        notifyPeer(Codes.CHAT_MESSAGE, text);
+    }
+
+    @Override
+    public void notifyConnectionLost(String dialog) {
+        notifyPeer(Codes.CONNECTION_LOST, dialog);
     }
 
 
     enum Codes {
         SPLIT_SIGNAL("#S#"),
-
         CHAT_MESSAGE("CM"),
         OPPONENT_NAME("ON"),
+        CONNECTION_LOST("CL"),
         BOARD_PIECES("BP"),
         NOW_PLAYING("NP"),
         SHOW_PIECE("SP"),
-        HIDE_PIECE("HP");
+        HIDE_PIECE("HP"),
+
+        ;
 
         String code;
 

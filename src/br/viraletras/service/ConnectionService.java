@@ -8,4 +8,6 @@ public interface ConnectionService {
     void sendThisPlayerName(String name);
 
     void sendNewMessage(String chatMessageInput);
+
+    void notifyConnectionLost(String msg);
 }

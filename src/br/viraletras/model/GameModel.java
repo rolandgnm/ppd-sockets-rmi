@@ -35,7 +35,7 @@ public class GameModel {
 
     private Player playerThis;
     private Player playerOpponent;
-    private int [] dices;
+    private int dices;
     private Piece[] randomPieceVector;
     private ArrayList<Piece> showingPieceList;
     private String wordGuess;
@@ -44,7 +44,7 @@ public class GameModel {
         this.playerThis = playerThis;
         this.playerOpponent = playerOpponent;
         this.wordGuess = "";
-        this.dices = new int[]{0, 0};
+        this.dices = 0;
         this.randomPieceVector = new Piece[64];
         this.showingPieceList = new ArrayList<>();
         
@@ -103,20 +103,17 @@ public class GameModel {
         this.playerOpponent = playerOpponent;
     }
 
-    public int[] getDices() {
+    public int getDices() {
         return dices;
     }
 
-    public void setDices(int[] dices) {
+    public void setDices(int dices) {
         this.dices = dices;
     }
 
-    public int[] throwDices() {
-        int randInt = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        this.dices[0] =  randInt;
-        
-        randInt = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        this.dices[0] = randInt;
+    public int throwDices() {
+        int randInt = ThreadLocalRandom.current().nextInt(1, 12 + 1);
+        this.dices =  randInt;
         return this.dices;
     }
     

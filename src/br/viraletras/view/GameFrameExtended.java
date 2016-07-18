@@ -1,8 +1,7 @@
 package br.viraletras.view;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Toolkit;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -52,12 +51,6 @@ public class GameFrameExtended extends JFrame {
         setSize(new java.awt.Dimension(1200, 750));
 
         //todo: avisar outro peer sobre tela fechada.
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                exitForm(evt);
-            }
-        });
-
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         getContentPane().add(boardPanel);
@@ -89,7 +82,11 @@ public class GameFrameExtended extends JFrame {
         mainMenu.add(fileMenu);
 
         setJMenuBar(mainMenu);
-    }// </editor-fold>                        
+    }
+
+    public void addGameWindowListener(WindowAdapter wl) {
+        addWindowListener(wl);
+    }
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {                                              
         new About(this).setVisible(true);
@@ -98,10 +95,6 @@ public class GameFrameExtended extends JFrame {
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {                                             
         System.exit(0);
     }                                            
-
-    private void exitForm(java.awt.event.WindowEvent evt) {                          
-        System.exit(0);
-    }                         
 
     // Variables declaration - do not modify                     
     private JMenuItem aboutMenuItem;

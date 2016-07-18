@@ -95,9 +95,6 @@ public class ConnectionDetailsView extends JFrame{
         this.lbConnMessage.setText(connMessage);
     }
 
-    public void displayErrorMessage(String errMessage){
-        JOptionPane.showMessageDialog(this, errMessage);
-    }
 
 
 

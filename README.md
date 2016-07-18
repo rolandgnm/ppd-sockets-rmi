@@ -8,6 +8,6 @@
 
 ##Tools
 * NetBeans 8.1 (Constução da interface) 
-* IntelliJ IDEA CE 2016.3 (finalização) 
+* IntelliJ IDEA CE 2016.1.3 (finalização) 
 * Java 8 (jdk1.8.0_92.jdk)
 

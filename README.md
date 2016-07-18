@@ -11,3 +11,4 @@
 * IntelliJ IDEA CE 2016.1.3 (finalização) 
 * Java 8 (jdk1.8.0_92.jdk)
 
+###### especial thanks to [Derek Banas](https://www.youtube.com/watch?v=dTVVa2gfht8)

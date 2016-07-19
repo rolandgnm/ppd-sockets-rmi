@@ -6,7 +6,6 @@
 package br.viraletras.model;
 
 /**
- *
  * @author Roland
  */
 public class Piece {
@@ -18,21 +17,28 @@ public class Piece {
         this.position = position;
         this.letter = letter;
         this.state = state;
-        
+
         this.setViewStateBy(this.state);
-        
-        
-        
+
+
     }
-  
-    public void setViewStateBy(State state){
-        switch(state) { 
-            case HIDDEN: this.setHidden();
-                        break;
-            case SHOW:  this.setShow();
-                        break;
-            case GONE: this.setGone();
-                        break;
+
+    @Override
+    public String toString() {
+        return letter;
+    }
+
+    public void setViewStateBy(State state) {
+        switch (state) {
+            case HIDDEN:
+                this.setHidden();
+                break;
+            case SHOW:
+                this.setShow();
+                break;
+            case GONE:
+                this.setGone();
+                break;
         }
     }
 
@@ -67,17 +73,17 @@ public class Piece {
     public void setShow() {
         this.state = State.SHOW;
     }
-    
+
     public void setGone() {
         this.state = State.GONE;
     }
 
-    
-    public enum State { 
-        HIDDEN ("HIDDEN", true),
-        SHOW ("SHOW", true), 
-        GONE ("GONE", false);
-        
+
+    public enum State {
+        HIDDEN("HIDDEN", true),
+        SHOW("SHOW", true),
+        GONE("GONE", false);
+
         private String state;
         private boolean onBoard;
 
@@ -91,6 +97,6 @@ public class Piece {
             return "name=" + state + ", onBoard=" + onBoard;
         }
     }
-    
-    
+
+
 }

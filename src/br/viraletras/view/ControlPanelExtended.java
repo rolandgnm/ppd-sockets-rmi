@@ -7,7 +7,6 @@ package br.viraletras.view;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
@@ -29,17 +28,38 @@ public class ControlPanelExtended extends JPanel {
 
         formatAndAddChildren();
 
-        setEntryPointsEnabled(false);
-
-        //TODO addComponentListeners(); Feito pelo Controller
+        setModeThrowDices();
 
     }
 
-    private void setEntryPointsEnabled(boolean enabled) {
-        tfWordGuess.setEnabled(enabled);
-        btConfirmWord.setEnabled(enabled);
-        btRejectWord.setEnabled(enabled);
+    public void setModeThrowDices() {
+        tfWordGuess.setEnabled(false);
+        btConfirmWord.setEnabled(true);
+            btConfirmWord.setText("Jogar dados!");
+        btRejectWord.setEnabled(false);
     }
+
+    public void setModeNowPlaying() {
+        tfWordGuess.setEnabled(true);
+        btConfirmWord.setEnabled(true);
+            btConfirmWord.setText("Enviar");
+        btRejectWord.setEnabled(false);
+    }
+
+    public void setModeNowWaiting(){
+        tfWordGuess.setEnabled(false);
+        btConfirmWord.setEnabled(false);
+        btRejectWord.setEnabled(false);
+    }
+
+    public void setModeNowConfirming(){
+        tfWordGuess.setEnabled(false);
+        btConfirmWord.setEnabled(true);
+            btConfirmWord.setText("Confirmar");
+        btRejectWord.setEnabled(true);
+            btRejectWord.setText("Rejeitar");
+    }
+
 
     public void addComponentListeners(KeyListener wordGuessListener,
                                        ActionListener btConfirmListener,
@@ -123,34 +143,17 @@ public class ControlPanelExtended extends JPanel {
         this.lbOpponentScore.setText(Integer.toString(opponentScore));
     }
 
-    public void setDice1(int d1 ) {
-        this.lbDice1.setText(Integer.toString(d1));
-    }
-
-    public void setDice2(int d2) {
-        this.lbDice2.setText(Integer.toString(d2));
-    }
-
-    public void setEnabledWordGuessTextArea(boolean enabled) {
-        this.tfWordGuess.setEnabled(enabled);
-    }
-
-    public void setEnabledCorfirmWordGuessButton(boolean enabled) {
-        this.btConfirmWord.setEnabled(enabled);
-    }
-
-    public void setEnabledRejectWordGuessButton(boolean enabled) {
-        this.btRejectWord.setEnabled(enabled);
-    }
-
     public void addMessageToChatConsole(String message) {
         this.taChatConsole.setText(taChatConsole.getText()
                 + "\n" + message);
     }
 
-    public void formatWordGuessRegex(String permittedChars) {
-//        tfWordGuess.add
+    public JLabel getLbDices() {
+        return lbDices;
+    }
 
+    public void setLbDices(JLabel lbDices) {
+        this.lbDices = lbDices;
     }
 
     private void formatAndAddChildren() {
@@ -193,26 +196,13 @@ public class ControlPanelExtended extends JPanel {
         diceNumbersPanel.setBorder(BorderFactory.createEmptyBorder(1, 15, 1, 15));
         diceNumbersPanel.setLayout(new java.awt.GridLayout(1, 0, 25, 0));
 
-//        lbDice1.setFont(new java.awt.Font("Lucida Grande", 1, 48)); // NOI18N
-//        lbDice1.setForeground(new java.awt.Color(255, 255, 255));
-//        lbDice1.setHorizontalAlignment(SwingConstants.CENTER);
-//        lbDice1.setText("0");
-//        lbDice1.setHorizontalTextPosition(SwingConstants.CENTER);
-//        diceNumbersPanel.add(lbDice1);
+        lbDices.setFont(new java.awt.Font("Lucida Grande", 1, 48)); // NOI18N
+        lbDices.setForeground(new java.awt.Color(255, 255, 255));
+        lbDices.setHorizontalAlignment(SwingConstants.CENTER);
+        lbDices.setText("12");
+        lbDices.setHorizontalTextPosition(SwingConstants.CENTER);
+        diceNumbersPanel.add(lbDices);
 
-        lbPlusSymbol.setFont(new java.awt.Font("Lucida Grande", 1, 48)); // NOI18N
-        lbPlusSymbol.setForeground(new java.awt.Color(255, 255, 255));
-        lbPlusSymbol.setHorizontalAlignment(SwingConstants.CENTER);
-        lbPlusSymbol.setText("12");
-        lbPlusSymbol.setHorizontalTextPosition(SwingConstants.CENTER);
-        diceNumbersPanel.add(lbPlusSymbol);
-
-//        lbDice2.setFont(new java.awt.Font("Lucida Grande", 1, 48)); // NOI18N
-//        lbDice2.setForeground(new java.awt.Color(255, 255, 255));
-//        lbDice2.setHorizontalAlignment(SwingConstants.CENTER);
-//        lbDice2.setText("0");
-//        lbDice2.setHorizontalTextPosition(SwingConstants.CENTER);
-//        diceNumbersPanel.add(lbDice2);
 
         dicesContainerPanel.add(diceNumbersPanel);
 
@@ -336,9 +326,7 @@ public class ControlPanelExtended extends JPanel {
         centralPanel = new JPanel();
         dicesContainerPanel = new JPanel();
         diceNumbersPanel = new JPanel();
-        lbDice1 = new JLabel();
-        lbPlusSymbol = new JLabel();
-        lbDice2 = new JLabel();
+        lbDices = new JLabel();
         movesLabelPanel = new JPanel();
         jLabel1 = new JLabel();
         tfWordGuess = new JFormattedTextField();
@@ -355,17 +343,14 @@ public class ControlPanelExtended extends JPanel {
         tfChatInput.setText("");
     }
 
-    // Variables declaration - do not modify
     private JButton btConfirmWord;
     private JButton btRejectWord;
     private JButton btSendMessage;
 
     private JLabel jLabel1;
-    private JLabel lbDice1;
-    private JLabel lbDice2;
     private JLabel lbMyScore;
     private JLabel lbOpponentScore;
-    private JLabel lbPlusSymbol;
+    private JLabel lbDices;
     private JLabel lbVersusSymbol;
 
     private JPanel centralPanel;
@@ -381,8 +366,4 @@ public class ControlPanelExtended extends JPanel {
     private JTextArea taChatConsole;
     private JTextField tfChatInput;
     private JFormattedTextField tfWordGuess;
-
-    private String regex = "/[abc]/g";
-
-    // End of variables declaration
 }

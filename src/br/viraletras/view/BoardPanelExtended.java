@@ -14,13 +14,12 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 /**
- *
  * @author Roland
  */
 public class BoardPanelExtended extends javax.swing.JPanel {
 
-    private String propertyField = "pos";
-    private final int[] WHITE = {255,255,255};
+    public static final  String propertyField = "pos";
+    private final int[] WHITE = {255, 255, 255};
     private final int[] BLUE = {41, 128, 185};
 
     public BoardPanelExtended(String[] letterList, MouseListener pieceMouseListener) {
@@ -32,8 +31,8 @@ public class BoardPanelExtended extends javax.swing.JPanel {
     }
 
     public BoardPanelExtended(String inittialLetter, MouseListener pieceMouseListener) {
-        String[] letterList  =  new String[64];
-        for (int i =0; i<64; i++) {
+        String[] letterList = new String[64];
+        for (int i = 0; i < 64; i++) {
             letterList[i] = inittialLetter;
         }
         formatThisContainer();
@@ -97,10 +96,10 @@ public class BoardPanelExtended extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     private void initComponents(String[] letterStrings, MouseListener pieceMouseListener) {
 
-        for (int i=0; i < 64; i++){
-                //TODO: Refatorar colocando valor via Controller/GameModel.
+        for (int i = 0; i < 64; i++) {
+            //TODO: Refatorar colocando valor via Controller/GameModel.
 //              Piece newPiece = new Piece(i, j,"A", Piece.State.SHOW);
-                add(getNewPieceLabel(letterStrings[i], i, pieceMouseListener));
+            add(getNewPieceLabel(letterStrings[i], i, pieceMouseListener));
         }
 
     }
@@ -115,29 +114,27 @@ public class BoardPanelExtended extends javax.swing.JPanel {
         setLayout(new java.awt.GridLayout(8, 8, 10, 10));
     }
 
-
-
     public void setPieceHidden(JLabel jLabel) {
-            jLabel.setBackground(new Color(WHITE[0], WHITE[1], WHITE[2]));
-            jLabel.setForeground(new Color(WHITE[0], WHITE[1], WHITE[2]));
+        jLabel.setBackground(new Color(WHITE[0], WHITE[1], WHITE[2]));
+        jLabel.setForeground(new Color(WHITE[0], WHITE[1], WHITE[2]));
     }
 
     public void setPieceHiddenAt(int position) {
         JLabel piece = (JLabel) getComponent(position);
-            piece.setBackground(new java.awt.Color(WHITE[0], WHITE[1], WHITE[2]));
-            piece.setForeground(new java.awt.Color(WHITE[0], WHITE[1], WHITE[2]));
+        piece.setBackground(new java.awt.Color(WHITE[0], WHITE[1], WHITE[2]));
+        piece.setForeground(new java.awt.Color(WHITE[0], WHITE[1], WHITE[2]));
     }
 
     public void setPieceShowAt(int position) {
         JLabel piece = (JLabel) getComponent(position);
-            piece.setBackground(new java.awt.Color(WHITE[0], WHITE[1], WHITE[2]));
-            piece.setForeground(new java.awt.Color(BLUE[0], BLUE[1], BLUE[2]));
+        piece.setBackground(new java.awt.Color(WHITE[0], WHITE[1], WHITE[2]));
+        piece.setForeground(new java.awt.Color(BLUE[0], BLUE[1], BLUE[2]));
     }
 
     public void setPieceGoneAt(int position) {
         JLabel piece = (JLabel) getComponent(position);
-            piece.setBackground(new java.awt.Color(BLUE[0], BLUE[1], BLUE[2]));
-            piece.setForeground(new java.awt.Color(BLUE[0], BLUE[1], BLUE[2]));
+        piece.setBackground(new java.awt.Color(BLUE[0], BLUE[1], BLUE[2]));
+        piece.setForeground(new java.awt.Color(BLUE[0], BLUE[1], BLUE[2]));
     }
 
     public int getLabelIndex(JLabel jLabel) {
@@ -147,7 +144,7 @@ public class BoardPanelExtended extends javax.swing.JPanel {
     public void setPiecesEnabled(boolean enabled) {
 //todo: implementar se preciso
         Component[] comps = getComponents();
-        for (Component comp:comps){
+        for (Component comp : comps) {
             comp.setEnabled(enabled);
         }
 
@@ -156,7 +153,10 @@ public class BoardPanelExtended extends javax.swing.JPanel {
     }
 
 
-
-
-
+    public void populatePieces(String[] randomPieceVector) {
+        int i = 0;
+        for (String letter : randomPieceVector) {
+            ((JLabel) getComponent(i++)).setText(letter);
+        }
+    }
 }

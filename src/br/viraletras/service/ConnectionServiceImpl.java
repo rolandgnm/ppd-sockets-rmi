@@ -15,14 +15,25 @@ import java.net.Socket;
  */
 public class ConnectionServiceImpl extends Thread implements ConnectionService {
 
+    private int timeoutInSeconds;
+
     //Server
     public ConnectionServiceImpl(int port, GameControllerImpl controller) throws IOException {
         this.port = port;
         this.controller = controller;
+        this.timeoutInSeconds = 30;
 
         serverSocket = new ServerSocket(port);
+        serverSocket.setSoTimeout(1000 * timeoutInSeconds);
+        serverSocket.setReuseAddress(true);
         Utils.log("Aguardando conexão...");
-        socket = serverSocket.accept();
+        try {
+            socket = serverSocket.accept();
+        } catch (IOException e) {
+            e.printStackTrace();
+            serverSocket.close();
+            throw e;
+        }
         socket.setKeepAlive(true);
         Utils.log("Conexão Estabelecida." + String.valueOf(port));
         ostream = new DataOutputStream(socket.getOutputStream());
@@ -72,7 +83,13 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
                 break;
             case CONNECTION_LOST:
                 controller.notifyViewConnectionLost();
-
+                break;
+            case BOARD_PIECES:
+                controller.createBoardPiecesAndCallPopulate(splitMsg[1]);
+                break;
+            case FLIP_PIECE:
+                controller.flipPieceAt(Integer.valueOf(splitMsg[1]));
+                break;
         }
 
     }
@@ -106,6 +123,16 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
         notifyPeer(Codes.CONNECTION_LOST, dialog);
     }
 
+    @Override
+    public void sendPieces(String randomPieces) {
+        notifyPeer(Codes.BOARD_PIECES, randomPieces);
+    }
+
+    @Override
+    public void notifyPieceFlipped(int position) {
+        notifyPeer(Codes.FLIP_PIECE, String.valueOf(position));
+    }
+
 
     enum Codes {
         SPLIT_SIGNAL("#S#"),
@@ -114,10 +141,8 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
         CONNECTION_LOST("CL"),
         BOARD_PIECES("BP"),
         NOW_PLAYING("NP"),
-        SHOW_PIECE("SP"),
-        HIDE_PIECE("HP"),
-
-        ;
+        FLIP_PIECE("FP"),
+        HIDE_PIECE("HP"),;
 
         String code;
 

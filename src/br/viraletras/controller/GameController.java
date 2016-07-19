@@ -13,6 +13,11 @@ public interface GameController {
 
     void notifyViewConnectionLost();
 
+    void createBoardPiecesAndCallPopulate(String randomPiecesString);
+
+    void flipPieceAt(int position);
+
+
 //    void createLaunchWindow();
 //    void getPlayerNameAndConnectionDetails();
 //    void createConnection();

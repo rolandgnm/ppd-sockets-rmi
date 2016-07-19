@@ -1,6 +1,7 @@
 package br.viraletras.controller;
 
 import br.viraletras.model.GameModel;
+import br.viraletras.model.GameState;
 import br.viraletras.model.Player;
 import br.viraletras.service.ConnectionService;
 import br.viraletras.service.ConnectionServiceImpl;
@@ -17,8 +18,10 @@ import java.io.IOException;
 //todo retirar abstract
 public class GameControllerImpl implements GameController {
 
+    private final String LOCALHOST = "localhost";
     boolean IS_SERVER = false;
-    private int DEFAULT_PORT = 9999;
+    private GameState gameState;
+    private final int DEFAULT_PORT = 9999;
     private GameModel gameModel;
     private ConnectionDetailsView viewCD;
     private GameFrameExtended gameWindow;
@@ -38,14 +41,51 @@ public class GameControllerImpl implements GameController {
         viewCD.setVisible(true);
     }
 
-    public void addListenersToViews(){
+    public void addListenersToViews() {
         viewCD.addConnectionDetailsListener(new ConnectDetailsListener());
         gameWindow.addGameWindowListener(new GameWindowClosedListener());
-        //TODO Board Listener
-        //TODO Control Listeners
+        //TODO Board Listener set via constructor;
+        viewControl.addComponentListeners(
+                new WordGuessListener(),
+                new ConfirmButtonListener(),
+                new RejectButtonListener(),
+                new ChatInputListener(),
+                new ChatInputListener()
+        );
+
     }
 
-    class WordGuessListener implements KeyListener {
+
+    private class ConnectDetailsListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            IS_SERVER = viewCD.isServer();
+            viewCD.setEnabled(false);
+            gameModel.getPlayerThis().setName(
+                    viewCD.getPlayerName().isEmpty() ?
+                            (IS_SERVER ? "Server" : "Client") :
+                            viewCD.getPlayerName()
+            );
+            String ip = viewCD.getIp().trim();
+            int port = viewCD.getPort().trim().isEmpty() ? 0 : Integer.valueOf(viewCD.getPort());
+
+            if (!establishConnection(ip, port)) {
+                Utils.displayErrorDialog(viewCD, "Não foi possível conectar!");
+                viewCD.setSetupButtonText("Conectar");
+                viewCD.setEnabled(true);
+                return;
+            }
+
+            gameWindow.setTitle("Vira Letras - " +
+                    gameModel.getPlayerThis().getName());
+
+            initGame();
+
+        }
+    }
+
+    private class WordGuessListener implements KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {
             //TODO LISTENER DO WORDGUESS
@@ -62,7 +102,7 @@ public class GameControllerImpl implements GameController {
         }
     }
 
-    class ConfirmButtonListener implements ActionListener {
+    private class ConfirmButtonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -70,7 +110,7 @@ public class GameControllerImpl implements GameController {
         }
     }
 
-    class RejectButtonListener implements ActionListener {
+    private class RejectButtonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -78,7 +118,7 @@ public class GameControllerImpl implements GameController {
         }
     }
 
-    class ChatInputListener implements ActionListener {
+    private class ChatInputListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -93,7 +133,7 @@ public class GameControllerImpl implements GameController {
         }
     }
 
-    class PieceMouseListener implements MouseListener {
+    private class PieceMouseListener implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -101,7 +141,14 @@ public class GameControllerImpl implements GameController {
 //                        ((JComponent) e.getSource())
 //                            .getClientProperty(propertyField));
             //todo usar if pra desabilitar ou não labels
-            if (true) viewBoard.setPiecesEnabled(false);
+
+            int position = (Integer) ((JLabel) e.getSource())
+                    .getClientProperty(BoardPanelExtended.propertyField);
+
+            flipPieceAt(position);
+
+            serviceGame.notifyPieceFlipped(position);
+
 
         }
 
@@ -126,42 +173,15 @@ public class GameControllerImpl implements GameController {
         }
     }
 
-    public class GameWindowClosedListener extends WindowAdapter {
+    private class GameWindowClosedListener extends WindowAdapter {
 
         @Override
         public void windowClosing(WindowEvent e) {
             serviceGame.notifyConnectionLost(
-                gameModel.getPlayerThis().getName() +
-                " Fechou a janela! Fim de jogo!"
-                );
-            System.exit(0);
-        }
-    }
-
-
-    class ConnectDetailsListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            IS_SERVER = viewCD.isServer();
-            viewCD.setEnabled(false);
-            gameModel.getPlayerThis().setName(
-                    viewCD.getPlayerName().isEmpty() ?
-                            ( IS_SERVER? "Server" : "Client" ) :
-                            viewCD.getPlayerName()
+                    gameModel.getPlayerThis().getName() +
+                            " Fechou a janela! Fim de jogo!"
             );
-            String ip = viewCD.getIp().trim();
-            int port = viewCD.getPort().trim().isEmpty() ? 0 : Integer.valueOf(viewCD.getPort());
-
-            if (!establishConnection(ip, port)) {
-                Utils.displayErrorDialog(viewCD,"Não foi possível conectar!");
-                viewCD.setSetupButtonText("Conectar");
-                viewCD.setEnabled(true);
-                return;
-            }
-
-            initGame();
-
+            System.exit(0);
         }
     }
 
@@ -177,8 +197,7 @@ public class GameControllerImpl implements GameController {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }))
-                        .start();
+                })).start();
 
                 serviceGame = new ConnectionServiceImpl(
                         port > 0 ? port : DEFAULT_PORT,
@@ -190,19 +209,18 @@ public class GameControllerImpl implements GameController {
                 (new Thread(() -> {
                     try {
                         serviceChat = new ConnectionServiceImpl(
-                                ip.isEmpty() ? "localhost" : ip,
+                                ip.isEmpty() ? LOCALHOST : ip,
                                 port > 0 ? port + 1 : DEFAULT_PORT + 1,
                                 this);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
-                }))
-                        .start();
+                })).start();
 
                 viewCD.setSetupButtonText("Conectando...");
                 serviceGame = new ConnectionServiceImpl(
-                        ip.isEmpty() ? "localhost" : ip,
+                        ip.isEmpty() ? LOCALHOST : ip,
                         port > 0 ? port : DEFAULT_PORT,
                         this);
 
@@ -216,19 +234,20 @@ public class GameControllerImpl implements GameController {
     }
 
     private void initGame() {
+        gameModel.clearCurrentPlaying();
         viewCD.setVisible(false);
-        gameWindow.setVisible();
         viewCD.dispose();
-
+        gameWindow.setVisible();
+        gameState = GameState.THROW_DICES;
         serviceGame.sendThisPlayerName(gameModel.getPlayerThis().getName());
-        viewControl.addComponentListeners(
-                new WordGuessListener(),
-                new ConfirmButtonListener(),
-                new RejectButtonListener(),
-                new ChatInputListener(),
-                new ChatInputListener()
-        );
 
+        if (IS_SERVER)
+            (new Thread(() -> {
+                gameModel.createRandomPieceVector();
+                viewBoard.populatePieces(gameModel.getRandomPieceVector());
+                serviceGame.sendPieces(gameModel.getRandomPieceVectorToString());
+
+            })).start();
 
     }
 
@@ -250,4 +269,26 @@ public class GameControllerImpl implements GameController {
         Utils.displayErrorDialog(null, "Conexão perdida!");
         System.exit(0);
     }
+
+    @Override
+    public void createBoardPiecesAndCallPopulate(String randomPiecesString) {
+        (new Thread(() -> {
+            gameModel.createRandomPieceVector(randomPiecesString);
+            viewBoard.populatePieces(gameModel.getRandomPieceVector());
+        })).start();
+
+    }
+
+    @Override
+    public void flipPieceAt(int position) {
+//        if (gameState.equals(GameState.NOW_PLAYING) && gameModel.hasAvailableMove()) {
+        if (true) {
+            //Pega posição.
+            if (gameModel.isPieceHiddenAt(position)) {
+                gameModel.flipPieceAt(position);
+                viewBoard.setPieceShowAt(position);
+            }
+        }
+    }
+
 }

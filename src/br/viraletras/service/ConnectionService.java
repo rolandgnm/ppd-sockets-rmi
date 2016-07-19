@@ -10,4 +10,8 @@ public interface ConnectionService {
     void sendNewMessage(String chatMessageInput);
 
     void notifyConnectionLost(String msg);
+
+    void sendPieces(String randomPieceVectorToString);
+
+    void notifyPieceFlipped(int position);
 }

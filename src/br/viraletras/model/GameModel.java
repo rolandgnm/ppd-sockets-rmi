@@ -10,74 +10,78 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 
 /**
- *
  * @author Roland
  */
 public class GameModel {
 
     public static final String[] ORIGINAL_LETTER_SET = {
-        "a","a","a","a","a","a","a",
-        "e","e","e","e","e","e","e",
-        "i","i","i","i","i","i",
-        "o","o","o","o","o","o","o",
-        "u","u","u","u","b","b",
-        "c","c","d","d","f","g","h",
-        "j","l","l","l","m","m",
-        "n","n","p","p","qu",
-        "r","r","r","s","s","s","s",
-        "t","t","v","v","x","z"};
+            "a", "a", "a", "a", "a", "a", "a",
+            "e", "e", "e", "e", "e", "e", "e",
+            "i", "i", "i", "i", "i", "i",
+            "o", "o", "o", "o", "o", "o", "o",
+            "u", "u", "u", "u", "b", "b",
+            "c", "c", "d", "d", "f", "g", "h",
+            "j", "l", "l", "l", "m", "m",
+            "n", "n", "p", "p", "qu",
+            "r", "r", "r", "s", "s", "s", "s",
+            "t", "t", "v", "v", "x", "z"};
 
     private Player CURRENT_PLAYING; //Não precisa inicializar
-
 
     private Player playerThis;
     private Player playerOpponent;
     private int dices;
     private Piece[] randomPieceVector;
     private ArrayList<Piece> showingPieceList;
+    private String wordGuessRegex;
     private String wordGuess;
 
-    private void initialize(Player playerThis, Player playerOpponent) {
+    public GameModel(Player playerThis, Player playerOpponent) {
         this.playerThis = playerThis;
         this.playerOpponent = playerOpponent;
-        this.wordGuess = "";
+        newGame();
+    }
+
+    private void newGame() {
+        this.CURRENT_PLAYING = null;
         this.dices = 0;
         this.randomPieceVector = new Piece[64];
         this.showingPieceList = new ArrayList<>();
-        
-        createRandomPieceVector(getRandomLetterVector());
+        this.wordGuess = " ";
     }
 
-    public GameModel(Player playerThis, Player playerOpponent) {
-        initialize(playerThis,playerOpponent);
-        createRandomPieceVector(getRandomLetterVector());
+    private void setupNewTurn(){
+        this.dices = 0;
+        showingPieceList = new ArrayList<>();
+        wordGuessRegex = " ";
     }
 
-    public GameModel(Player playerThis, Player playerOpponent, Piece[] pieces) {
-        initialize(playerThis,playerOpponent);
-        this.randomPieceVector = pieces;
-    }
-
-
-    public final void createRandomPieceVector(ArrayList<String> randomLetterList){
-
-        for(int i=0; i<64; i++){
-                this.randomPieceVector[i] = new Piece(i,randomLetterList.get(i), Piece.State.HIDDEN);
+    public void createRandomPieceVector() {
+        ArrayList<String> randomLetterList = getRandomLetterVector();
+        for (int i = 0; i < 64; i++) {
+            this.randomPieceVector[i] = new Piece(i, randomLetterList.get(i), Piece.State.HIDDEN);
         }
     }
 
+    public void createRandomPieceVector(String randomPiecesString) {
+        String[] res = randomPiecesString.split(" ");
+        for (int i = 0; i < 64; i++) {
+            this.randomPieceVector[i] = new Piece(i, res[i], Piece.State.HIDDEN);
+        }
 
-    public final ArrayList<String> getRandomLetterVector(){
+    }
+
+    private ArrayList<String> getRandomLetterVector() {
         ArrayList<String> randomLetterList = new ArrayList<>(Arrays.asList(ORIGINAL_LETTER_SET));
         Collections.shuffle(randomLetterList, new Random(System.nanoTime()));
         return randomLetterList;
-        
     }
 
-    
+
     // Getter and Setters...
     public String getWordGuess() {
         return wordGuess;
@@ -86,7 +90,7 @@ public class GameModel {
     public void setWordGuess(String wordGuess) {
         this.wordGuess = wordGuess;
     }
-    
+
     public Player getPlayerThis() {
         return playerThis;
     }
@@ -113,12 +117,21 @@ public class GameModel {
 
     public int throwDices() {
         int randInt = ThreadLocalRandom.current().nextInt(1, 12 + 1);
-        this.dices =  randInt;
+        this.dices = randInt;
         return this.dices;
     }
-    
-    public Piece[] getRandomPieceVector() {
-        return randomPieceVector;
+
+    public String[] getRandomPieceVector() {
+        String[] res = new String[64];
+        int i = 0;
+        for (Piece piece : this.randomPieceVector) res[i++] = piece.toString();
+        return res;
+    }
+
+    public String getRandomPieceVectorToString() {
+        String res = "";
+        for (Piece piece : this.randomPieceVector) res = res + piece.toString() + " ";
+        return res.trim();
     }
 
     public void setRandomPieceVector(Piece[] randomPieceVector) {
@@ -137,9 +150,27 @@ public class GameModel {
         return showingPieceList;
     }
 
-    public void setShowingPieceList(ArrayList<Piece> showingPieceList) {
-        this.showingPieceList = showingPieceList;
+    public void clearCurrentPlaying() {
+        this.setCurrentPlaying(null);
     }
-    
-    
+
+
+    public boolean hasAvailableMove() {
+        return dices > 0;
+    }
+
+    public boolean isPieceHiddenAt(int position) {
+        return randomPieceVector[0].getState().equals(Piece.State.HIDDEN);
+    }
+
+    public void flipPieceAt(int position) {
+        new Thread(() -> {
+            showingPieceList.add(randomPieceVector[position]);
+            randomPieceVector[position].setShow();
+            if(wordGuessRegex == null) wordGuessRegex = " ";
+            wordGuessRegex = wordGuessRegex.concat(randomPieceVector[position].getLetter());
+            dices -= 1;
+        }).start();
+
+    }
 }

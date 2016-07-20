@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 
 /**
@@ -31,7 +30,6 @@ public class GameModel {
             "t", "t", "v", "v", "x", "z"};
 
     private Player CURRENT_PLAYING; //Não precisa inicializar
-
     private Player playerThis;
     private Player playerOpponent;
     private int dices;
@@ -54,7 +52,7 @@ public class GameModel {
         this.wordGuess = " ";
     }
 
-    private void setupNewTurn(){
+    private void setupNewTurn() {
         this.dices = 0;
         showingPieceList = new ArrayList<>();
         wordGuessRegex = " ";
@@ -167,10 +165,50 @@ public class GameModel {
         new Thread(() -> {
             showingPieceList.add(randomPieceVector[position]);
             randomPieceVector[position].setShow();
-            if(wordGuessRegex == null) wordGuessRegex = " ";
+            if (wordGuessRegex == null) wordGuessRegex = " ";
             wordGuessRegex = wordGuessRegex.concat(randomPieceVector[position].getLetter());
             dices -= 1;
         }).start();
 
     }
+
+    public void setThisPlayerStartUpDicesValue(int value) {
+        getPlayerThis().setStartUpDicesValue(value);
+    }
+
+    public void setOpponentStartUpDicesValue(int value) {
+        getPlayerOpponent().setStartUpDicesValue(value);
+    }
+
+    public int getOpponentStartUpDicesValue() {
+        return getPlayerOpponent().getStartUpDicesValue();
+    }
+
+    public String getStarterPlayer() {
+        if (getPlayerThis().getStartUpDicesValue() > getPlayerOpponent().getStartUpDicesValue())
+            return getPlayerThis().getName();
+        else
+            return getPlayerOpponent().getName();
+    }
+
+    public void updateGameState(GameState gameState) {
+        switch (gameState) {
+            case NOW_PLAYING:
+                CURRENT_PLAYING = getPlayerThis();
+                break;
+            case NOW_WAITING:
+                CURRENT_PLAYING = getPlayerOpponent();
+                break;
+            case NOW_CONFIRMING_GUESS_WORD:
+                CURRENT_PLAYING = getPlayerOpponent();
+                break;
+            case THROW_DICES:
+                CURRENT_PLAYING = getPlayerThis();
+                break;
+        }
+
+
+    }
+
+
 }

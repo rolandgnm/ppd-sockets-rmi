@@ -3,7 +3,7 @@ package br.viraletras.controller;
 import br.viraletras.model.GameModel;
 import br.viraletras.model.GameState;
 import br.viraletras.model.Player;
-import br.viraletras.service.ConnectionService;
+import br.viraletras.service.ConnectionServiceOutputHandler;
 import br.viraletras.service.ConnectionServiceImpl;
 import br.viraletras.utils.Utils;
 import br.viraletras.view.*;
@@ -15,20 +15,9 @@ import java.io.IOException;
 /**
  * Created by Roland on 7/15/16.
  */
-//todo retirar abstract
-public class GameControllerImpl implements GameController {
+public class GameControllerImpl implements GameControllerInputHandler {
 
-    private final String LOCALHOST = "localhost";
-    boolean IS_SERVER = false;
-    private GameState gameState;
-    private final int DEFAULT_PORT = 9999;
-    private GameModel gameModel;
-    private ConnectionDetailsView viewCD;
-    private GameFrameExtended gameWindow;
-    private BoardPanelExtended viewBoard;
-    private ControlPanelExtended viewControl;
-    private ConnectionService serviceGame;
-    private ConnectionService serviceChat;
+    // Variables declared at end of file.
 
     public GameControllerImpl() {
         gameModel = new GameModel(new Player(), new Player());
@@ -106,8 +95,84 @@ public class GameControllerImpl implements GameController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            switch (gameState) {
+                case THROW_DICES:
+                    handleThrowDiceEvent();
+            }
 
         }
+    }
+
+    private void handleThrowDiceEvent() {
+        int thisPlayerValue = gameModel.throwDices();
+
+        gameModel.setThisPlayerStartUpDicesValue(thisPlayerValue);
+
+            viewControl.setDicesText(String.valueOf(thisPlayerValue));
+
+        if(IS_SERVER) {
+            new Thread(() -> {
+                Utils.log("Esperando valor do dado do oponente");
+                while (waitingForOpponentDicesValue()) ;
+            }).start();
+
+            String starterPlayer;
+            starterPlayer = gameModel.getStarterPlayer();
+            if(starterPlayer.equals(gameModel.getPlayerThis().getName())) {
+                updateGameState(GameState.NOW_PLAYING);
+                serviceGame.updateGameState(GameState.NOW_WAITING);
+            } else {
+                updateGameState(GameState.NOW_WAITING);
+                serviceGame.updateGameState(GameState.NOW_PLAYING);
+            }
+
+        } else {
+            //If client just send dices value to server.
+            serviceGame.sendStartUpDicesValue(thisPlayerValue);
+
+        }
+
+
+
+
+
+    }
+
+    public void updateGameState(GameState gameState) {
+        switch(gameState) {
+            case NOW_PLAYING:
+                gameState = GameState.NOW_PLAYING;
+                viewControl.updateGameState(GameState.NOW_PLAYING);
+                gameModel.updateGameState(GameState.NOW_PLAYING);
+                break;
+            case NOW_WAITING:
+                gameState = GameState.NOW_WAITING;
+                viewControl.updateGameState(GameState.NOW_WAITING);
+                gameModel.updateGameState(GameState.NOW_WAITING);
+                break;
+            case NOW_CONFIRMING_GUESS_WORD:
+                gameState = GameState.NOW_CONFIRMING_GUESS_WORD;
+                viewControl.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
+                gameModel.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
+                break;
+            case THROW_DICES:
+                gameState = GameState.THROW_DICES;
+                viewControl.updateGameState(GameState.THROW_DICES);
+                gameModel.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
+                break;
+
+        }
+
+
+    }
+
+    @Override
+    public void setOpponentStartUpDicesValue(int dicesValue) {
+        gameModel.setOpponentStartUpDicesValue(dicesValue);
+    }
+
+    private boolean waitingForOpponentDicesValue() {
+        return gameModel.getOpponentStartUpDicesValue() <= 0;
     }
 
     private class RejectButtonListener implements ActionListener {
@@ -122,13 +187,15 @@ public class GameControllerImpl implements GameController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String msg = gameModel.getPlayerThis().getName() + ": " +
-                    viewControl.getChatMessageInput();
+            if (!viewControl.getChatMessageInput().isEmpty()) {
+                String msg = gameModel.getPlayerThis().getName() + ": " +
+                        viewControl.getChatMessageInput();
 
-            viewControl.addMessageToChatConsole(msg);
-            viewControl.clearChatInputField();
+                viewControl.addMessageToChatConsole(msg);
+                viewControl.clearChatInputField();
 
-            serviceChat.sendNewMessage(msg);
+                serviceChat.sendNewMessage(msg);
+            }
 
         }
     }
@@ -144,10 +211,10 @@ public class GameControllerImpl implements GameController {
 
             int position = (Integer) ((JLabel) e.getSource())
                     .getClientProperty(BoardPanelExtended.propertyField);
-
             flipPieceAt(position);
 
-            serviceGame.notifyPieceFlipped(position);
+            if(gameState.equals(GameState.NOW_PLAYING))
+                serviceGame.notifyPieceFlipped(position);
 
 
         }
@@ -281,14 +348,27 @@ public class GameControllerImpl implements GameController {
 
     @Override
     public void flipPieceAt(int position) {
-//        if (gameState.equals(GameState.NOW_PLAYING) && gameModel.hasAvailableMove()) {
-        if (true) {
-            //Pega posição.
+//        if(true)
+        if ( gameState.equals(GameState.NOW_PLAYING) && gameModel.hasAvailableMove() ||
+                gameState.equals(GameState.NOW_WAITING) )
+        {
             if (gameModel.isPieceHiddenAt(position)) {
                 gameModel.flipPieceAt(position);
                 viewBoard.setPieceShowAt(position);
             }
         }
     }
+
+    private final String LOCALHOST = "localhost";
+    boolean IS_SERVER = false;
+    private GameState gameState;
+    private final int DEFAULT_PORT = 9999;
+    private GameModel gameModel;
+    private ConnectionDetailsView viewCD;
+    private GameFrameExtended gameWindow;
+    private BoardPanelExtended viewBoard;
+    private ControlPanelExtended viewControl;
+    private ConnectionServiceOutputHandler serviceGame;
+    private ConnectionServiceOutputHandler serviceChat;
 
 }

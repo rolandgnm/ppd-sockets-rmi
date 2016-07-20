@@ -1,7 +1,8 @@
 package br.viraletras.service;
 
-import br.viraletras.controller.GameController;
+import br.viraletras.controller.GameControllerInputHandler;
 import br.viraletras.controller.GameControllerImpl;
+import br.viraletras.model.GameState;
 import br.viraletras.utils.Utils;
 
 import java.io.DataInputStream;
@@ -13,7 +14,7 @@ import java.net.Socket;
 /**
  * Created by Roland on 7/16/16.
  */
-public class ConnectionServiceImpl extends Thread implements ConnectionService {
+public class ConnectionServiceImpl extends Thread implements ConnectionServiceOutputHandler {
 
     private int timeoutInSeconds;
 
@@ -90,11 +91,28 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
             case FLIP_PIECE:
                 controller.flipPieceAt(Integer.valueOf(splitMsg[1]));
                 break;
+            case NOW_PLAYING:
+                controller.updateGameState(GameState.NOW_PLAYING);
+                break;
+            case NOW_WAITING:
+                controller.updateGameState(GameState.NOW_WAITING);
+                break;
+            case NOW_CONFIRMING_GUESS_WORD:
+                controller.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
+                break;
+            case THROW_DICES:
+                controller.updateGameState(GameState.THROW_DICES);
+                break;
+            case STARTUP_DICES_VALUE:
+                controller.setOpponentStartUpDicesValue(Integer.valueOf(splitMsg[1]));
+
+
+
         }
 
     }
 
-    public void notifyPeer(Codes msgType, String content) {
+    private void notifyPeer(Codes msgType, String content) {
         try {
             String msg = msgType.toString() +
                     Codes.SPLIT_SIGNAL +
@@ -133,16 +151,44 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
         notifyPeer(Codes.FLIP_PIECE, String.valueOf(position));
     }
 
+    @Override
+    public void updateGameState(GameState gameState) {
+        switch(gameState) {
+            case NOW_PLAYING:
+                notifyPeer(Codes.NOW_PLAYING, "");
+                break;
+            case NOW_WAITING:
+                notifyPeer(Codes.NOW_WAITING, "");
+                break;
+            case NOW_CONFIRMING_GUESS_WORD:
+                notifyPeer(Codes.NOW_CONFIRMING_GUESS_WORD, "");
+                break;
+            case THROW_DICES:
+                notifyPeer(Codes.THROW_DICES, "");
+                break;
+        }
+    }
+
+    @Override
+    public void sendStartUpDicesValue(int thisPlayerValue) {
+        notifyPeer(Codes.STARTUP_DICES_VALUE, String.valueOf(thisPlayerValue));
+    }
+
 
     enum Codes {
         SPLIT_SIGNAL("#S#"),
+
         CHAT_MESSAGE("CM"),
         OPPONENT_NAME("ON"),
         CONNECTION_LOST("CL"),
         BOARD_PIECES("BP"),
-        NOW_PLAYING("NP"),
         FLIP_PIECE("FP"),
-        HIDE_PIECE("HP"),;
+        HIDE_PIECE("HP"),
+        NOW_PLAYING("NP"),
+        NOW_WAITING("NW"),
+        NOW_CONFIRMING_GUESS_WORD("CW"),
+        THROW_DICES("TD"),
+        STARTUP_DICES_VALUE("SDV");
 
         String code;
 
@@ -166,7 +212,7 @@ public class ConnectionServiceImpl extends Thread implements ConnectionService {
     }
 
 
-    GameController controller;
+    GameControllerInputHandler controller;
     Codes code;
     static int port;
     static String ip = "";

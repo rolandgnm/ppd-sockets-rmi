@@ -14,7 +14,16 @@ import java.util.ArrayList;
  * @author Roland
  */
 public class Player {
-    
+
+    public int getStartUpDicesValue() {
+        return startUpDiceValue;
+    }
+
+    public void setStartUpDicesValue(int startUpdiceValue) {
+        this.startUpDiceValue = startUpdiceValue;
+    }
+
+    private int startUpDiceValue;
     private String name;
     private String ip;
     private int port;
@@ -31,6 +40,7 @@ public class Player {
         this.inGameScore = 0;
         this.winScore = 0;
         this.formedWords = new ArrayList<>();
+        this.startUpDiceValue = 0;
     }
 
     public Player(String name, String ip, int port) {

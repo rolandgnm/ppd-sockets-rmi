@@ -1,9 +1,11 @@
 package br.viraletras.service;
 
+import br.viraletras.model.GameState;
+
 /**
  * Created by Roland on 7/14/16.
  */
-public interface ConnectionService {
+public interface ConnectionServiceOutputHandler {
 
     void sendThisPlayerName(String name);
 
@@ -14,4 +16,8 @@ public interface ConnectionService {
     void sendPieces(String randomPieceVectorToString);
 
     void notifyPieceFlipped(int position);
+
+    void updateGameState(GameState nowWaiting);
+
+    void sendStartUpDicesValue(int thisPlayerValue);
 }

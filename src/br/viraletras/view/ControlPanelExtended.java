@@ -5,19 +5,20 @@
  */
 package br.viraletras.view;
 
+import br.viraletras.model.GameState;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
 /**
- *
  * @author Roland
  */
 public class ControlPanelExtended extends JPanel {
 
     public ControlPanelExtended() {
         initComponents();
-        
+
     }
 
     private void initComponents() {
@@ -35,38 +36,45 @@ public class ControlPanelExtended extends JPanel {
     public void setModeThrowDices() {
         tfWordGuess.setEnabled(false);
         btConfirmWord.setEnabled(true);
-            btConfirmWord.setText("Jogar dados!");
+        btConfirmWord.setText("Jogar dados!");
         btRejectWord.setEnabled(false);
+        setMovesLabelVisible(false);
+
     }
 
     public void setModeNowPlaying() {
         tfWordGuess.setEnabled(true);
         btConfirmWord.setEnabled(true);
-            btConfirmWord.setText("Enviar");
+        btConfirmWord.setText("Enviar");
         btRejectWord.setEnabled(false);
+        setMovesLabelVisible(true);
+
     }
 
-    public void setModeNowWaiting(){
+    public void setModeNowWaiting() {
         tfWordGuess.setEnabled(false);
         btConfirmWord.setEnabled(false);
         btRejectWord.setEnabled(false);
+        setMovesLabelVisible(true);
+
     }
 
-    public void setModeNowConfirming(){
+    public void setModeNowConfirming() {
         tfWordGuess.setEnabled(false);
         btConfirmWord.setEnabled(true);
-            btConfirmWord.setText("Confirmar");
+        btConfirmWord.setText("Confirmar");
         btRejectWord.setEnabled(true);
-            btRejectWord.setText("Rejeitar");
+        btRejectWord.setText("Rejeitar");
+        setMovesLabelVisible(true);
     }
 
 
     public void addComponentListeners(KeyListener wordGuessListener,
-                                       ActionListener btConfirmListener,
-                                       ActionListener btRejectListener,
-                                       ActionListener tfChatInputListener,
-                                       ActionListener btSendMessageListener
-        ) {
+                                      ActionListener btConfirmListener,
+                                      ActionListener btRejectListener,
+                                      ActionListener tfChatInputListener,
+                                      ActionListener btSendMessageListener
+    ) {
 
         //Todo implementar sub-classes e descomentar aqui:
         tfWordGuess.addKeyListener(wordGuessListener);
@@ -148,12 +156,12 @@ public class ControlPanelExtended extends JPanel {
                 + "\n" + message);
     }
 
-    public JLabel getLbDices() {
-        return lbDices;
+    public String getLbDices() {
+        return lbDices.getText();
     }
 
-    public void setLbDices(JLabel lbDices) {
-        this.lbDices = lbDices;
+    public void setDicesText(String value) {
+        this.lbDices.setText(value);
     }
 
     private void formatAndAddChildren() {
@@ -199,7 +207,7 @@ public class ControlPanelExtended extends JPanel {
         lbDices.setFont(new java.awt.Font("Lucida Grande", 1, 48)); // NOI18N
         lbDices.setForeground(new java.awt.Color(255, 255, 255));
         lbDices.setHorizontalAlignment(SwingConstants.CENTER);
-        lbDices.setText("12");
+        lbDices.setText("0");
         lbDices.setHorizontalTextPosition(SwingConstants.CENTER);
         diceNumbersPanel.add(lbDices);
 
@@ -209,33 +217,33 @@ public class ControlPanelExtended extends JPanel {
         movesLabelPanel.setBackground(new java.awt.Color(230, 126, 34));
         movesLabelPanel.setBorder(BorderFactory.createEmptyBorder(2, 1, 5, 1));
 
-        jLabel1.setBackground(new java.awt.Color(230, 126, 34));
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabel1.setText("movimentos");
-        jLabel1.setHorizontalTextPosition(SwingConstants.CENTER);
-        jLabel1.setOpaque(true);
+        lbMoves.setBackground(new java.awt.Color(230, 126, 34));
+        lbMoves.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        lbMoves.setForeground(new java.awt.Color(255, 255, 255));
+        lbMoves.setHorizontalAlignment(SwingConstants.CENTER);
+        lbMoves.setText("movimentos");
+        lbMoves.setHorizontalTextPosition(SwingConstants.CENTER);
+        lbMoves.setOpaque(true);
 
         GroupLayout movesLabelPanelLayout = new GroupLayout(movesLabelPanel);
         movesLabelPanel.setLayout(movesLabelPanelLayout);
         movesLabelPanelLayout.setHorizontalGroup(
-            movesLabelPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 202, Short.MAX_VALUE)
-            .addGroup(movesLabelPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(movesLabelPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                movesLabelPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGap(0, 202, Short.MAX_VALUE)
+                        .addGroup(movesLabelPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addGroup(movesLabelPanelLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(lbMoves)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
         );
         movesLabelPanelLayout.setVerticalGroup(
-            movesLabelPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(movesLabelPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(movesLabelPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                movesLabelPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(movesLabelPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addGroup(movesLabelPanelLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(lbMoves)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         dicesContainerPanel.add(movesLabelPanel);
@@ -328,7 +336,7 @@ public class ControlPanelExtended extends JPanel {
         diceNumbersPanel = new JPanel();
         lbDices = new JLabel();
         movesLabelPanel = new JPanel();
-        jLabel1 = new JLabel();
+        lbMoves = new JLabel();
         tfWordGuess = new JFormattedTextField();
         btConfirmWord = new JButton();
         btRejectWord = new JButton();
@@ -347,7 +355,15 @@ public class ControlPanelExtended extends JPanel {
     private JButton btRejectWord;
     private JButton btSendMessage;
 
-    private JLabel jLabel1;
+
+    public void setMovesLabelVisible(boolean visible) {
+        if(visible)
+            lbMoves.setVisible(true);
+        else
+            lbMoves.setVisible(false);
+    }
+
+    private JLabel lbMoves;
     private JLabel lbMyScore;
     private JLabel lbOpponentScore;
     private JLabel lbDices;
@@ -366,4 +382,21 @@ public class ControlPanelExtended extends JPanel {
     private JTextArea taChatConsole;
     private JTextField tfChatInput;
     private JFormattedTextField tfWordGuess;
+
+    public void updateGameState(GameState gameState) {
+        switch (gameState) {
+            case NOW_PLAYING:
+                setModeNowPlaying();
+                break;
+            case NOW_WAITING:
+                setModeNowWaiting();
+                break;
+            case NOW_CONFIRMING_GUESS_WORD:
+                setModeNowConfirming();
+                break;
+            case THROW_DICES:
+                setModeThrowDices();
+                break;
+        }
+    }
 }

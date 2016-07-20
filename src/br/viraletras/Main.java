@@ -1,6 +1,5 @@
 package br.viraletras;
 
-import br.viraletras.controller.GameController;
 import br.viraletras.controller.GameControllerImpl;
 import br.viraletras.view.GameFrameExtended;
 

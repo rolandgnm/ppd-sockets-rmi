@@ -13,8 +13,8 @@ public class Utils {
         System.out.printf(s + "\n");
     }
 
-    public static void displayErrorDialog(Component parent, String errMessage){
-        JOptionPane.showMessageDialog(parent, errMessage);
+    public static void displayDialog(Component parent, String message){
+        JOptionPane.showMessageDialog(parent, message);
     }
 
 }

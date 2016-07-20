@@ -184,6 +184,10 @@ public class GameModel {
         return getPlayerOpponent().getStartUpDicesValue();
     }
 
+    public int getThisPlayerStartUpDicesValue() {
+        return getPlayerThis().getStartUpDicesValue();
+    }
+
     public String getStarterPlayer() {
         if (getPlayerThis().getStartUpDicesValue() > getPlayerOpponent().getStartUpDicesValue())
             return getPlayerThis().getName();

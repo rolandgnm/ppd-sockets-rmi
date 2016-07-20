@@ -54,6 +54,7 @@ public class ControlPanelExtended extends JPanel {
     public void setModeNowWaiting() {
         tfWordGuess.setEnabled(false);
         btConfirmWord.setEnabled(false);
+        btConfirmWord.setText("Confirmar");
         btRejectWord.setEnabled(false);
         setMovesLabelVisible(true);
 
@@ -399,4 +400,6 @@ public class ControlPanelExtended extends JPanel {
                 break;
         }
     }
+
+
 }

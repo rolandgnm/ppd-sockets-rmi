@@ -20,4 +20,7 @@ public interface ConnectionServiceOutputHandler {
     void updateGameState(GameState nowWaiting);
 
     void sendStartUpDicesValue(int thisPlayerValue);
+
+
+    void sendShowDialog(String message);
 }

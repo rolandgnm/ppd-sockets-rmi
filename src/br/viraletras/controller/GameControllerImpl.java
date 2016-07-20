@@ -60,7 +60,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
             int port = viewCD.getPort().trim().isEmpty() ? 0 : Integer.valueOf(viewCD.getPort());
 
             if (!establishConnection(ip, port)) {
-                Utils.displayErrorDialog(viewCD, "Não foi possível conectar!");
+                showDialog("Não foi possível conectar!");
                 viewCD.setSetupButtonText("Conectar");
                 viewCD.setEnabled(true);
                 return;
@@ -97,66 +97,83 @@ public class GameControllerImpl implements GameControllerInputHandler {
         public void actionPerformed(ActionEvent e) {
             switch (gameState) {
                 case THROW_DICES:
-                    handleThrowDiceEvent();
+                    viewControl.setModeNowWaiting();
+                    viewControl.setMovesLabelVisible(false);
+                    handleStartUpThrowDiceEvent();
+                    break;
+
+
             }
 
         }
     }
 
-    private void handleThrowDiceEvent() {
+    private void handleStartUpThrowDiceEvent() {
         int thisPlayerValue = gameModel.throwDices();
-
         gameModel.setThisPlayerStartUpDicesValue(thisPlayerValue);
+        viewControl.setDicesText(String.valueOf(thisPlayerValue));
 
-            viewControl.setDicesText(String.valueOf(thisPlayerValue));
-
-        if(IS_SERVER) {
-            new Thread(() -> {
+        if (IS_SERVER) {
+            if (waitingForOpponentDicesValue())
                 Utils.log("Esperando valor do dado do oponente");
-                while (waitingForOpponentDicesValue()) ;
-            }).start();
-
-            String starterPlayer;
-            starterPlayer = gameModel.getStarterPlayer();
-            if(starterPlayer.equals(gameModel.getPlayerThis().getName())) {
-                updateGameState(GameState.NOW_PLAYING);
-                serviceGame.updateGameState(GameState.NOW_WAITING);
-            } else {
-                updateGameState(GameState.NOW_WAITING);
-                serviceGame.updateGameState(GameState.NOW_PLAYING);
-            }
+            else serverHandleWhoStarts();
 
         } else {
             //If client just send dices value to server.
             serviceGame.sendStartUpDicesValue(thisPlayerValue);
-
         }
-
-
-
 
 
     }
 
+    public void serverHandleWhoStarts() {
+        if (IS_SERVER) {
+            String starterPlayer, message;
+            starterPlayer = gameModel.getStarterPlayer();
+            String thisName = gameModel.getPlayerThis().getName();
+            if (starterPlayer.equals(thisName)) {
+                updateGameState(GameState.NOW_PLAYING);
+                message = thisName + " começa jogando!";
+                showDialog(message);
+                new Thread(() -> {
+                    serviceGame.sendShowDialog(message);
+                }).start();
+                serviceGame.updateGameState(GameState.NOW_WAITING);
+                gameModel.throwDices();
+
+            } else {
+                message = gameModel.getPlayerOpponent().getName() + " começa jogando!";
+                showDialog(message);
+                new Thread(() -> {
+                    serviceGame.sendShowDialog(message);
+                }).start();
+                updateGameState(GameState.NOW_WAITING);
+                serviceGame.updateGameState(GameState.NOW_PLAYING);
+            }
+        }
+    }
+
     public void updateGameState(GameState gameState) {
-        switch(gameState) {
+        switch (gameState) {
             case NOW_PLAYING:
-                gameState = GameState.NOW_PLAYING;
+                this.gameState = GameState.NOW_PLAYING;
                 viewControl.updateGameState(GameState.NOW_PLAYING);
                 gameModel.updateGameState(GameState.NOW_PLAYING);
+                viewControl.setDicesText(String.valueOf(gameModel.throwDices()));
+
                 break;
             case NOW_WAITING:
-                gameState = GameState.NOW_WAITING;
+                this.gameState = GameState.NOW_WAITING;
                 viewControl.updateGameState(GameState.NOW_WAITING);
                 gameModel.updateGameState(GameState.NOW_WAITING);
                 break;
             case NOW_CONFIRMING_GUESS_WORD:
-                gameState = GameState.NOW_CONFIRMING_GUESS_WORD;
+                this.gameState = GameState.NOW_CONFIRMING_GUESS_WORD;
                 viewControl.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
                 gameModel.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
                 break;
             case THROW_DICES:
-                gameState = GameState.THROW_DICES;
+                this.gameState = GameState.THROW_DICES;
                 viewControl.updateGameState(GameState.THROW_DICES);
                 gameModel.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
                 break;
@@ -168,7 +185,17 @@ public class GameControllerImpl implements GameControllerInputHandler {
 
     @Override
     public void setOpponentStartUpDicesValue(int dicesValue) {
+        int t, o;
         gameModel.setOpponentStartUpDicesValue(dicesValue);
+        o = gameModel.getOpponentStartUpDicesValue();
+        t = gameModel.getThisPlayerStartUpDicesValue();
+        if (o > 0 && t > 0)
+            serverHandleWhoStarts();
+    }
+
+    @Override
+    public void showDialog(String s) {
+        Utils.displayDialog(gameWindow, s);
     }
 
     private boolean waitingForOpponentDicesValue() {
@@ -209,11 +236,12 @@ public class GameControllerImpl implements GameControllerInputHandler {
 //                            .getClientProperty(propertyField));
             //todo usar if pra desabilitar ou não labels
 
+
             int position = (Integer) ((JLabel) e.getSource())
                     .getClientProperty(BoardPanelExtended.propertyField);
             flipPieceAt(position);
 
-            if(gameState.equals(GameState.NOW_PLAYING))
+            if (gameState.equals(GameState.NOW_PLAYING))
                 serviceGame.notifyPieceFlipped(position);
 
 
@@ -262,7 +290,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
                                 port > 0 ? port + 1 : DEFAULT_PORT + 1,
                                 this);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        e.getMessage();
                     }
                 })).start();
 
@@ -280,7 +308,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
                                 port > 0 ? port + 1 : DEFAULT_PORT + 1,
                                 this);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        e.getMessage();
                     }
 
                 })).start();
@@ -305,7 +333,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
         viewCD.setVisible(false);
         viewCD.dispose();
         gameWindow.setVisible();
-        gameState = GameState.THROW_DICES;
+        updateGameState(GameState.THROW_DICES);
         serviceGame.sendThisPlayerName(gameModel.getPlayerThis().getName());
 
         if (IS_SERVER)
@@ -333,7 +361,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
     public void notifyViewConnectionLost() {
         gameWindow.setVisible(false);
         gameWindow.dispose();
-        Utils.displayErrorDialog(null, "Conexão perdida!");
+        showDialog("Conexão perdida!");
         System.exit(0);
     }
 
@@ -349,9 +377,8 @@ public class GameControllerImpl implements GameControllerInputHandler {
     @Override
     public void flipPieceAt(int position) {
 //        if(true)
-        if ( gameState.equals(GameState.NOW_PLAYING) && gameModel.hasAvailableMove() ||
-                gameState.equals(GameState.NOW_WAITING) )
-        {
+        if (gameState.equals(GameState.NOW_PLAYING) && gameModel.hasAvailableMove() ||
+                gameState.equals(GameState.NOW_WAITING)) {
             if (gameModel.isPieceHiddenAt(position)) {
                 gameModel.flipPieceAt(position);
                 viewBoard.setPieceShowAt(position);

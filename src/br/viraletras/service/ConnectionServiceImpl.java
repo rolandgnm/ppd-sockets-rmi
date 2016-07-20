@@ -105,7 +105,10 @@ public class ConnectionServiceImpl extends Thread implements ConnectionServiceOu
                 break;
             case STARTUP_DICES_VALUE:
                 controller.setOpponentStartUpDicesValue(Integer.valueOf(splitMsg[1]));
-
+                break;
+            case SHOW_DIALOG:
+                controller.showDialog(splitMsg[1]);
+                break;
 
 
         }
@@ -153,7 +156,7 @@ public class ConnectionServiceImpl extends Thread implements ConnectionServiceOu
 
     @Override
     public void updateGameState(GameState gameState) {
-        switch(gameState) {
+        switch (gameState) {
             case NOW_PLAYING:
                 notifyPeer(Codes.NOW_PLAYING, "");
                 break;
@@ -174,6 +177,11 @@ public class ConnectionServiceImpl extends Thread implements ConnectionServiceOu
         notifyPeer(Codes.STARTUP_DICES_VALUE, String.valueOf(thisPlayerValue));
     }
 
+    @Override
+    public void sendShowDialog(String message) {
+        notifyPeer(Codes.SHOW_DIALOG, message);
+    }
+
 
     enum Codes {
         SPLIT_SIGNAL("#S#"),
@@ -188,7 +196,8 @@ public class ConnectionServiceImpl extends Thread implements ConnectionServiceOu
         NOW_WAITING("NW"),
         NOW_CONFIRMING_GUESS_WORD("CW"),
         THROW_DICES("TD"),
-        STARTUP_DICES_VALUE("SDV");
+        STARTUP_DICES_VALUE("SDV"),
+        SHOW_DIALOG("SWD");
 
         String code;
 

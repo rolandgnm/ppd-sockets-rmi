@@ -29,6 +29,8 @@ public interface GameControllerInputHandler {
 
     void setOpponentStartUpDicesValue(int dicesValue);
 
+    void showDialog(String s);
+
 
 //    void createLaunchWindow();
 //    void getPlayerNameAndConnectionDetails();

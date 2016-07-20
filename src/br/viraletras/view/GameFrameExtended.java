@@ -39,10 +39,10 @@ public class GameFrameExtended extends JFrame {
 
 //todo: Receber panels criados e prontos
 
-        mainMenu = new javax.swing.JMenuBar();
-        fileMenu = new javax.swing.JMenu();
-        aboutMenuItem = new javax.swing.JMenuItem();
-        exitMenuItem = new javax.swing.JMenuItem();
+//        mainMenu = new javax.swing.JMenuBar();
+//        fileMenu = new javax.swing.JMenu();
+//        aboutMenuItem = new javax.swing.JMenuItem();
+//        exitMenuItem = new javax.swing.JMenuItem();
 
         setTitle("Vira Letras");
         setMaximumSize(new java.awt.Dimension(1100, 700));
@@ -56,32 +56,32 @@ public class GameFrameExtended extends JFrame {
         getContentPane().add(boardPanel);
         getContentPane().add(controlPanel);
 
-        fileMenu.setMnemonic('F');
-        fileMenu.setText("File");
+//        fileMenu.setMnemonic('F');
+//        fileMenu.setText("File");
 
-        aboutMenuItem.setMnemonic('A');
-        aboutMenuItem.setText("About");
-        aboutMenuItem.setToolTipText("About");
-        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aboutMenuItemActionPerformed(evt);
-            }
-        });
-        fileMenu.add(aboutMenuItem);
+//        aboutMenuItem.setMnemonic('A');
+//        aboutMenuItem.setText("About");
+//        aboutMenuItem.setToolTipText("About");
+//        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                aboutMenuItemActionPerformed(evt);
+//            }
+//        });
+//        fileMenu.add(aboutMenuItem);
 
-        exitMenuItem.setMnemonic('E');
-        exitMenuItem.setText("Exit");
-        exitMenuItem.setToolTipText("Quit Team, Quit!");
-        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitMenuItemActionPerformed(evt);
-            }
-        });
-        fileMenu.add(exitMenuItem);
+//        exitMenuItem.setMnemonic('E');
+//        exitMenuItem.setText("Exit");
+//        exitMenuItem.setToolTipText("Quit Team, Quit!");
+//        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                exitMenuItemActionPerformed(evt);
+//            }
+//        });
+//        fileMenu.add(exitMenuItem);
 
-        mainMenu.add(fileMenu);
+//        mainMenu.add(fileMenu);
 
-        setJMenuBar(mainMenu);
+//        setJMenuBar(mainMenu);
     }
 
     public void addGameWindowListener(WindowAdapter wl) {
@@ -97,12 +97,12 @@ public class GameFrameExtended extends JFrame {
     }                                            
 
     // Variables declaration - do not modify                     
-    private JMenuItem aboutMenuItem;
+//    private JMenuItem aboutMenuItem;
     private BoardPanelExtended boardPanel;
     private ControlPanelExtended controlPanel;
-    private JMenuItem exitMenuItem;
-    private JMenu fileMenu;
-    private JMenuBar mainMenu;
+//    private JMenuItem exitMenuItem;
+//    private JMenu fileMenu;
+//    private JMenuBar mainMenu;
     // End of variables declaration                   
 
 }

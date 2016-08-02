@@ -8,6 +8,9 @@ nbdist/
 nbactions.xml
 .nb-gradle/
 
+## Adicionado
+/out/
+
 # built application files
 *.apk
 *.ap_

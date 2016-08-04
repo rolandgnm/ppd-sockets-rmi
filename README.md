@@ -7,7 +7,9 @@
 #### MVC + Java Swing + Socket
 
 ##Run
-java -cp <.jar> br.viraletras.\<tipo de comunicação\>.Main 
+```{r, engine='bash', count_lines}
+java -cp <.jar> br.viraletras.<tipo de comunicação>.Main 
+```
 
 ##Tools
 * NetBeans 8.1 (Constução da interface) 

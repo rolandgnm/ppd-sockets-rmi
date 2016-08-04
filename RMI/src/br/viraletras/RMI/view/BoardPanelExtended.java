@@ -7,8 +7,10 @@ package br.viraletras.RMI.view;
 
 //set  get/putClientProperty
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseListener;
 
 /**

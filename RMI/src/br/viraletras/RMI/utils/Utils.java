@@ -1,7 +1,7 @@
 package br.viraletras.RMI.utils;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JOptionPane;
+import java.awt.Component;
 
 /**
  * Created by Roland on 7/17/16.

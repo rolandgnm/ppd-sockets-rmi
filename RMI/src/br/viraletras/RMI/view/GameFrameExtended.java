@@ -1,6 +1,8 @@
 package br.viraletras.RMI.view;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;

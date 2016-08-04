@@ -3,13 +3,23 @@ package br.viraletras.RMI.controller;
 import br.viraletras.RMI.model.GameModel;
 import br.viraletras.RMI.model.GameState;
 import br.viraletras.RMI.model.Player;
-import br.viraletras.RMI.service.ConnectionServiceOutputHandler;
 import br.viraletras.RMI.service.ConnectionServiceImpl;
+import br.viraletras.RMI.service.ConnectionServiceOutputHandler;
 import br.viraletras.RMI.utils.Utils;
-import br.viraletras.RMI.view.*;
+import br.viraletras.RMI.view.BoardPanelExtended;
+import br.viraletras.RMI.view.ConnectionDetailsView;
+import br.viraletras.RMI.view.ControlPanelExtended;
+import br.viraletras.RMI.view.GameFrameExtended;
 
-import javax.swing.*;
-import java.awt.event.*;
+import javax.swing.JLabel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 /**

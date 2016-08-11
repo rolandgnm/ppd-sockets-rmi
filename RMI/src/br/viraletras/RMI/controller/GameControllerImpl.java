@@ -3,7 +3,6 @@ package br.viraletras.RMI.controller;
 import br.viraletras.RMI.model.GameModel;
 import br.viraletras.RMI.model.GameState;
 import br.viraletras.RMI.model.Player;
-import br.viraletras.RMI.service.GameConnectionServiceImpl;
 import br.viraletras.RMI.service.GameConnectionService;
 import br.viraletras.RMI.utils.Utils;
 import br.viraletras.RMI.view.BoardPanelExtended;
@@ -20,12 +19,24 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
+import java.rmi.AlreadyBoundException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.UnknownHostException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Created by Roland on 7/15/16.
  */
 public class GameControllerImpl implements GameConnectionService {
+    private String thisNameNS;
+    private GameConnectionService thisStub;
+    private String registryIp;
+    private Registry srvRegistry;
+    private GameConnectionService peerStub;
+    private String serverPeerNS;
 
     // Variables declared at end of file.
 
@@ -42,6 +53,7 @@ public class GameControllerImpl implements GameConnectionService {
 
     public void addListenersToViews() {
         viewCD.addConnectionDetailsListener(new ConnectDetailsListener());
+        viewCD.addWindowListener(new GameWindowClosedListener());
         gameWindow.addGameWindowListener(new GameWindowClosedListener());
         //TODO Board Listener set via constructor;
         viewControl.addComponentListeners(
@@ -59,30 +71,132 @@ public class GameControllerImpl implements GameConnectionService {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            IS_SERVER = viewCD.isServer();
-            viewCD.setEnabled(false);
-            gameModel.getPlayerThis().setName(
-                    viewCD.getPlayerName().isEmpty() ?
-                            (IS_SERVER ? "Server" : "Client") :
-                            viewCD.getPlayerName()
-            );
-            String ip = viewCD.getIp().trim();
-            int port = viewCD.getPort().trim().isEmpty() ? 0 : Integer.valueOf(viewCD.getPort());
-
-            if (!establishConnection(ip, port)) {
-                showDialog("Não foi possível conectar!");
-                viewCD.setSetupButtonText("Conectar");
-                viewCD.setEnabled(true);
-                return;
-            }
-
-            gameWindow.setTitle("Vira Letras - " +
-                    gameModel.getPlayerThis().getName());
-
-            initGame();
+            setConnectionDetailsAndTryToConnect();
 
         }
     }
+
+    private void setConnectionDetailsAndTryToConnect() {
+        viewCD.setEnabled(false);
+
+        IS_SERVER = viewCD.cbIsServer();
+
+        //Todo Receber nome do server
+        //TODO Implica mudanças no layout de viewCD.
+
+        //Seta Nome local
+        String thisName = viewCD.getPlayerName().trim().isEmpty() ?
+                (IS_SERVER ? "Server" : "Client") :
+                viewCD.getPlayerName();
+        String opponentName = viewCD.getServerName().trim().isEmpty() ?
+                (IS_SERVER ? "Cliente" : "Server") :
+                viewCD.getServerName();
+
+        gameModel.getPlayerThis().setName(thisName);
+        gameModel.getPlayerOpponent().setName(opponentName);
+
+        String serverName = viewCD.getServerName().trim();
+
+        //Tenta Conectar
+        if (!establishConnection()) {
+            viewCD.setSetupButtonText("Conectar");
+            viewCD.setEnabled(true);
+            return;
+        }
+
+        gameWindow.setTitle("Vira Letras - " +
+                gameModel.getPlayerThis().getName());
+
+        //TODO 01: Executar initGame();
+
+    }
+
+    private boolean establishConnection(/*Todo PRA DEPOIS: String ipToRegistry*/) {
+//        registryIp = serverName.isEmpty() ? LOCALHOST : serverName;
+        registryIp = LOCALHOST;
+
+        try {
+            if (IS_SERVER) {
+                this.thisNameNS = "Server/" + gameModel.getPlayerThis().getName();
+                
+                /**
+                 * Registra stub no rmi registry.
+                 */
+                createStubAndRegister();
+                
+                viewCD.setSetupButtonText("Esperando...");
+                Utils.log("### SERVIDOR PRONTO PARA CONEXÃO ###\n" +
+                        "REGISTRO: " + thisNameNS);
+
+            } else {
+                this.thisNameNS = "Client/" + gameModel.getPlayerThis().getName();
+                this.serverPeerNS = "Server/" + gameModel.getPlayerOpponent().getName();
+                viewCD.setSetupButtonText("Conectando...");
+                
+                /**
+                 *
+                 * todo: Receber STUB do server (Outbound)
+                 * todo: Registrar InBound e Invocar Server pra receber Stub
+                 *
+                 */
+
+                locateRegistry();
+                //TODO Receber Nome corretamente!!
+                this.peerStub = (GameConnectionService) this.srvRegistry.lookup(this.serverPeerNS);
+
+                Utils.log("### CONEXÃO CLIENTE -> SERVIDOR OK! ###");
+
+
+//                erviceGame = new GameConnectionServiceImpl(
+//                        ip.isEmpty() ? LOCALHOST : ip,
+//                        port > 0 ? port : DEFAULT_PORT,
+//                        this);
+
+            }
+        }
+        catch (AlreadyBoundException abE){
+            showDialog("\""+ gameModel.getPlayerThis().getName() + "\"" +
+                " já registrado no servidor de nomes! Por favor, mude seu nome e tente novamente!");
+            return false;
+
+        }
+        catch (UnknownHostException uhE) {
+            showDialog("Oponente não encontrado!");
+            Utils.log("!!! OPONENTE NÃO ENCONTRADO !!!");
+            Utils.log(uhE.toString());
+            return false;
+        }
+        catch (NotBoundException nbE) {
+            showDialog("Oponente não encontrado!");
+            Utils.log("!!! OPONENTE NÃO ENCONTRADO !!!");
+            Utils.log(nbE.toString());
+            return false;
+        }
+
+        catch (Exception e) {
+            showDialog("Falha na conexão remota!");
+            Utils.log("!!! CONEXÃO NÃO ESTABELECIDA !!!");
+            Utils.log(e.toString());
+            return false;
+        }
+
+        return true;
+    }
+
+    private void createStubAndRegister() throws RemoteException, AlreadyBoundException {
+        /**
+         *    TODO: Criar stub
+         *    TODO: Registrar no NS
+         */
+        locateRegistry();
+        thisStub = (GameConnectionService) UnicastRemoteObject.exportObject(this, 0);
+        this.srvRegistry.bind(thisNameNS, thisStub);
+    }
+
+    private void locateRegistry() throws RemoteException {
+        srvRegistry = LocateRegistry.getRegistry(registryIp);
+    }
+
 
     private class WordGuessListener implements KeyListener {
         @Override
@@ -130,7 +244,7 @@ public class GameControllerImpl implements GameConnectionService {
 
         } else {
             //If client just send dices value to server.
-            serviceGame.setOpponentStartUpDicesValue(thisPlayerValue);
+//            serviceGame.setOpponentStartUpDicesValue(thisPlayerValue);
         }
 
 
@@ -146,19 +260,19 @@ public class GameControllerImpl implements GameConnectionService {
                 message = thisName + " começa jogando!";
                 showDialog(message);
                 new Thread(() -> {
-                    serviceGame.showDialog(message);
+//                    serviceGame.showDialog(message);
                 }).start();
-                serviceGame.updateGameState(GameState.NOW_WAITING);
+//                serviceGame.updateGameState(GameState.NOW_WAITING);
                 gameModel.throwDices();
 
             } else {
                 message = gameModel.getPlayerOpponent().getName() + " começa jogando!";
                 showDialog(message);
                 new Thread(() -> {
-                    serviceGame.showDialog(message);
+//                    serviceGame.showDialog(message);
                 }).start();
                 updateGameState(GameState.NOW_WAITING);
-                serviceGame.updateGameState(GameState.NOW_PLAYING);
+//                serviceGame.updateGameState(GameState.NOW_PLAYING);
             }
         }
     }
@@ -231,7 +345,7 @@ public class GameControllerImpl implements GameConnectionService {
                 viewControl.addMessageToChatConsole(msg);
                 viewControl.clearChatInputField();
 
-                serviceChat.newChatMessage(msg);
+//                serviceChat.newChatMessage(msg);
             }
 
         }
@@ -251,8 +365,8 @@ public class GameControllerImpl implements GameConnectionService {
                     .getClientProperty(BoardPanelExtended.propertyField);
             flipPieceAt(position);
 
-            if (gameState.equals(GameState.NOW_PLAYING))
-                serviceGame.flipPieceAt(position);
+//            if (gameState.equals(GameState.NOW_PLAYING))
+//                serviceGame.flipPieceAt(position);
 
 
         }
@@ -282,78 +396,31 @@ public class GameControllerImpl implements GameConnectionService {
 
         @Override
         public void windowClosing(WindowEvent e) {
-            serviceGame.notifyConnectionLost(
+            /** TODO Notificar via RMI
+             * serviceGame.notifyConnectionLost(
                     gameModel.getPlayerThis().getName() +
                             " fechou a janela! Fim de jogo!"
-            );
+            );*/
+            unbindStub();
             System.exit(0);
         }
     }
 
-    private boolean establishConnection(String ip, int port) {
+    private void unbindStub() {
         try {
-            if (IS_SERVER) {
+            Utils.log("### Tentativa de Unbind iniciada: ###");
 
-                /**
-                 *
-                 *    TODO: Registrar no NS
-                 *
-                 */
-
-                (new Thread(() -> {
-
-                    try {
-                        serviceChat = new GameConnectionServiceImpl(
-                                port > 0 ? port + 1 : DEFAULT_PORT + 1,
-                                this);
-                    } catch (IOException e) {
-                        e.getMessage();
-                    }
-
-                })).start();
-
-                serviceGame = new GameConnectionServiceImpl(
-                        port > 0 ? port : DEFAULT_PORT,
-                        this);
-
-
-            } else {
-                // Manda tentativa conexão do cliente do chat pra outra thread
-
-                /**
-                 *
-                 * todo: Receber STUB do server (Outbound)
-                 * todo: Registrar InBound e Invocar Server pra receber Stub
-                 *
-                 */
-
-
-                (new Thread(() -> {
-                    try {
-                        serviceChat = new GameConnectionServiceImpl(
-                                ip.isEmpty() ? LOCALHOST : ip,
-                                port > 0 ? port + 1 : DEFAULT_PORT + 1,
-                                this);
-                    } catch (IOException e) {
-                        e.getMessage();
-                    }
-
-                })).start();
-
-                viewCD.setSetupButtonText("Conectando...");
-                serviceGame = new GameConnectionServiceImpl(
-                        ip.isEmpty() ? LOCALHOST : ip,
-                        port > 0 ? port : DEFAULT_PORT,
-                        this);
-
-            }
-        } catch (IOException e1) {
-            Utils.log(e1.toString());
-            return false;
+            srvRegistry.unbind(thisNameNS);
+            Utils.log("### " + thisNameNS + " unbound com sucesso ###");
+        } catch (NotBoundException nbE){
+            Utils.log("!!! Registro já não existia. Unbind não realizado !!!");
+        } catch (RemoteException e) {
+            Utils.log(e.toString());
+        } catch (NullPointerException e) {
+            Utils.log("!!! Registro já não existia. Unbind não realizado !!!");
         }
-
-        return true;
     }
+
 
     private void initGame() {
         gameModel.clearCurrentPlaying();
@@ -361,13 +428,13 @@ public class GameControllerImpl implements GameConnectionService {
         viewCD.dispose();
         gameWindow.setVisible();
         updateGameState(GameState.THROW_DICES);
-        serviceGame.setOpponentName(gameModel.getPlayerThis().getName());
+//        serviceGame.setOpponentName(gameModel.getPlayerThis().getName());
 
         if (IS_SERVER)
             (new Thread(() -> {
                 gameModel.createRandomPieceVector();
                 viewBoard.populatePieces(gameModel.getRandomPieceVector());
-                serviceGame.createBoardPiecesAndPopulate(gameModel.getRandomPieceVectorToString());
+//                serviceGame.createBoardPiecesAndPopulate(gameModel.getRandomPieceVectorToString());
 
             })).start();
 

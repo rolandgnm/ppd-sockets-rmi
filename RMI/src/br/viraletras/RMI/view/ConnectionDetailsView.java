@@ -41,10 +41,10 @@ public class ConnectionDetailsView extends JFrame{
         container.add(lbName);
         container.add(tfPlayerName);
         container.add(cbBeServer);
-        container.add(lbIp);
-        container.add(tfIp);
-        container.add(lbPort);
-        container.add(tfPort);
+        container.add(lbServerName);
+        container.add(tfServerName);
+//        container.add(lbPort);
+//        container.add(tfPort);
         container.add(lbConnMessage);
         container.add(btSetupConn);
 
@@ -52,14 +52,14 @@ public class ConnectionDetailsView extends JFrame{
 
         cbBeServer.addItemListener(e -> {
             JCheckBox source = (JCheckBox) e.getSource();
-            tfIp.setEnabled(!source.isSelected());
-            try {
+            tfServerName.setEnabled(!source.isSelected());
+            /*try {
                 String netInterface = InetAddress.getLocalHost().toString();
                 String ip = netInterface.split("/")[1];
-                tfIp.setText(ip);
+                tfServerName.setText(ip);
             } catch (UnknownHostException e1) {
                 e1.printStackTrace();
-            }
+            }*/
         });
 
         btSetupConn.putClientProperty("default", "Conectar");
@@ -70,15 +70,15 @@ public class ConnectionDetailsView extends JFrame{
         return tfPlayerName.getText();
     }
 
-    public String getIp() {
-        return tfIp.getText();
+    public String getServerName() {
+        return tfServerName.getText();
     }
 
     public String getPort() {
         return tfPort.getText();
     }
 
-    public boolean isServer() {
+    public boolean cbIsServer() {
         return cbBeServer.isSelected();
     }
 
@@ -105,8 +105,8 @@ public class ConnectionDetailsView extends JFrame{
     private JLabel      lbName = new JLabel("Seu nome:");
     private JTextField  tfPlayerName = new JTextField(15);
     private JCheckBox   cbBeServer = new JCheckBox("Ser o servidor!");
-    private JLabel      lbIp = new JLabel("IP destino (localhost):");
-    private JTextField  tfIp = new JTextField(15);
+    private JLabel      lbServerName = new JLabel("Nome do Servidor (Server):");
+    private JTextField tfServerName = new JTextField(15);
     private JLabel      lbPort= new JLabel("Porta destino (9999):");
     private JTextField  tfPort = new JTextField(8);
     private JLabel      lbConnMessage = new JLabel(" ");

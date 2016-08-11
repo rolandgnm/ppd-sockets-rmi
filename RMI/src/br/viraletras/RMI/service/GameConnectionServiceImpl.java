@@ -1,6 +1,5 @@
 package br.viraletras.RMI.service;
 
-import br.viraletras.RMI.controller.GameControllerInputHandler;
 import br.viraletras.RMI.controller.GameControllerImpl;
 import br.viraletras.RMI.model.GameState;
 import br.viraletras.RMI.utils.Utils;
@@ -10,6 +9,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.RemoteException;
 
 /**
  * Created by Roland on 7/16/16.
@@ -79,9 +79,10 @@ public class GameConnectionServiceImpl extends Thread implements GameConnectionS
         String teste = splitMsg[0];
         Codes code = Codes.getByCode(teste);
 
+                try {
         switch (code) {
             case CHAT_MESSAGE:
-                controller.newChatMessage(splitMsg[1]);
+                    controller.newChatMessage(splitMsg[1]);
                 break;
             case OPPONENT_NAME:
                 controller.setOpponentName(splitMsg[1]);
@@ -113,9 +114,10 @@ public class GameConnectionServiceImpl extends Thread implements GameConnectionS
             case SHOW_DIALOG:
                 controller.showDialog(splitMsg[1]);
                 break;
-
-
         }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
 
     }
 

@@ -14,19 +14,21 @@ import java.net.Socket;
 /**
  * Created by Roland on 7/16/16.
  */
-public class ConnectionServiceImpl extends Thread implements ConnectionServiceOutputHandler {
+public class GameConnectionServiceImpl extends Thread implements GameConnectionService {
 
     private int timeoutInSeconds;
 
     //Server
-    public ConnectionServiceImpl(int port, GameControllerImpl controller) throws IOException {
+    public GameConnectionServiceImpl(int port, GameControllerImpl controller) throws IOException {
         this.port = port;
         this.controller = controller;
         this.timeoutInSeconds = 30;
 
+        //TODO SOCKET
         serverSocket = new ServerSocket(port);
         serverSocket.setSoTimeout(1000 * timeoutInSeconds);
         serverSocket.setReuseAddress(true);
+
         Utils.log("Aguardando conexão...");
         try {
             socket = serverSocket.accept();
@@ -36,6 +38,8 @@ public class ConnectionServiceImpl extends Thread implements ConnectionServiceOu
             throw e;
         }
         socket.setKeepAlive(true);
+        //Todo
+
         Utils.log("Conexão Estabelecida." + String.valueOf(port));
         ostream = new DataOutputStream(socket.getOutputStream());
         istream = new DataInputStream(socket.getInputStream());
@@ -43,7 +47,7 @@ public class ConnectionServiceImpl extends Thread implements ConnectionServiceOu
     }
 
     //Client
-    public ConnectionServiceImpl(String ip, int port, GameControllerImpl controller) throws IOException {
+    public GameConnectionServiceImpl(String ip, int port, GameControllerImpl controller) throws IOException {
         this.ip = ip;
         this.port = port;
         this.controller = controller;
@@ -83,10 +87,10 @@ public class ConnectionServiceImpl extends Thread implements ConnectionServiceOu
                 controller.setOpponentName(splitMsg[1]);
                 break;
             case CONNECTION_LOST:
-                controller.notifyViewConnectionLost();
+                controller.notifyConnectionLost(splitMsg[1]);
                 break;
             case BOARD_PIECES:
-                controller.createBoardPiecesAndCallPopulate(splitMsg[1]);
+                controller.createBoardPiecesAndPopulate(splitMsg[1]);
                 break;
             case FLIP_PIECE:
                 controller.flipPieceAt(Integer.valueOf(splitMsg[1]));
@@ -130,13 +134,13 @@ public class ConnectionServiceImpl extends Thread implements ConnectionServiceOu
     }
 
     @Override
-    public void sendThisPlayerName(String name) {
+    public void setOpponentName(String name) {
         notifyPeer(Codes.OPPONENT_NAME, name);
     }
 
     @Override
-    public void sendNewMessage(String text) {
-        notifyPeer(Codes.CHAT_MESSAGE, text);
+    public void newChatMessage(String chatMessage) {
+        notifyPeer(Codes.CHAT_MESSAGE, chatMessage);
     }
 
     @Override
@@ -145,12 +149,12 @@ public class ConnectionServiceImpl extends Thread implements ConnectionServiceOu
     }
 
     @Override
-    public void sendPieces(String randomPieces) {
-        notifyPeer(Codes.BOARD_PIECES, randomPieces);
+    public void createBoardPiecesAndPopulate(String randomPiecesString) {
+        notifyPeer(Codes.BOARD_PIECES, randomPiecesString);
     }
 
     @Override
-    public void notifyPieceFlipped(int position) {
+    public void flipPieceAt(int position) {
         notifyPeer(Codes.FLIP_PIECE, String.valueOf(position));
     }
 
@@ -173,12 +177,12 @@ public class ConnectionServiceImpl extends Thread implements ConnectionServiceOu
     }
 
     @Override
-    public void sendStartUpDicesValue(int thisPlayerValue) {
+    public void setOpponentStartUpDicesValue(int thisPlayerValue) {
         notifyPeer(Codes.STARTUP_DICES_VALUE, String.valueOf(thisPlayerValue));
     }
 
     @Override
-    public void sendShowDialog(String message) {
+    public void showDialog(String message) {
         notifyPeer(Codes.SHOW_DIALOG, message);
     }
 
@@ -221,7 +225,7 @@ public class ConnectionServiceImpl extends Thread implements ConnectionServiceOu
     }
 
 
-    GameControllerInputHandler controller;
+    GameConnectionService controller;
     Codes code;
     static int port;
     static String ip = "";

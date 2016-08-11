@@ -3,8 +3,8 @@ package br.viraletras.RMI.controller;
 import br.viraletras.RMI.model.GameModel;
 import br.viraletras.RMI.model.GameState;
 import br.viraletras.RMI.model.Player;
-import br.viraletras.RMI.service.ConnectionServiceImpl;
-import br.viraletras.RMI.service.ConnectionServiceOutputHandler;
+import br.viraletras.RMI.service.GameConnectionServiceImpl;
+import br.viraletras.RMI.service.GameConnectionService;
 import br.viraletras.RMI.utils.Utils;
 import br.viraletras.RMI.view.BoardPanelExtended;
 import br.viraletras.RMI.view.ConnectionDetailsView;
@@ -25,7 +25,7 @@ import java.io.IOException;
 /**
  * Created by Roland on 7/15/16.
  */
-public class GameControllerImpl implements GameControllerInputHandler {
+public class GameControllerImpl implements GameConnectionService {
 
     // Variables declared at end of file.
 
@@ -130,7 +130,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
 
         } else {
             //If client just send dices value to server.
-            serviceGame.sendStartUpDicesValue(thisPlayerValue);
+            serviceGame.setOpponentStartUpDicesValue(thisPlayerValue);
         }
 
 
@@ -146,7 +146,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
                 message = thisName + " começa jogando!";
                 showDialog(message);
                 new Thread(() -> {
-                    serviceGame.sendShowDialog(message);
+                    serviceGame.showDialog(message);
                 }).start();
                 serviceGame.updateGameState(GameState.NOW_WAITING);
                 gameModel.throwDices();
@@ -155,7 +155,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
                 message = gameModel.getPlayerOpponent().getName() + " começa jogando!";
                 showDialog(message);
                 new Thread(() -> {
-                    serviceGame.sendShowDialog(message);
+                    serviceGame.showDialog(message);
                 }).start();
                 updateGameState(GameState.NOW_WAITING);
                 serviceGame.updateGameState(GameState.NOW_PLAYING);
@@ -194,9 +194,9 @@ public class GameControllerImpl implements GameControllerInputHandler {
     }
 
     @Override
-    public void setOpponentStartUpDicesValue(int dicesValue) {
+    public void setOpponentStartUpDicesValue(int thisPlayerValue) {
         int t, o;
-        gameModel.setOpponentStartUpDicesValue(dicesValue);
+        gameModel.setOpponentStartUpDicesValue(thisPlayerValue);
         o = gameModel.getOpponentStartUpDicesValue();
         t = gameModel.getThisPlayerStartUpDicesValue();
         if (o > 0 && t > 0)
@@ -204,8 +204,8 @@ public class GameControllerImpl implements GameControllerInputHandler {
     }
 
     @Override
-    public void showDialog(String s) {
-        Utils.displayDialog(gameWindow, s);
+    public void showDialog(String message) {
+        Utils.displayDialog(gameWindow, message);
     }
 
     private boolean waitingForOpponentDicesValue() {
@@ -231,7 +231,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
                 viewControl.addMessageToChatConsole(msg);
                 viewControl.clearChatInputField();
 
-                serviceChat.sendNewMessage(msg);
+                serviceChat.newChatMessage(msg);
             }
 
         }
@@ -252,7 +252,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
             flipPieceAt(position);
 
             if (gameState.equals(GameState.NOW_PLAYING))
-                serviceGame.notifyPieceFlipped(position);
+                serviceGame.flipPieceAt(position);
 
 
         }
@@ -284,7 +284,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
         public void windowClosing(WindowEvent e) {
             serviceGame.notifyConnectionLost(
                     gameModel.getPlayerThis().getName() +
-                            " Fechou a janela! Fim de jogo!"
+                            " fechou a janela! Fim de jogo!"
             );
             System.exit(0);
         }
@@ -293,27 +293,44 @@ public class GameControllerImpl implements GameControllerInputHandler {
     private boolean establishConnection(String ip, int port) {
         try {
             if (IS_SERVER) {
-                // Manda listener do SocketServer de chat pra outra thread
+
+                /**
+                 *
+                 *    TODO: Registrar no NS
+                 *
+                 */
+
                 (new Thread(() -> {
+
                     try {
-                        serviceChat = new ConnectionServiceImpl(
+                        serviceChat = new GameConnectionServiceImpl(
                                 port > 0 ? port + 1 : DEFAULT_PORT + 1,
                                 this);
                     } catch (IOException e) {
                         e.getMessage();
                     }
+
                 })).start();
 
-                serviceGame = new ConnectionServiceImpl(
+                serviceGame = new GameConnectionServiceImpl(
                         port > 0 ? port : DEFAULT_PORT,
                         this);
 
 
             } else {
                 // Manda tentativa conexão do cliente do chat pra outra thread
+
+                /**
+                 *
+                 * todo: Receber STUB do server (Outbound)
+                 * todo: Registrar InBound e Invocar Server pra receber Stub
+                 *
+                 */
+
+
                 (new Thread(() -> {
                     try {
-                        serviceChat = new ConnectionServiceImpl(
+                        serviceChat = new GameConnectionServiceImpl(
                                 ip.isEmpty() ? LOCALHOST : ip,
                                 port > 0 ? port + 1 : DEFAULT_PORT + 1,
                                 this);
@@ -324,7 +341,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
                 })).start();
 
                 viewCD.setSetupButtonText("Conectando...");
-                serviceGame = new ConnectionServiceImpl(
+                serviceGame = new GameConnectionServiceImpl(
                         ip.isEmpty() ? LOCALHOST : ip,
                         port > 0 ? port : DEFAULT_PORT,
                         this);
@@ -344,22 +361,22 @@ public class GameControllerImpl implements GameControllerInputHandler {
         viewCD.dispose();
         gameWindow.setVisible();
         updateGameState(GameState.THROW_DICES);
-        serviceGame.sendThisPlayerName(gameModel.getPlayerThis().getName());
+        serviceGame.setOpponentName(gameModel.getPlayerThis().getName());
 
         if (IS_SERVER)
             (new Thread(() -> {
                 gameModel.createRandomPieceVector();
                 viewBoard.populatePieces(gameModel.getRandomPieceVector());
-                serviceGame.sendPieces(gameModel.getRandomPieceVectorToString());
+                serviceGame.createBoardPiecesAndPopulate(gameModel.getRandomPieceVectorToString());
 
             })).start();
 
     }
 
     @Override
-    public void newChatMessage(String s) {
-        Utils.log(s);
-        viewControl.addMessageToChatConsole(s);
+    public void newChatMessage(String chatMessage) {
+        Utils.log(chatMessage);
+        viewControl.addMessageToChatConsole(chatMessage);
     }
 
     @Override
@@ -368,15 +385,15 @@ public class GameControllerImpl implements GameControllerInputHandler {
     }
 
     @Override
-    public void notifyViewConnectionLost() {
+    public void notifyConnectionLost(String msg) {
         gameWindow.setVisible(false);
         gameWindow.dispose();
-        showDialog("Conexão perdida!");
+        showDialog(msg);
         System.exit(0);
     }
 
     @Override
-    public void createBoardPiecesAndCallPopulate(String randomPiecesString) {
+    public void createBoardPiecesAndPopulate(String randomPiecesString) {
         (new Thread(() -> {
             gameModel.createRandomPieceVector(randomPiecesString);
             viewBoard.populatePieces(gameModel.getRandomPieceVector());
@@ -405,7 +422,7 @@ public class GameControllerImpl implements GameControllerInputHandler {
     private GameFrameExtended gameWindow;
     private BoardPanelExtended viewBoard;
     private ControlPanelExtended viewControl;
-    private ConnectionServiceOutputHandler serviceGame;
-    private ConnectionServiceOutputHandler serviceChat;
+    private GameConnectionService serviceGame;
+    private GameConnectionService serviceChat;
 
 }

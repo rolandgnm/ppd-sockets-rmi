@@ -14,7 +14,7 @@ import java.rmi.RemoteException;
 /**
  * Created by Roland on 7/16/16.
  */
-public class GameConnectionServiceImpl extends Thread implements GameConnectionService {
+public abstract class GameConnectionServiceImpl extends Thread implements GameConnectionService {
 
     private int timeoutInSeconds;
 

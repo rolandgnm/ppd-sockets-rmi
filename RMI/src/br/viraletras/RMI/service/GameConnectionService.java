@@ -2,6 +2,7 @@ package br.viraletras.RMI.service;
 
 import br.viraletras.RMI.model.GameState;
 
+import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -18,4 +19,8 @@ public interface GameConnectionService extends Remote {
     void updateGameState(GameState gameState) throws RemoteException;
     void setOpponentStartUpDicesValue(int thisPlayerValue) throws RemoteException;
     void showDialog(String message) throws RemoteException;
+
+    void test() throws RemoteException;
+
+    void establishTwoWayBind(String peerName) throws RemoteException, NotBoundException;
 }

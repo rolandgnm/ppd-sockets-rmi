@@ -9,6 +9,7 @@ import br.viraletras.RMI.view.BoardPanelExtended;
 import br.viraletras.RMI.view.ConnectionDetailsView;
 import br.viraletras.RMI.view.ControlPanelExtended;
 import br.viraletras.RMI.view.GameFrameExtended;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.swing.JLabel;
 import java.awt.event.ActionEvent;
@@ -25,6 +26,7 @@ import java.rmi.RemoteException;
 import java.rmi.UnknownHostException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.ExportException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
@@ -48,6 +50,8 @@ public class GameControllerImpl implements GameConnectionService {
         gameWindow = new GameFrameExtended(viewBoard, viewControl);
 
         addListenersToViews();
+
+        //Próximo passo: Mostrar tela de detalhes -> Aguardar ConnectDetailsListener
         viewCD.setVisible(true);
     }
 
@@ -55,7 +59,8 @@ public class GameControllerImpl implements GameConnectionService {
         viewCD.addConnectionDetailsListener(new ConnectDetailsListener());
         viewCD.addWindowListener(new GameWindowClosedListener());
         gameWindow.addGameWindowListener(new GameWindowClosedListener());
-        //TODO Board Listener set via constructor;
+
+        //Board Listener set via constructor;
         viewControl.addComponentListeners(
                 new WordGuessListener(),
                 new ConfirmButtonListener(),
@@ -79,23 +84,28 @@ public class GameControllerImpl implements GameConnectionService {
     private void setConnectionDetailsAndTryToConnect() {
         viewCD.setEnabled(false);
 
-        IS_SERVER = viewCD.cbIsServer();
+        /**
+         * Define se esta intância será servidor ou não
+         * Se True: se registrará primeiro no NS
+         * E tomará algumas decisões no jogo.
+         */
 
-        //Todo Receber nome do server
-        //TODO Implica mudanças no layout de viewCD.
+        IS_SERVER = viewCD.cbIsServer();
+        Utils.log("IS_SERVER: "+ String.valueOf(IS_SERVER));
 
         //Seta Nome local
         String thisName = viewCD.getPlayerName().trim().isEmpty() ?
-                (IS_SERVER ? "Server" : "Client") :
-                viewCD.getPlayerName();
-        String opponentName = viewCD.getServerName().trim().isEmpty() ?
-                (IS_SERVER ? "Cliente" : "Server") :
-                viewCD.getServerName();
-
+                (IS_SERVER ? "Servidor" : "Cliente") :
+                viewCD.getPlayerName().trim();
         gameModel.getPlayerThis().setName(thisName);
-        gameModel.getPlayerOpponent().setName(opponentName);
 
-        String serverName = viewCD.getServerName().trim();
+        if(!IS_SERVER){
+            String opponentName = viewCD.getServerName().trim().isEmpty() ?
+                    (IS_SERVER ? "Cliente" : "Servidor") :
+                    viewCD.getServerName().trim();
+            gameModel.getPlayerOpponent().setName(opponentName);
+        }
+
 
         //Tenta Conectar
         if (!establishConnection()) {
@@ -107,7 +117,16 @@ public class GameControllerImpl implements GameConnectionService {
         gameWindow.setTitle("Vira Letras - " +
                 gameModel.getPlayerThis().getName());
 
-        //TODO 01: Executar initGame();
+        /**
+         * initGame() Retirado daqui para seguir a seguinte ordem:
+         * 1) Server se registra
+         * 2) Client localiza e pega stub
+         * 3) Client invoca Server
+         * 4) Server localiza e fecha o 2 way Bind
+         * 5) Server invoca próxima view!
+         */
+
+
 
     }
 
@@ -125,54 +144,53 @@ public class GameControllerImpl implements GameConnectionService {
                 createStubAndRegister();
                 
                 viewCD.setSetupButtonText("Esperando...");
-                Utils.log("### SERVIDOR PRONTO PARA CONEXÃO ###\n" +
-                        "REGISTRO: " + thisNameNS);
+
+                /**
+                 * Em caso de sucesso já poderá responder a chamadas remotas.
+                 * Prí
+                 */
+
 
             } else {
                 this.thisNameNS = "Client/" + gameModel.getPlayerThis().getName();
                 this.serverPeerNS = "Server/" + gameModel.getPlayerOpponent().getName();
                 viewCD.setSetupButtonText("Conectando...");
-                
+
+                locateStubAndBind();
+                peerStub.test();
+
                 /**
-                 *
-                 * todo: Receber STUB do server (Outbound)
-                 * todo: Registrar InBound e Invocar Server pra receber Stub
-                 *
+                 * Registra e invoca Stub pra fechar 2 way Bind
                  */
-
-                locateRegistry();
-                //TODO Receber Nome corretamente!!
-                this.peerStub = (GameConnectionService) this.srvRegistry.lookup(this.serverPeerNS);
-
-                Utils.log("### CONEXÃO CLIENTE -> SERVIDOR OK! ###");
-
-
-//                erviceGame = new GameConnectionServiceImpl(
-//                        ip.isEmpty() ? LOCALHOST : ip,
-//                        port > 0 ? port : DEFAULT_PORT,
-//                        this);
+                createStubAndRegister();
+                peerStub.establishTwoWayBind(gameModel.getPlayerThis().getName());
 
             }
+
         }
         catch (AlreadyBoundException abE){
             showDialog("\""+ gameModel.getPlayerThis().getName() + "\"" +
                 " já registrado no servidor de nomes! Por favor, mude seu nome e tente novamente!");
             return false;
-
         }
         catch (UnknownHostException uhE) {
             showDialog("Oponente não encontrado!");
-            Utils.log("!!! OPONENTE NÃO ENCONTRADO !!!");
+            Utils.log("!!! OPONENTE NÃO ENCONTRADO: " + this.serverPeerNS + " !!!");
             Utils.log(uhE.toString());
             return false;
         }
         catch (NotBoundException nbE) {
             showDialog("Oponente não encontrado!");
-            Utils.log("!!! OPONENTE NÃO ENCONTRADO !!!");
+            Utils.log("!!! OPONENTE NÃO ENCONTRADO: " + this.serverPeerNS + " !!!");
             Utils.log(nbE.toString());
             return false;
         }
-
+        catch (ExportException eeE){
+            showDialog("Stub já registrado com o nome \"" + this.thisNameNS + "\"" );
+            Utils.log("!!! STUB JÁ REGISTRADO: " + this.thisNameNS+ " !!!");
+            Utils.log(eeE.toString());
+            return false;
+        }
         catch (Exception e) {
             showDialog("Falha na conexão remota!");
             Utils.log("!!! CONEXÃO NÃO ESTABELECIDA !!!");
@@ -183,14 +201,34 @@ public class GameControllerImpl implements GameConnectionService {
         return true;
     }
 
+    private void locateStubAndBind() throws RemoteException, NotBoundException {
+        /**
+         *
+         * todo: Receber STUB do server (Outbound)
+         * todo: Registrar InBound e Invocar Server pra receber Stub
+         *
+         */
+
+        locateRegistry();
+        //TODO Receber Nome corretamente!!
+        this.peerStub = (GameConnectionService) this.srvRegistry.lookup(this.serverPeerNS);
+
+        Utils.log("### CONEXÃO CLIENTE -> SERVIDOR OK! ###");
+    }
+
     private void createStubAndRegister() throws RemoteException, AlreadyBoundException {
         /**
          *    TODO: Criar stub
          *    TODO: Registrar no NS
          */
         locateRegistry();
-        thisStub = (GameConnectionService) UnicastRemoteObject.exportObject(this, 0);
+        if(thisStub == null) {
+            thisStub = (GameConnectionService) UnicastRemoteObject.exportObject(this, 0);
+        }
+        Utils.log("### Tentando registrar no NS:" +  this.thisNameNS);
         this.srvRegistry.bind(thisNameNS, thisStub);
+        Utils.log("### SERVIDOR PRONTO PARA CONEXÃO ###\n" +
+                "REGISTRO: " + thisNameNS);
     }
 
     private void locateRegistry() throws RemoteException {
@@ -322,6 +360,28 @@ public class GameControllerImpl implements GameConnectionService {
         Utils.displayDialog(gameWindow, message);
     }
 
+    @Override
+    public void test() {
+        Utils.log("### TESTE: CONEXÃO OK ###");
+    }
+
+    @Override
+    public void establishTwoWayBind(String peerName) throws RemoteException, NotBoundException {
+        /**
+         * Método rodado apenas quando Checkbox de Servidor foi habilitado!
+         */
+        this.serverPeerNS = "Client/" + peerName;
+        locateStubAndBind();
+        peerStub.test();
+
+
+        /**
+         * Estabelecida conexão de 2 vias
+         */
+//        initGame();
+
+    }
+
     private boolean waitingForOpponentDicesValue() {
         return gameModel.getOpponentStartUpDicesValue() <= 0;
     }
@@ -421,22 +481,27 @@ public class GameControllerImpl implements GameConnectionService {
         }
     }
 
-
     private void initGame() {
         gameModel.clearCurrentPlaying();
         viewCD.setVisible(false);
         viewCD.dispose();
         gameWindow.setVisible();
         updateGameState(GameState.THROW_DICES);
-//        serviceGame.setOpponentName(gameModel.getPlayerThis().getName());
+        try {
+            peerStub.setOpponentName(gameModel.getPlayerThis().getName());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
-        if (IS_SERVER)
-            (new Thread(() -> {
-                gameModel.createRandomPieceVector();
-                viewBoard.populatePieces(gameModel.getRandomPieceVector());
-//                serviceGame.createBoardPiecesAndPopulate(gameModel.getRandomPieceVectorToString());
-
-            })).start();
+        if (IS_SERVER) {
+            gameModel.createRandomPieceVector();
+            viewBoard.populatePieces(gameModel.getRandomPieceVector());
+            try {
+                peerStub.createBoardPiecesAndPopulate(gameModel.getRandomPieceVectorToString());
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -461,11 +526,8 @@ public class GameControllerImpl implements GameConnectionService {
 
     @Override
     public void createBoardPiecesAndPopulate(String randomPiecesString) {
-        (new Thread(() -> {
             gameModel.createRandomPieceVector(randomPiecesString);
             viewBoard.populatePieces(gameModel.getRandomPieceVector());
-        })).start();
-
     }
 
     @Override

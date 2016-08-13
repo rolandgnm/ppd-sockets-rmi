@@ -378,7 +378,8 @@ public class GameControllerImpl implements GameConnectionService {
         /**
          * Estabelecida conexão de 2 vias
          */
-//        initGame();
+        initGame();
+        peerStub.initGame();
 
     }
 
@@ -398,14 +399,18 @@ public class GameControllerImpl implements GameConnectionService {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!viewControl.getChatMessageInput().isEmpty()) {
+            if (!viewControl.getChatMessageInput().trim().isEmpty()) {
                 String msg = gameModel.getPlayerThis().getName() + ": " +
                         viewControl.getChatMessageInput();
 
                 viewControl.addMessageToChatConsole(msg);
                 viewControl.clearChatInputField();
 
-//                serviceChat.newChatMessage(msg);
+                try {
+                    peerStub.newChatMessage(msg);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
             }
 
         }
@@ -481,10 +486,10 @@ public class GameControllerImpl implements GameConnectionService {
         }
     }
 
-    private void initGame() {
+    @Override
+    public void initGame() {
         gameModel.clearCurrentPlaying();
         viewCD.setVisible(false);
-        viewCD.dispose();
         gameWindow.setVisible();
         updateGameState(GameState.THROW_DICES);
         try {
@@ -545,13 +550,9 @@ public class GameControllerImpl implements GameConnectionService {
     private final String LOCALHOST = "localhost";
     boolean IS_SERVER = false;
     private GameState gameState;
-    private final int DEFAULT_PORT = 9999;
     private GameModel gameModel;
     private ConnectionDetailsView viewCD;
     private GameFrameExtended gameWindow;
     private BoardPanelExtended viewBoard;
     private ControlPanelExtended viewControl;
-    private GameConnectionService serviceGame;
-    private GameConnectionService serviceChat;
-
 }

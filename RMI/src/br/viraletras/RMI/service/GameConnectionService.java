@@ -23,4 +23,6 @@ public interface GameConnectionService extends Remote {
     void test() throws RemoteException;
 
     void establishTwoWayBind(String peerName) throws RemoteException, NotBoundException;
+
+    void initGame() throws RemoteException;
 }

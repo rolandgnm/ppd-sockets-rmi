@@ -230,6 +230,7 @@ public class GameModel {
         /**
          * Considera que a entrada já foi tratada com apenas letras válidas.
          * todo 1) Tratamento ainda não feito
+         * todo 2) Tratar caso do qu
          */
         int letterCount = 0;
         ArrayList<String> words = new ArrayList<>(Arrays.asList(wordGuess.split(" ")));
@@ -258,9 +259,11 @@ public class GameModel {
              */
             for(int idx = 0; idx < word.length(); idx++){
                 if(word.substring(idx, idx + 1).equals("q")) {
+                    currentLetter = word.substring(idx, idx + 2);
                     idx++;
                 }
-                currentLetter = word.substring(idx, idx + 1);
+                 else
+                    currentLetter = word.substring(idx, idx + 1);
                 index = getIndexForGoneLetter(currentLetter);
                 //TODO for DEBUG Purpose:
                     if(index == -1) Utils.log("RECEBI UM INDEX -1");
@@ -303,5 +306,9 @@ public class GameModel {
 
     public void setPieceHiddenAt(int position) {
         randomPieceVector[position].setHidden();
+    }
+
+    public void clearShowingPiecesList() {
+        showingPieceList.clear();
     }
 }

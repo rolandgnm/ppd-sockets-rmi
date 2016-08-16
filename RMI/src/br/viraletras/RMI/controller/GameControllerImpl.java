@@ -73,14 +73,16 @@ public class GameControllerImpl implements GameConnectionService {
 
     @Override
     public void updateBoard(ArrayList<Integer> positionsToSetGone, ArrayList<Integer> positionsToSetHidden) {
-        for(int position : positionsToSetGone) {
-            viewBoard.setPieceGoneAt(position);
-            gameModel.setPieceGoneAt(position);
-        }
+        if(positionsToSetGone != null) {
+            for (int position : positionsToSetGone) {
+                viewBoard.setPieceGoneAt(position);
+                gameModel.setPieceGoneAt(position);
+            }
 
-        for (int position : positionsToSetHidden) {
-            viewBoard.setPieceHiddenAt(position);
-            gameModel.setPieceHiddenAt(position);
+            for (int position : positionsToSetHidden) {
+                viewBoard.setPieceHiddenAt(position);
+                gameModel.setPieceHiddenAt(position);
+            }
         }
 
     }
@@ -371,15 +373,12 @@ public class GameControllerImpl implements GameConnectionService {
     private void handleWordGuessConfirmation(boolean wasConfirmed) {
         ArrayList<Integer> positionsToSetGone, positionsToSetHidden;
         int scores = 0;
-        positionsToSetGone = gameModel.getGonePositionsList(viewControl.getWordGuess());
-        positionsToSetHidden = gameModel.getRemainingPositionsList();
 
         if(wasConfirmed){
-            scores = gameModel.evaluateScoresEarned(viewControl.getWordGuess(), gameModel.getPlayerOpponent());
-            // Updates scores in model
-            gameModel.getPlayerOpponent().setInGameScores(gameModel.getPlayerOpponent().getInGameScore() + scores);
+            positionsToSetGone = gameModel.getGonePositionsList(viewControl.getWordGuess());
+            positionsToSetHidden = gameModel.getRemainingPositionsList();
 
-
+            scores = positionsToSetGone.size();
 
             try {
                 //Atualiza tabuleiro dos 2 lados.
@@ -388,15 +387,11 @@ public class GameControllerImpl implements GameConnectionService {
 
                 //Manda msg pros 2 com os pontos ganhos.
                 newBroadcastChatMessage(
-                        gameModel.getPlayerOpponent().getName() +
-                        " marcou " +
-                        gameModel.getPlayerOpponent().getInGameScore() +
-                        " pontos!"
-                );
+                        gameModel.getPlayerOpponent().getName() + " marcou " + scores +" pontos!");
 
                 //Atualiza Placar.
                 updateScoreboard(gameModel.getPlayerThis().getInGameScore(),
-                        gameModel.getPlayerOpponent().getInGameScore());
+                        gameModel.getPlayerOpponent().getInGameScore() + scores);
                 peerStub.updateScoreboard(gameModel.getPlayerOpponent().getInGameScore(),
                         gameModel.getPlayerThis().getInGameScore());
 
@@ -411,11 +406,14 @@ public class GameControllerImpl implements GameConnectionService {
 
         } else {
             try {
+                ArrayList<Integer> empty = new ArrayList<>();
+                positionsToSetHidden = gameModel.getRemainingPositionsList();
+
+                updateBoard(empty, positionsToSetHidden);
+                peerStub.updateBoard(empty, positionsToSetHidden);
+
                 switchCurrentPlayer();
                 peerStub.switchCurrentPlayer();
-
-                updateBoard(positionsToSetGone, positionsToSetHidden);
-                peerStub.updateBoard(positionsToSetGone, positionsToSetHidden);
 
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -427,7 +425,10 @@ public class GameControllerImpl implements GameConnectionService {
     @Override
     public void updateScoreboard(int thisPlayerScoreValue, int opponentPlayerScoreValue) {
         viewControl.setPlayerThisScore(thisPlayerScoreValue);
+        gameModel.getPlayerThis().setInGameScores(thisPlayerScoreValue);
+
         viewControl.setPlayerOpponentScore(opponentPlayerScoreValue);
+        gameModel.getPlayerOpponent().setInGameScores(opponentPlayerScoreValue);
     }
 
     @Override
@@ -446,6 +447,7 @@ public class GameControllerImpl implements GameConnectionService {
                 break;
 
         }
+        gameModel.clearShowingPiecesList();
 
     }
 
@@ -703,7 +705,7 @@ public class GameControllerImpl implements GameConnectionService {
 
     @Override
     public void createBoardPiecesAndPopulate(String randomPiecesString) {
-            gameModel.createRandomPieceVector(randomPiecesString);
+         gameModel.createRandomPieceVector(randomPiecesString);
             viewBoard.populatePieces(gameModel.getRandomPieceVector());
     }
 

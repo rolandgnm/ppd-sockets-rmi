@@ -9,7 +9,6 @@ import br.viraletras.RMI.view.BoardPanelExtended;
 import br.viraletras.RMI.view.ConnectionDetailsView;
 import br.viraletras.RMI.view.ControlPanelExtended;
 import br.viraletras.RMI.view.GameFrameExtended;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.swing.JLabel;
 import java.awt.event.ActionEvent;
@@ -28,6 +27,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.ExportException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 /**
  * Created by Roland on 7/15/16.
@@ -71,7 +71,23 @@ public class GameControllerImpl implements GameConnectionService {
 
     }
 
+    @Override
+    public void updateBoard(ArrayList<Integer> positionsToSetGone, ArrayList<Integer> positionsToSetHidden) {
+        for(int position : positionsToSetGone) {
+            viewBoard.setPieceGoneAt(position);
+            gameModel.setPieceGoneAt(position);
+        }
 
+        for (int position : positionsToSetHidden) {
+            viewBoard.setPieceHiddenAt(position);
+            gameModel.setPieceHiddenAt(position);
+        }
+
+    }
+
+    /**
+     * Connection Details View listener
+     */
     private class ConnectDetailsListener implements ActionListener {
 
         @Override
@@ -80,7 +96,11 @@ public class GameControllerImpl implements GameConnectionService {
 
         }
     }
+    //END
 
+    /**
+     * Connection setup methods
+     */
     private void setConnectionDetailsAndTryToConnect() {
         viewCD.setEnabled(false);
 
@@ -130,7 +150,8 @@ public class GameControllerImpl implements GameConnectionService {
 
     }
 
-    private boolean establishConnection(/*Todo PRA DEPOIS: String ipToRegistry*/) {
+    private boolean establishConnection() {
+        /*Todo PRA DEPOIS: String ipToRegistry*/
 //        registryIp = serverName.isEmpty() ? LOCALHOST : serverName;
         registryIp = LOCALHOST;
 
@@ -186,7 +207,7 @@ public class GameControllerImpl implements GameConnectionService {
             return false;
         }
         catch (ExportException eeE){
-            showDialog("Stub já registrado com o nome \"" + this.thisNameNS + "\"" );
+            showDialog("Stub já registrado!" );
             Utils.log("!!! STUB JÁ REGISTRADO: " + this.thisNameNS+ " !!!");
             Utils.log(eeE.toString());
             return false;
@@ -234,7 +255,71 @@ public class GameControllerImpl implements GameConnectionService {
     private void locateRegistry() throws RemoteException {
         srvRegistry = LocateRegistry.getRegistry(registryIp);
     }
+    //END
 
+    private void handleStartUpThrowDiceEvent() {
+        int thisPlayerValue = gameModel.throwDices();
+        gameModel.setThisPlayerStartUpDicesValue(thisPlayerValue);
+        viewControl.setDicesText(thisPlayerValue);
+        newBroadcastChatMessage(gameModel.getPlayerThis().getName() +
+                " tirou " +
+                thisPlayerValue +
+                " nos dados!");
+
+        if (IS_SERVER) {
+            if (waitingForOpponentDicesValue()) {
+                String s = "### ESPERANDO DADOS DO OPONENETE ###";
+                Utils.log(s);
+                newChatMessage(s);
+            }
+            else
+                try {
+                    serverHandleWhoStarts();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+
+        } else {
+            //If client just send dices value to server.
+            try {
+
+                peerStub.setOpponentStartUpDicesValue(thisPlayerValue);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+    public void serverHandleWhoStarts() throws RemoteException {
+        /**
+         * todo tratar caso de empate!
+         */
+        String starterPlayer, message, thisName;
+
+        gameModel.setGameInProgress(true);
+        peerStub.setGameInProgress(true);
+
+        if (IS_SERVER) {
+            starterPlayer = gameModel.getStarterPlayer();
+            thisName = gameModel.getPlayerThis().getName();
+            message = starterPlayer + " começa jogando!";
+
+            if (starterPlayer.equals(thisName)) {
+                // TODO Trabalhar consistência do algoritmo
+                updateGameState(GameState.THROW_DICES);
+                peerStub.updateGameState(GameState.NOW_WAITING);
+
+            } else {
+                updateGameState(GameState.NOW_WAITING);
+                peerStub.updateGameState(GameState.THROW_DICES);
+            }
+            setDicesForThisRound(0);
+            peerStub.setDicesForThisRound(0);
+            newBroadcastChatMessage(message);
+        }
+    }
 
     private class WordGuessListener implements KeyListener {
         @Override
@@ -253,134 +338,155 @@ public class GameControllerImpl implements GameConnectionService {
         }
     }
 
+    /**
+     * CONFIRM BUTTON
+     */
     private class ConfirmButtonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            switch (gameState) {
-                case THROW_DICES:
-                    viewControl.setModeNowWaiting();
-                    viewControl.setMovesLabelVisible(false);
-                    handleStartUpThrowDiceEvent();
-                    break;
-
-
+            if(gameModel.isGameInProgress()) {
+                switch (gameState) {
+                    case THROW_DICES:
+                        handleNewGameRound();
+                        break;
+                    case NOW_PLAYING:
+                        sendGuessWordToBeConfirmed();
+                        break;
+                    case NOW_CONFIRMING_GUESS_WORD:
+                        handleWordGuessConfirmation(true);
+                }
+            } else {
+                switch (gameState) {
+                    case THROW_DICES:
+                        updateGameState(GameState.NOW_WAITING);
+                        handleStartUpThrowDiceEvent();
+                        break;
+                }
             }
 
         }
     }
 
-    private void handleStartUpThrowDiceEvent() {
-        int thisPlayerValue = gameModel.throwDices();
-        gameModel.setThisPlayerStartUpDicesValue(thisPlayerValue);
-        viewControl.setDicesText(String.valueOf(thisPlayerValue));
+    private void handleWordGuessConfirmation(boolean wasConfirmed) {
+        ArrayList<Integer> positionsToSetGone, positionsToSetHidden;
+        int scores = 0;
+        positionsToSetGone = gameModel.getGonePositionsList(viewControl.getWordGuess());
+        positionsToSetHidden = gameModel.getRemainingPositionsList();
 
-        if (IS_SERVER) {
-            if (waitingForOpponentDicesValue())
-                Utils.log("Esperando valor do dado do oponente");
-            else serverHandleWhoStarts();
+        if(wasConfirmed){
+            scores = gameModel.evaluateScoresEarned(viewControl.getWordGuess(), gameModel.getPlayerOpponent());
+            // Updates scores in model
+            gameModel.getPlayerOpponent().setInGameScores(gameModel.getPlayerOpponent().getInGameScore() + scores);
+
+
+
+            try {
+                //Atualiza tabuleiro dos 2 lados.
+                updateBoard(positionsToSetGone, positionsToSetHidden);
+                peerStub.updateBoard(positionsToSetGone, positionsToSetHidden);
+
+                //Manda msg pros 2 com os pontos ganhos.
+                newBroadcastChatMessage(
+                        gameModel.getPlayerOpponent().getName() +
+                        " marcou " +
+                        gameModel.getPlayerOpponent().getInGameScore() +
+                        " pontos!"
+                );
+
+                //Atualiza Placar.
+                updateScoreboard(gameModel.getPlayerThis().getInGameScore(),
+                        gameModel.getPlayerOpponent().getInGameScore());
+                peerStub.updateScoreboard(gameModel.getPlayerOpponent().getInGameScore(),
+                        gameModel.getPlayerThis().getInGameScore());
+
+                //Configura novo round
+
+                switchCurrentPlayer();
+                peerStub.switchCurrentPlayer();
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
 
         } else {
-            //If client just send dices value to server.
-//            serviceGame.setOpponentStartUpDicesValue(thisPlayerValue);
-        }
+            try {
+                switchCurrentPlayer();
+                peerStub.switchCurrentPlayer();
 
+                updateBoard(positionsToSetGone, positionsToSetHidden);
+                peerStub.updateBoard(positionsToSetGone, positionsToSetHidden);
 
-    }
-
-    public void serverHandleWhoStarts() {
-        if (IS_SERVER) {
-            String starterPlayer, message;
-            starterPlayer = gameModel.getStarterPlayer();
-            String thisName = gameModel.getPlayerThis().getName();
-            if (starterPlayer.equals(thisName)) {
-                updateGameState(GameState.NOW_PLAYING);
-                message = thisName + " começa jogando!";
-                showDialog(message);
-                new Thread(() -> {
-//                    serviceGame.showDialog(message);
-                }).start();
-//                serviceGame.updateGameState(GameState.NOW_WAITING);
-                gameModel.throwDices();
-
-            } else {
-                message = gameModel.getPlayerOpponent().getName() + " começa jogando!";
-                showDialog(message);
-                new Thread(() -> {
-//                    serviceGame.showDialog(message);
-                }).start();
-                updateGameState(GameState.NOW_WAITING);
-//                serviceGame.updateGameState(GameState.NOW_PLAYING);
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
+
         }
     }
 
-    public void updateGameState(GameState gameState) {
+    @Override
+    public void updateScoreboard(int thisPlayerScoreValue, int opponentPlayerScoreValue) {
+        viewControl.setPlayerThisScore(thisPlayerScoreValue);
+        viewControl.setPlayerOpponentScore(opponentPlayerScoreValue);
+    }
+
+    @Override
+    public void switchCurrentPlayer() throws RemoteException {
+        /**
+         * Limpar campo de texto
+         * Trocar estado do jogo
+         * Limpar Dados
+         */
+        viewControl.setWordGuess("");
+        viewControl.setDicesText(0);
         switch (gameState) {
-            case NOW_PLAYING:
-                this.gameState = GameState.NOW_PLAYING;
-                viewControl.updateGameState(GameState.NOW_PLAYING);
-                gameModel.updateGameState(GameState.NOW_PLAYING);
-                viewControl.setDicesText(String.valueOf(gameModel.throwDices()));
-
-                break;
-            case NOW_WAITING:
-                this.gameState = GameState.NOW_WAITING;
-                viewControl.updateGameState(GameState.NOW_WAITING);
-                gameModel.updateGameState(GameState.NOW_WAITING);
-                break;
             case NOW_CONFIRMING_GUESS_WORD:
-                this.gameState = GameState.NOW_CONFIRMING_GUESS_WORD;
-                viewControl.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
-                gameModel.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
-                break;
-            case THROW_DICES:
-                this.gameState = GameState.THROW_DICES;
-                viewControl.updateGameState(GameState.THROW_DICES);
-                gameModel.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
+                updateGameState(gameState.THROW_DICES);
+            case NOW_WAITING:
                 break;
 
+        }
+
+    }
+
+    private void sendGuessWordToBeConfirmed() {
+        /**
+         * TODO: 01 Melhorar Validação
+         * 1) Já mandar validado!
+         *      apenas com letras a mostra no tabuleiro.
+         */
+        try {
+            updateGameState(GameState.NOW_WAITING);
+            peerStub.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
+            peerStub.setCurrentGuessWord(viewControl.getWordGuess().trim());
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
 
 
     }
 
     @Override
-    public void setOpponentStartUpDicesValue(int thisPlayerValue) {
-        int t, o;
-        gameModel.setOpponentStartUpDicesValue(thisPlayerValue);
-        o = gameModel.getOpponentStartUpDicesValue();
-        t = gameModel.getThisPlayerStartUpDicesValue();
-        if (o > 0 && t > 0)
-            serverHandleWhoStarts();
+    public void setCurrentGuessWord(String wordGuess) throws RemoteException {
+        viewControl.setWordGuess(wordGuess);
     }
 
-    @Override
-    public void showDialog(String message) {
-        Utils.displayDialog(gameWindow, message);
-    }
 
-    @Override
-    public void test() {
-        Utils.log("### TESTE: CONEXÃO OK ###");
-    }
-
-    @Override
-    public void establishTwoWayBind(String peerName) throws RemoteException, NotBoundException {
+    private void handleNewGameRound() {
         /**
-         * Método rodado apenas quando Checkbox de Servidor foi habilitado!
+         * Jogar dado, setar modelo
+         * alimentar tela com valor do dado
+         * permitir clique em peças do tabuleiro
          */
-        this.serverPeerNS = "Client/" + peerName;
-        locateStubAndBind();
-        peerStub.test();
-
-
-        /**
-         * Estabelecida conexão de 2 vias
-         */
-        initGame();
-        peerStub.initGame();
-
+        int moves = gameModel.throwDices();
+        viewControl.setDicesText(moves);
+        try {
+            peerStub.setDicesForThisRound(moves);
+//            peerStub.updateGameState(GameState.NOW_WAITING);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        updateGameState(GameState.NOW_PLAYING);
     }
 
     private boolean waitingForOpponentDicesValue() {
@@ -391,7 +497,13 @@ public class GameControllerImpl implements GameConnectionService {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            if(gameModel.isGameInProgress()) {
+                switch (gameState) {
+                    case NOW_CONFIRMING_GUESS_WORD:
+                        handleWordGuessConfirmation(false);
+                        break;
+                }
+            }
         }
     }
 
@@ -420,18 +532,11 @@ public class GameControllerImpl implements GameConnectionService {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            //                setPieceShowAt( (int)
-//                        ((JComponent) e.getSource())
-//                            .getClientProperty(propertyField));
             //todo usar if pra desabilitar ou não labels
-
-
             int position = (Integer) ((JLabel) e.getSource())
                     .getClientProperty(BoardPanelExtended.propertyField);
+            Utils.log(String.valueOf(position));
             flipPieceAt(position);
-
-//            if (gameState.equals(GameState.NOW_PLAYING))
-//                serviceGame.flipPieceAt(position);
 
 
         }
@@ -487,6 +592,47 @@ public class GameControllerImpl implements GameConnectionService {
     }
 
     @Override
+    public void updateGameState(GameState gameState) {
+        if(gameModel.isGameInProgress())
+            viewControl.setMovesLabelText("movimentos");
+        else
+            viewControl.setMovesLabelText("Quem começa?");
+
+        switch (gameState) {
+            case NOW_PLAYING:
+                this.gameState = GameState.NOW_PLAYING;
+                viewControl.updateGameState(GameState.NOW_PLAYING);
+                gameModel.updateGameState(GameState.NOW_PLAYING);
+                break;
+            case NOW_WAITING:
+                this.gameState = GameState.NOW_WAITING;
+                viewControl.updateGameState(GameState.NOW_WAITING);
+                gameModel.updateGameState(GameState.NOW_WAITING);
+                break;
+            case NOW_CONFIRMING_GUESS_WORD:
+                this.gameState = GameState.NOW_CONFIRMING_GUESS_WORD;
+                viewControl.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
+                gameModel.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
+                break;
+            case THROW_DICES:
+                this.gameState = GameState.THROW_DICES;
+                viewControl.updateGameState(GameState.THROW_DICES);
+//                if(gameModel.isGameInProgress())
+//                    viewControl.setMovesLabelVisible(false);
+//                else
+//                    viewControl.setMovesLabelVisible(true);
+
+
+
+                gameModel.updateGameState(GameState.NOW_CONFIRMING_GUESS_WORD);
+                break;
+
+        }
+
+
+    }
+
+    @Override
     public void initGame() {
         gameModel.clearCurrentPlaying();
         viewCD.setVisible(false);
@@ -503,11 +649,36 @@ public class GameControllerImpl implements GameConnectionService {
             viewBoard.populatePieces(gameModel.getRandomPieceVector());
             try {
                 peerStub.createBoardPiecesAndPopulate(gameModel.getRandomPieceVectorToString());
+                newBroadcastChatMessage("DISPUTA DE DADOS DECIDIRÁ QUEM COMEÇA");
+
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
         }
 
+
+    }
+
+    @Override
+    public void setGameInProgress(boolean b) throws RemoteException {
+        gameModel.setGameInProgress(b);
+    }
+
+    @Override
+    public void setDicesForThisRound(int moves) {
+        gameModel.setDices(moves);
+//        viewControl.setMovesLabelVisible(true);
+        viewControl.setDicesText(moves);
+    }
+
+    private void newBroadcastChatMessage(String msg) {
+        String s = "# → "+ msg;
+        newChatMessage(s);
+        try {
+            peerStub.newChatMessage(s);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -526,6 +697,7 @@ public class GameControllerImpl implements GameConnectionService {
         gameWindow.setVisible(false);
         gameWindow.dispose();
         showDialog(msg);
+        unbindStub();
         System.exit(0);
     }
 
@@ -535,16 +707,70 @@ public class GameControllerImpl implements GameConnectionService {
             viewBoard.populatePieces(gameModel.getRandomPieceVector());
     }
 
+    private void flipPieceAt(int position) {
+        if ( gameState.equals(GameState.NOW_PLAYING) && gameModel.hasAvailableMove() ) {
+            if (gameModel.isPieceHiddenAt(position)) {
+                gameModel.flipPieceAt(position);
+                viewBoard.setPieceShowAt(position);
+                try {
+                    peerStub.showPieceAt(position);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     @Override
-    public void flipPieceAt(int position) {
-//        if(true)
-        if (gameState.equals(GameState.NOW_PLAYING) && gameModel.hasAvailableMove() ||
-                gameState.equals(GameState.NOW_WAITING)) {
+    public void showPieceAt(int position) {
+        if ( !gameState.equals(GameState.NOW_PLAYING)) {
             if (gameModel.isPieceHiddenAt(position)) {
                 gameModel.flipPieceAt(position);
                 viewBoard.setPieceShowAt(position);
             }
         }
+    }
+
+    @Override
+    public void setOpponentStartUpDicesValue(int opponentPlayerValue) {
+        int t, o;
+        gameModel.setOpponentStartUpDicesValue(opponentPlayerValue);
+        o = gameModel.getOpponentStartUpDicesValue();
+        t = gameModel.getThisPlayerStartUpDicesValue();
+        if (o > 0 && t > 0) {
+            try {
+                serverHandleWhoStarts();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void showDialog(String message) {
+        Utils.displayDialog(gameWindow, message);
+    }
+
+    @Override
+    public void test() {
+        Utils.log("### TESTE: CONEXÃO OK ###");
+    }
+
+    @Override
+    public void establishTwoWayBind(String peerName) throws RemoteException, NotBoundException {
+        /**
+         * Método rodado apenas quando Checkbox de Servidor foi habilitado!
+         */
+        this.serverPeerNS = "Client/" + peerName;
+        locateStubAndBind();
+        peerStub.test();
+
+
+        /**
+         * Estabelecida conexão de 2 vias
+         */
+        initGame();
+        peerStub.initGame();
+
     }
 
     private final String LOCALHOST = "localhost";

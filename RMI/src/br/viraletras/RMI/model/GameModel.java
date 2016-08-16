@@ -5,6 +5,8 @@
  */
 package br.viraletras.RMI.model;
 
+import br.viraletras.RMI.utils.Utils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,6 +32,7 @@ public class GameModel {
             "t", "t", "v", "v", "x", "z"};
 
     private Player CURRENT_PLAYING; //Não precisa inicializar
+    private Boolean GAME_IN_PROGRESS;
     private Player playerThis;
     private Player playerOpponent;
     private int dices;
@@ -37,6 +40,7 @@ public class GameModel {
     private ArrayList<Piece> showingPieceList;
     private String wordGuessRegex;
     private String wordGuess;
+
 
     public GameModel(Player playerThis, Player playerOpponent) {
         this.playerThis = playerThis;
@@ -46,6 +50,7 @@ public class GameModel {
 
     private void newGame() {
         this.CURRENT_PLAYING = null;
+        this.GAME_IN_PROGRESS = false;
         this.dices = 0;
         this.randomPieceVector = new Piece[64];
         this.showingPieceList = new ArrayList<>();
@@ -158,18 +163,15 @@ public class GameModel {
     }
 
     public boolean isPieceHiddenAt(int position) {
-        return randomPieceVector[0].getState().equals(Piece.State.HIDDEN);
+        return randomPieceVector[position].getState().equals(Piece.State.HIDDEN);
     }
 
     public void flipPieceAt(int position) {
-        new Thread(() -> {
             showingPieceList.add(randomPieceVector[position]);
             randomPieceVector[position].setShow();
             if (wordGuessRegex == null) wordGuessRegex = " ";
             wordGuessRegex = wordGuessRegex.concat(randomPieceVector[position].getLetter());
             dices -= 1;
-        }).start();
-
     }
 
     public void setThisPlayerStartUpDicesValue(int value) {
@@ -215,4 +217,91 @@ public class GameModel {
     }
 
 
+    public Boolean isGameInProgress() {
+        return GAME_IN_PROGRESS;
+    }
+
+    //TODO Considerar esta flag quando resetar o jogo!
+    public void setGameInProgress(Boolean GAME_IN_PROGRESS) {
+        this.GAME_IN_PROGRESS = GAME_IN_PROGRESS;
+    }
+
+    public int evaluateScoresEarned(String wordGuess, Player playerOpponent) {
+        /**
+         * Considera que a entrada já foi tratada com apenas letras válidas.
+         * todo 1) Tratamento ainda não feito
+         */
+        int letterCount = 0;
+        ArrayList<String> words = new ArrayList<>(Arrays.asList(wordGuess.split(" ")));
+
+        for(String word :  words) {
+            letterCount += word.length();
+        }
+
+    return letterCount;
+    }
+
+    public ArrayList<Integer> getGonePositionsList(String wordGuess) {
+        ArrayList<Integer> positions = new ArrayList<>();
+        String currentLetter = "";
+        ArrayList<String> words = new ArrayList<>(Arrays.asList(wordGuess.split(" ")));
+        int index;
+
+        /**
+         * Split por " "
+         */
+        for(String word : words) {
+
+            /**
+             * Iterate through the letters
+             * Using type String to include chance of 'qu'
+             */
+            for(int idx = 0; idx < word.length(); idx++){
+                if(word.substring(idx, idx + 1).equals("q")) {
+                    idx++;
+                }
+                currentLetter = word.substring(idx, idx + 1);
+                index = getIndexForGoneLetter(currentLetter);
+                //TODO for DEBUG Purpose:
+                    if(index == -1) Utils.log("RECEBI UM INDEX -1");
+
+                positions.add(index);
+            }
+        }
+
+        return positions;
+    }
+
+    public int getIndexForGoneLetter(String letter) {
+        int index = -1;
+        for(Piece currentPiece: showingPieceList) {
+            if(currentPiece.getLetter().equals(letter)) {
+                index = currentPiece.getPosition();
+                showingPieceList.remove(currentPiece);
+                break;
+            }
+        }
+        return index;
+    }
+
+    public void setPieceGoneAt(int position) {
+        randomPieceVector[position].setGone();
+    }
+
+    public ArrayList<Integer> getRemainingPositionsList() {
+        /**
+         * To be invoked after cleaning gone pieces out of showingPieceList.
+         */
+        ArrayList<Integer> positions = new ArrayList<>();
+
+        for(Piece remainingPiece : showingPieceList) {
+            positions.add(remainingPiece.getPosition());
+        }
+
+        return positions;
+    }
+
+    public void setPieceHiddenAt(int position) {
+        randomPieceVector[position].setHidden();
+    }
 }

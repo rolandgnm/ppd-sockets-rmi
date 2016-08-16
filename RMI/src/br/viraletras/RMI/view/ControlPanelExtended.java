@@ -49,17 +49,15 @@ public class ControlPanelExtended extends JPanel {
         btConfirmWord.setEnabled(true);
         btConfirmWord.setText("Jogar dados!");
         btRejectWord.setEnabled(false);
-        setMovesLabelVisible(false);
+//        setMovesLabelVisible(false);
 
     }
 
     public void setModeNowPlaying() {
         tfWordGuess.setEnabled(true);
-        btConfirmWord.setEnabled(true);
         btConfirmWord.setText("Enviar");
+        btConfirmWord.setEnabled(true);
         btRejectWord.setEnabled(false);
-        setMovesLabelVisible(true);
-
     }
 
     public void setModeNowWaiting() {
@@ -67,7 +65,7 @@ public class ControlPanelExtended extends JPanel {
         btConfirmWord.setEnabled(false);
         btConfirmWord.setText("Confirmar");
         btRejectWord.setEnabled(false);
-        setMovesLabelVisible(true);
+//        setMovesLabelVisible(true);
 
     }
 
@@ -77,7 +75,7 @@ public class ControlPanelExtended extends JPanel {
         btConfirmWord.setText("Confirmar");
         btRejectWord.setEnabled(true);
         btRejectWord.setText("Rejeitar");
-        setMovesLabelVisible(true);
+//        setMovesLabelVisible(true);
     }
 
 
@@ -172,8 +170,8 @@ public class ControlPanelExtended extends JPanel {
         return lbDices.getText();
     }
 
-    public void setDicesText(String value) {
-        this.lbDices.setText(value);
+    public void setDicesText(int value) {
+        this.lbDices.setText(String.valueOf(value));
     }
 
     private void formatAndAddChildren() {
@@ -233,7 +231,7 @@ public class ControlPanelExtended extends JPanel {
         lbMoves.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         lbMoves.setForeground(new java.awt.Color(255, 255, 255));
         lbMoves.setHorizontalAlignment(SwingConstants.CENTER);
-        lbMoves.setText("movimentos");
+        lbMoves.setText("Quem começa?");
         lbMoves.setHorizontalTextPosition(SwingConstants.CENTER);
         lbMoves.setOpaque(true);
 
@@ -393,6 +391,15 @@ public class ControlPanelExtended extends JPanel {
 
     private JTextArea taChatConsole;
     private JTextField tfChatInput;
+
+    public String getWordGuess() {
+        return tfWordGuess.getText().trim();
+    }
+
+    public void  setWordGuess(String word) {
+        tfWordGuess.setText(word);
+    }
+
     private JFormattedTextField tfWordGuess;
 
     public void updateGameState(GameState gameState) {
@@ -413,4 +420,7 @@ public class ControlPanelExtended extends JPanel {
     }
 
 
+    public void setMovesLabelText(String movesLabelText) {
+        this.lbMoves.setText( movesLabelText);
+    }
 }

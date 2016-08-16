@@ -95,7 +95,7 @@ public class Player {
         return inGameScore;
     }
 
-    public void setInGameScore(int inGameScore) {
+    public void setInGameScores(int inGameScore) {
         this.inGameScore = inGameScore;
     }
 

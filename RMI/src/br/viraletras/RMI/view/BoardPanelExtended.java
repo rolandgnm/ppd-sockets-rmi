@@ -58,37 +58,6 @@ public class BoardPanelExtended extends javax.swing.JPanel {
         pieceLabel.addMouseListener(pieceMouseListener);
         pieceLabel.putClientProperty(propertyField, pos);
 
-//TODO Inicializar Panels via Controller
-//                new MouseListener() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-////                setPieceShowAt( (int)
-////                        ((JComponent) e.getSource())
-////                            .getClientProperty(propertyField));
-//                //todo usar if pra desabilitar ou não labels
-//                if(true) setPiecesEnabled(false);
-//            }
-//
-//            @Override
-//            public void mousePressed(MouseEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void mouseReleased(MouseEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void mouseEntered(MouseEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void mouseExited(MouseEvent e) {
-//
-//            }
-//        });
 
         return pieceLabel;
     }

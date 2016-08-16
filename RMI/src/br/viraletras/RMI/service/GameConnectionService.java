@@ -13,10 +13,13 @@ import java.util.ArrayList;
 public interface GameConnectionService extends Remote {
 
     void newChatMessage(String chatMessage) throws RemoteException;
+
     void setOpponentName(String name) throws RemoteException;
+
     void notifyConnectionLost(String msg) throws RemoteException;
+
     void createBoardPiecesAndPopulate(String randomPiecesString) throws RemoteException;
-//    void flipPieceAt(int position) throws RemoteException;
+
     void updateGameState(GameState gameState) throws RemoteException;
 
     void showPieceAt(int position) throws RemoteException;

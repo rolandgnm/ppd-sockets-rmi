@@ -33,12 +33,22 @@ import java.util.ArrayList;
  * Created by Roland on 7/15/16.
  */
 public class GameControllerImpl implements GameConnectionService {
+    private final String LOCALHOST = "localhost";
+    boolean IS_SERVER = false;
+    private String NAME_SERVER_IP;
+    private GameState gameState;
+    private GameModel gameModel;
+    private ConnectionDetailsView viewCD;
+    private GameFrameExtended gameWindow;
+    private BoardPanelExtended viewBoard;
+    private ControlPanelExtended viewControl;
+
     private String thisNameNS;
     private GameConnectionService thisStub;
-    private String registryIp;
     private Registry srvRegistry;
     private GameConnectionService peerStub;
     private String serverPeerNS;
+
 
     // Variables declared at end of file.
 
@@ -154,8 +164,7 @@ public class GameControllerImpl implements GameConnectionService {
 
     private boolean establishConnection() {
         /*Todo PRA DEPOIS: String ipToRegistry*/
-//        registryIp = serverName.isEmpty() ? LOCALHOST : serverName;
-        registryIp = LOCALHOST;
+        NAME_SERVER_IP = viewCD.getIP().isEmpty()? LOCALHOST : viewCD.getIP();
 
         try {
             if (IS_SERVER) {
@@ -255,7 +264,7 @@ public class GameControllerImpl implements GameConnectionService {
     }
 
     private void locateRegistry() throws RemoteException {
-        srvRegistry = LocateRegistry.getRegistry(registryIp);
+        srvRegistry = LocateRegistry.getRegistry(NAME_SERVER_IP);
     }
     //END
 
@@ -568,11 +577,14 @@ public class GameControllerImpl implements GameConnectionService {
 
         @Override
         public void windowClosing(WindowEvent e) {
-            /** TODO Notificar via RMI
-             * serviceGame.notifyConnectionLost(
-                    gameModel.getPlayerThis().getName() +
-                            " fechou a janela! Fim de jogo!"
-            );*/
+            gameWindow.setVisible(false);
+            try {
+                peerStub.notifyConnectionLost(
+                        gameModel.getPlayerThis().getName() +
+                                " fechou a janela e conexão foi perdida! Fim de jogo!");
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
             unbindStub();
             System.exit(0);
         }
@@ -775,12 +787,5 @@ public class GameControllerImpl implements GameConnectionService {
 
     }
 
-    private final String LOCALHOST = "localhost";
-    boolean IS_SERVER = false;
-    private GameState gameState;
-    private GameModel gameModel;
-    private ConnectionDetailsView viewCD;
-    private GameFrameExtended gameWindow;
-    private BoardPanelExtended viewBoard;
-    private ControlPanelExtended viewControl;
+
 }

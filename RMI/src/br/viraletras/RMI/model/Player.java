@@ -5,8 +5,6 @@
  */
 package br.viraletras.RMI.model;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
@@ -35,37 +33,12 @@ public class Player {
     public Player() {
 
         this.name = "";
-        generateLocalIp();
         this.port = 0;
         this.inGameScore = 0;
         this.winScore = 0;
         this.formedWords = new ArrayList<>();
         this.startUpDiceValue = 0;
     }
-
-    public Player(String name, String ip, int port) {
-        this.name = name;
-        this.ip = ip;
-        this.port = port;
-        this.inGameScore = 0;
-        this.winScore = 0;
-        this.formedWords = new ArrayList<>();
-    }
-
-
-    public void generateLocalIp() {
-        String netInterface = null;
-        try {
-            netInterface = InetAddress.getLocalHost().toString();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-
-        String ip = netInterface.split("/")[1];
-        this.ip = ip;
-
-    }
-
 
     public String getName() {
         return name;
@@ -75,48 +48,12 @@ public class Player {
         this.name = name;
     }
 
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
     public int getInGameScore() {
         return inGameScore;
     }
 
     public void setInGameScores(int inGameScore) {
         this.inGameScore = inGameScore;
-    }
-
-    public int getWinScore() {
-        return winScore;
-    }
-
-    public void setWinScore(int winScore) {
-        this.winScore = winScore;
-    }
-
-    public ArrayList<String> getFormedWords() {
-        return formedWords;
-    }
-
-    public void setFormedWords(ArrayList<String> formedWords) {
-        this.formedWords = formedWords;
-    }
-    
-    public void addFormedWord(String formedWord) {
-        this.formedWords.add(formedWord);
     }
 
 }

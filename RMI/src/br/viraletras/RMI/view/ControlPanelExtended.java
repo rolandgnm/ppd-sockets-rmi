@@ -117,30 +117,6 @@ public class ControlPanelExtended extends JPanel {
 //
 //            }
 //        });
-//
-//        btConfirmWord.addActionListener(evt -> {
-//            btConfirmWordActionPerformed(evt);
-//            addMessageToChatConsole("## Confirmado ##");
-//            //todo aplicar esse codigo ao virar de uma peça
-//            });
-//
-//        btRejectWord.addActionListener(evt -> {
-//            btRejectWordActionPerformed(evt);
-//            addMessageToChatConsole("## Rejeitado ##");
-//            });
-//
-//        tfChatInput.addActionListener(evt -> {
-//            tfChatInputActionPerformed(evt);
-//            addMessageToChatConsole(tfChatInput.getText());
-//            tfChatInput.setText("");
-//            });
-//
-//        btSendMessage.addActionListener(evt -> {
-//            //todo implementar controller/conn
-//            btSendMessageActionPerformed(evt);
-//            addMessageToChatConsole(tfChatInput.getText());
-//            tfChatInput.setText("");
-//            });
 
     }
 

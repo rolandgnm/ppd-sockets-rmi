@@ -311,4 +311,12 @@ public class GameModel {
     public void clearShowingPiecesList() {
         showingPieceList.clear();
     }
+
+    public int getGonePiecesCount() {
+        return getPlayerOpponent().getInGameScore() + getPlayerThis().getInGameScore();
+    }
+
+    public int boardSize() {
+        return randomPieceVector.length;
+    }
 }

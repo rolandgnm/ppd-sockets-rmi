@@ -9,8 +9,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -35,7 +33,7 @@ public class ConnectionDetailsView extends JFrame{
         JPanel container = new JPanel();
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setMinimumSize(new Dimension(200,250) );
+        this.setMinimumSize(new Dimension(220,250) );
 
 
         container.add(lbName);
@@ -43,8 +41,8 @@ public class ConnectionDetailsView extends JFrame{
         container.add(cbBeServer);
         container.add(lbServerName);
         container.add(tfServerName);
-//        container.add(lbPort);
-//        container.add(tfPort);
+        container.add(lbIP);
+        container.add(tfIP);
         container.add(lbConnMessage);
         container.add(btSetupConn);
 
@@ -53,13 +51,6 @@ public class ConnectionDetailsView extends JFrame{
         cbBeServer.addItemListener(e -> {
             JCheckBox source = (JCheckBox) e.getSource();
             tfServerName.setEnabled(!source.isSelected());
-            /*try {
-                String netInterface = InetAddress.getLocalHost().toString();
-                String ip = netInterface.split("/")[1];
-                tfServerName.setText(ip);
-            } catch (UnknownHostException e1) {
-                e1.printStackTrace();
-            }*/
         });
 
         btSetupConn.putClientProperty("default", "Conectar");
@@ -74,8 +65,8 @@ public class ConnectionDetailsView extends JFrame{
         return tfServerName.getText();
     }
 
-    public String getPort() {
-        return tfPort.getText();
+    public String getIP() {
+        return tfIP.getText().trim();
     }
 
     public boolean cbIsServer() {
@@ -91,14 +82,6 @@ public class ConnectionDetailsView extends JFrame{
         btSetupConn.setText(text);
     }
 
-    public void enableSetupButton(Boolean enabled) {
-        btSetupConn.setEnabled(enabled);
-    }
-
-    public void setLbConnMessage(String connMessage) {
-        this.lbConnMessage.setText(connMessage);
-    }
-
 
 
 
@@ -106,9 +89,9 @@ public class ConnectionDetailsView extends JFrame{
     private JTextField  tfPlayerName = new JTextField(15);
     private JCheckBox   cbBeServer = new JCheckBox("Ser o servidor!");
     private JLabel      lbServerName = new JLabel("Nome do Servidor (Server):");
-    private JTextField tfServerName = new JTextField(15);
-    private JLabel      lbPort= new JLabel("Porta destino (9999):");
-    private JTextField  tfPort = new JTextField(8);
+    private JTextField  tfServerName = new JTextField(15);
+    private JLabel      lbIP = new JLabel("IP do Servidor de Nome(localhost):");
+    private JTextField  tfIP = new JTextField(15);
     private JLabel      lbConnMessage = new JLabel(" ");
     private JButton     btSetupConn = new JButton("Conectar");
 }

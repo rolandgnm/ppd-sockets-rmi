@@ -3,8 +3,9 @@
 #### Julho/2016
 [Projeto](https://github.com/rolandgnm/ppd/blob/master/Projeto.pdf)
 
-###Jogo dual player em rede via Java Sockets
+###Jogo dual player em rede
 #### MVC + Java Swing + Socket
+#### MVC + Java Swing + RMI
 
 ##Run
 ```{r, engine='bash', count_lines}

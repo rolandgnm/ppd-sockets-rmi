@@ -8,7 +8,7 @@
 
 ##Run
 ```{r, engine='bash', count_lines}
-java -cp <.jar> br.viraletras.<tipo de comunicação>.Main 
+java -cp <.jar> br.viraletras.Socket.Main 
 ```
 
 ##Tools

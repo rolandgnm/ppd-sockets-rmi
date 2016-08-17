@@ -10,7 +10,6 @@ import br.viraletras.RMI.view.ConnectionDetailsView;
 import br.viraletras.RMI.view.ControlPanelExtended;
 import br.viraletras.RMI.view.GameFrameExtended;
 
-import javax.rmi.CORBA.Util;
 import javax.swing.JLabel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,7 +68,7 @@ public class GameControllerImpl implements GameConnectionService {
     public void addListenersToViews() {
         viewCD.addConnectionDetailsListener(new ConnectDetailsListener());
         viewCD.addWindowListener(new GameWindowClosedListener());
-        gameWindow.addGameWindowListener(new GameWindowClosedListener());
+        gameWindow.addGameWindowListener(new GameWindowClosedListener(), new NewGameMIListener(), new ExitMIListener());
 
         //Board Listener set via constructor;
         viewControl.addComponentListeners(
@@ -528,17 +527,21 @@ public class GameControllerImpl implements GameConnectionService {
 
         @Override
         public void windowClosing(WindowEvent e) {
-            gameWindow.setVisible(false);
-            try {
-                peerStub.notifyConnectionLost(
-                        gameModel.getPlayerThis().getName() +
-                                " fechou a janela e a conexão foi perdida! Fim de jogo!");
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
-            }
-            unbindStub();
-            System.exit(0);
+            handleWindowClosing();
         }
+    }
+
+    private void handleWindowClosing() {
+        gameWindow.setVisible(false);
+        try {
+            peerStub.notifyConnectionLost(
+                    gameModel.getPlayerThis().getName() +
+                            " fechou a janela e a conexão foi perdida! Fim de jogo!");
+        } catch (RemoteException e1) {
+            e1.printStackTrace();
+        }
+        unbindStub();
+        System.exit(0);
     }
 
     private void unbindStub() {
@@ -576,8 +579,8 @@ public class GameControllerImpl implements GameConnectionService {
         viewControl.setWordGuess("");
         viewControl.setDicesText(0);
 
-//        int count = gameModel.getGonePiecesCount();
-        int count = 64;
+        int count = gameModel.getGonePiecesCount();
+//        int count = 64; todo debug purpose
         if (count >= gameModel.boardSize()) {
             handleGameEnd();
         } else {
@@ -820,4 +823,22 @@ public class GameControllerImpl implements GameConnectionService {
     }
 
 
+    private class NewGameMIListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setupNewGame(); 
+
+        }
+    }
+
+    private void setupNewGame() {
+
+    }
+
+    private class ExitMIListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            handleWindowClosing();
+        }
+    }
 }

@@ -3,9 +3,9 @@ package br.viraletras.RMI.view;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 /**
  * Main window of the Vira Letras Game application.
@@ -38,10 +38,10 @@ public class GameFrameExtended extends JFrame {
 
 //todo: Receber panels criados e prontos
 
-//        mainMenu = new javax.swing.JMenuBar();
-//        fileMenu = new javax.swing.JMenu();
-//        aboutMenuItem = new javax.swing.JMenuItem();
-//        exitMenuItem = new javax.swing.JMenuItem();
+        mainMenu = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        newGameMI = new javax.swing.JMenuItem();
+        exitMenuItem = new javax.swing.JMenuItem();
 
         setTitle("Vira Letras");
         setMaximumSize(new java.awt.Dimension(1100, 700));
@@ -55,36 +55,45 @@ public class GameFrameExtended extends JFrame {
         getContentPane().add(boardPanel);
         getContentPane().add(controlPanel);
 
-//        fileMenu.setMnemonic('F');
-//        fileMenu.setText("File");
+        fileMenu.setMnemonic('A');
+        fileMenu.setText("Arquivo");
 
-//        aboutMenuItem.setMnemonic('A');
-//        aboutMenuItem.setText("About");
-//        aboutMenuItem.setToolTipText("About");
-//        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                aboutMenuItemActionPerformed(evt);
-//            }
-//        });
-//        fileMenu.add(aboutMenuItem);
+        newGameMI.setMnemonic('N');
+        newGameMI.setText("Novo Jogo");
+        newGameMI.setToolTipText("Iniciar nova partida");
 
-//        exitMenuItem.setMnemonic('E');
-//        exitMenuItem.setText("Exit");
-//        exitMenuItem.setToolTipText("Quit Team, Quit!");
-//        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                exitMenuItemActionPerformed(evt);
-//            }
-//        });
-//        fileMenu.add(exitMenuItem);
+        /**
+         *  TODO Colocar LISTENER VIA CONTROLLER
+         */
 
-//        mainMenu.add(fileMenu);
 
-//        setJMenuBar(mainMenu);
+        fileMenu.add(newGameMI);
+
+        exitMenuItem.setMnemonic('F');
+        exitMenuItem.setText("Fechar");
+        exitMenuItem.setToolTipText("Abandonar a partida e fechar a janela");
+
+        /**
+         *  TODO Colocar LISTENER VIA CONTROLLER
+         */
+        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuItemActionPerformed(evt);
+            }
+        });
+
+        fileMenu.add(exitMenuItem);
+
+        mainMenu.add(fileMenu);
+
+        setJMenuBar(mainMenu);
     }
 
-    public void addGameWindowListener(WindowAdapter wl) {
+    public void addGameWindowListener(WindowAdapter wl, ActionListener newGameMIListener, ActionListener exitMIListener) {
         addWindowListener(wl);
+        newGameMI.addActionListener(newGameMIListener);
+        exitMenuItem.addActionListener(exitMIListener);
+
     }
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {                                              
@@ -96,12 +105,12 @@ public class GameFrameExtended extends JFrame {
     }                                            
 
     // Variables declaration - do not modify                     
-//    private JMenuItem aboutMenuItem;
+    private JMenuItem newGameMI;
     private BoardPanelExtended boardPanel;
     private ControlPanelExtended controlPanel;
-//    private JMenuItem exitMenuItem;
-//    private JMenu fileMenu;
-//    private JMenuBar mainMenu;
-    // End of variables declaration                   
+    private JMenuItem exitMenuItem;
+    private JMenu fileMenu;
+    private JMenuBar mainMenu;
+//     End of variables declaration
 
 }

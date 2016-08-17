@@ -96,10 +96,6 @@ public class GameFrameExtended extends JFrame {
 
     }
 
-    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        new About(this).setVisible(true);
-    }                                             
-
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {                                             
         System.exit(0);
     }                                            

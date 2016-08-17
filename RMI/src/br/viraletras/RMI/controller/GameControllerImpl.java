@@ -329,9 +329,10 @@ public class GameControllerImpl implements GameConnectionService {
         @Override
         public void keyTyped(KeyEvent e) {
             //TODO LISTENER DO WORDGUESS
-            //                //todo resolver characteres possíveis na Controller
+            //todo resolver characteres possíveis na Controller
+            //TODO: A SER TERMINADO!
 //                String letters = "abc";
-////                tfWordGuess.getText();
+//                tfWordGuess.getText();
 //
 //                if (!letters.contains(String.valueOf(e.getKeyChar()))) {
 //                    e.setKeyChar(Character.MIN_VALUE);
@@ -832,7 +833,9 @@ public class GameControllerImpl implements GameConnectionService {
     }
 
     private void setupNewGame() {
-
+        /**
+         * TODO: A SER TERMINADO!
+         */
     }
 
     private class ExitMIListener implements ActionListener {

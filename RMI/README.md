@@ -7,17 +7,18 @@
 #### MVC + Java Swing + RMI
 
 ##Run
-1. Extrair RMI.jar para /folder:
+1. Download [jar/RMI.jar](https://github.com/rolandgnm/ppd/raw/master/RMI/jar/RMI.jar)
+1. Extrair RMI.jar:
 ```{r, engine='bash', count_lines} 
 $ jar xf RMI.jar
 ```
-2. Em /folder contendo RMI.jar e os aquivos extraídos (pasta /folder/br/) executar num terminal:
+1. Em /folder contendo RMI.jar e os aquivos extraídos (pasta /folder/br/) executar num terminal:
 ```{r, engine='bash', count_lines} 
 $ rmiregistry
 ```
   - Em 2 novas instâncias do terminal executar:
 ```{r, engine='bash', count_lines}
-$ java -cp <.jar> br.viraletras.RMI.Main 
+$ java -cp RMI.jar br.viraletras.RMI.Main 
 ```
 
 ##Tools

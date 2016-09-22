@@ -8,12 +8,15 @@
 
 ##Run
 1. Extrair RMI.jar para /folder.
-1. Em /folder contendo RMI.jar e os aquivos extraídos (pasta /br) executar num terminal:
-  1. 
+    ```{r, engine='bash', count_lines} 
+  $ jar xf RMI.jar
+  ```
+2. Em /folder contendo RMI.jar e os aquivos extraídos (pasta /br) executar num terminal:
+  2.1. 
   ```{r, engine='bash', count_lines} 
   $ rmiregistry
   ```
-  2. Em 2 novas instâncias do terminal executar:
+  2.2. Em 2 novas instâncias do terminal executar:
   ```{r, engine='bash', count_lines}
   java -cp <.jar> br.viraletras.RMI.Main 
   ```

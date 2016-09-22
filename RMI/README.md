@@ -12,7 +12,7 @@
 ```{r, engine='bash', count_lines} 
 $ jar xf RMI.jar
 ```
-- Em /folder contendo RMI.jar e os aquivos extraídos (pasta /folder/br/) executar num terminal:
+- Na pasta contendo RMI.jar e os aquivos extraídos (pasta ./br) executar:
 ```{r, engine='bash', count_lines} 
 $ rmiregistry
 ```
